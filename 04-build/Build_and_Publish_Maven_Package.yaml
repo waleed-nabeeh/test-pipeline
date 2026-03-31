@@ -1,0 +1,25 @@
+Build_and_Publish_Maven_Package:
+  stage: build
+  image: scm.waleed.org.sa:5050/registry/public/images/base/waleed-gradle:jdk21
+  script:
+    - echo "" >> gradle.properties
+    - echo "gitlabBeRepoPath=${GITLAB_BE_REPO_PATH}" >> gradle.properties
+    - echo "gitlabLibPublishingRepo=${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/maven" >> gradle.properties
+    - echo "flowableRepoUsername=${FLOWABLE_REPO_USERNAME}" >> gradle.properties
+    - echo "flowableRepoPassword=${FLOWABLE_REPO_PASSWORD}" >> gradle.properties
+    - echo "waleedRepoUsername=${CI_TOKEN_NAME}" >> gradle.properties
+    - echo "waleedRepoPassword=${CI_TOKEN_SECRET}" >> gradle.properties
+    - ./gradlew clean build
+    - ./gradlew publish
+         
+  artifacts:
+    paths:
+      - build/libs/
+    expire_in: 1 months 
+  tags:
+    - docker-runner
+  only:
+    - merge_requests
+    - develop
+    - develop_qurrah
+    - /release/

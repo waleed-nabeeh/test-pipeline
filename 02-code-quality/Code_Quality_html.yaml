@@ -1,0 +1,96 @@
+code_quality_html:
+  stage: code_quality
+  image: scm.waleed.org.sa:5050/registry/public/images/base/docker:20.10.12
+  allow_failure: true
+  services:
+    - name: 'docker:20.10.12-dind'
+      command: ['--tls=false', '--host=tcp://0.0.0.0:2375']
+  variables:
+    REPORT_FORMAT: html
+    DOCKER_DRIVER: overlay2
+    DOCKER_CERT_PATH: ""
+    DOCKER_TLS_CERTDIR: ""
+    DOCKER_TLS_VERIFY: ""
+    CODE_QUALITY_IMAGE_TAG: "0.96.0"
+    CODE_QUALITY_IMAGE: "scm.waleed.org.sa:5050/registry/public/images/base/codequality:0.96.0"
+    #CODE_QUALITY_IMAGE: "$CI_TEMPLATE_REGISTRY_HOST/gitlab-org/ci-cd/codequality:$CODE_QUALITY_IMAGE_TAG"
+    DOCKER_SOCKET_PATH: /var/run/docker.sock
+  artifacts:
+    reports:
+      codequality: gl-code-quality-report.html
+    expire_in: 1 week
+  dependencies: []
+  tags:
+    - docker-runner
+  rules:
+    - if: '$CI_COMMIT_BRANCH'
+      when: always
+  #only:
+  #  - merge_requests
+  #  - dev
+  #  - develop
+  #  - preprod
+  #  - hotfix/*
+  #  - feature/*
+  #  - release/*
+  #  - main
+  before_script:
+    - echo "Logging into gitlab_registry.."
+    - docker login -u $REGISTRY_USERNAME -p $REGISTRY_TOKEN $CI_REGISTRY
+  script:
+    - export SOURCE_CODE=${SOURCE_CODE:-$PWD}
+    - |
+      if ! docker info &>/dev/null; then
+        if [ -z "$DOCKER_HOST" ] && [ -n "$KUBERNETES_PORT" ]; then
+          export DOCKER_HOST='tcp://localhost:2375'
+        fi
+      fi
+    - | # this is required to avoid undesirable reset of Docker image ENV variables being set on build stage
+      function propagate_env_vars() {
+        CURRENT_ENV=$(printenv)
+
+        for VAR_NAME; do
+          echo $CURRENT_ENV | grep "${VAR_NAME}=" > /dev/null && echo "--env $VAR_NAME "
+        done
+      }
+    - |
+      if [ -n "$CODECLIMATE_REGISTRY_USERNAME" ] && [ -n "$CODECLIMATE_REGISTRY_PASSWORD" ] && [ -n "$CODECLIMATE_PREFIX" ]; then
+        CODECLIMATE_REGISTRY=${CODECLIMATE_PREFIX%%/*}
+        docker login "$CODECLIMATE_REGISTRY" --username "$CODECLIMATE_REGISTRY_USERNAME" --password "$CODECLIMATE_REGISTRY_PASSWORD"
+      fi
+    - docker pull --quiet "$CODE_QUALITY_IMAGE"
+    - |
+      docker run --rm \
+        $(propagate_env_vars \
+          SOURCE_CODE \
+          TIMEOUT_SECONDS \
+          CODECLIMATE_DEBUG \
+          CODECLIMATE_DEV \
+          REPORT_STDOUT \
+          REPORT_FORMAT \
+          ENGINE_MEMORY_LIMIT_BYTES \
+          CODECLIMATE_PREFIX \
+          CODECLIMATE_REGISTRY_USERNAME \
+          CODECLIMATE_REGISTRY_PASSWORD \
+          DOCKER_SOCKET_PATH \
+        ) \
+        --volume "$PWD":/code \
+        --volume "$DOCKER_SOCKET_PATH":/var/run/docker.sock \
+        "$CODE_QUALITY_IMAGE" /code
+
+
+    - |
+         git config --global user.name "GitLab CI"
+         git config --global user.email "scm@waleed.org.sa"
+         
+         git clone https://$CI_TOKEN_NAME:$CI_TOKEN_SECRET@scm.waleed.org.sa/1waleed/codeclimate-reports.git cloned-repo
+         cd cloned-repo
+
+         export CUSTOM_FILENAME="${CI_PROJECT_NAME}_code_quality.html"
+         cp ../gl-code-quality-report.html ./"$CUSTOM_FILENAME"
+
+         # Commit and push changes
+         git add  "$CUSTOM_FILENAME" || true
+         git commit -m "Add code quality report for $CI_PROJECT_NAME" || true
+         git push origin HEAD || true
+     

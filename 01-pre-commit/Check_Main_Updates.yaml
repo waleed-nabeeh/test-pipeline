@@ -1,0 +1,27 @@
+Check_Main_Updates:
+  stage:  pre-commit
+  image: 
+    name: scm.waleed.org.sa:5050/registry/public/images/base/waleed_bash_git:v1
+    entrypoint: ["/bin/bash", "-c"]
+  script: 
+    - |
+        git fetch origin main 
+        remote_master_sha=$(git rev-parse origin/main) 
+        echo "Latest main SHA: $remote_master_sha"
+        
+        if git merge-base --is-ancestor $remote_master_sha HEAD; then
+            echo "#########################################################################"
+            echo "Your branch is up-to-date with the latest updates from the main branch."
+            echo "#########################################################################"
+        else
+            echo "###############################################################################################################################"
+            echo "Please rebase with the latest updates from main (commit $remote_master_sha) before pushing to your branch."
+            echo "###############################################################################################################################"
+            exit 1
+        fi
+ 
+  allow_failure: true
+  tags:
+    - docker-runner
+    #- k8s-runner
+  

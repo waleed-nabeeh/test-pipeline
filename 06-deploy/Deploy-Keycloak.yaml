@@ -1,0 +1,44 @@
+Deploy-Argocd:
+  stage: deploy
+  image: scm.waleed.org.sa:5050/registry/public/images/base/waleed_git_alpine:latest
+  # variables:
+  #   GIT_CLONE_URL: "https://scm.waleed.org.sa/devsecops/gitops/integeration-k8s.git"
+  script:
+    # Configure Git for pushing changes
+    - |
+       git config --global user.name "GitLab CI"
+       git config --global user.email "scm@waleed.org.sa"
+
+       # Clone the private repository
+       git clone https://$CI_TOKEN_NAME:$CI_TOKEN_SECRET@scm.waleed.org.sa/devsecops/gitops/integeration-k8s.git cloned-repo 
+       cd cloned-repo
+       if [ "$CI_PROJECT_NAME" == "ex-kc-plugins-central" ]; then
+         cd keycloak
+       else
+         cd ex-keycloak
+       fi
+       git checkout $CI_COMMIT_REF_NAME
+
+       # Ensure values.yaml exists, or fail
+       if [ ! -f values.yaml ]; then echo "Error: values.yaml not found!" && exit 1; fi
+
+       echo "Updating values.yaml with image tag: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA"
+
+       export REPOSITORY=$(echo "$CI_REGISTRY_IMAGE" | sed "s|$CI_REGISTRY/||")
+       yq e '.image.registry = strenv(CI_REGISTRY)' -i values.yaml
+       yq e '.image.repository = strenv(REPOSITORY)' -i values.yaml
+       yq e '.image.tag = strenv(CI_COMMIT_SHORT_SHA)' -i values.yaml
+
+       # Commit and push changes
+       git add values.yaml || true
+       git commit -m "Update values.yaml with image $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA" || true
+       git push origin $CI_COMMIT_REF_NAME || true
+
+  only:
+    #- main
+    - dev
+    - prd
+    - uat
+
+  tags:
+    - docker-runner

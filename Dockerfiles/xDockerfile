@@ -1,0 +1,10 @@
+FROM scm.waleed.org.sa:5050/registry/public/images/base/waleed-openjdk:23-jdk
+
+EXPOSE 8080
+
+WORKDIR /app
+
+COPY target/*SNAPSHOT.jar /app/
+
+ENTRYPOINT ["java","-jar","/app/JAR_NAME"]
+

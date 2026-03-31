@@ -1,0 +1,50 @@
+Build_Application:
+  stage: build
+  image: scm.waleed.org.sa:5050/registry/public/images/base/waleed-maven:3.9.5-openjdk-21
+  script:
+    - mvn clean install
+  artifacts:
+    paths:
+      - target/*.jar
+    expire_in: 1 months 
+  tags:
+    - docker-runner
+  only:
+    - dev
+    - develop
+    - main
+
+Deplo_To_Cental:
+  stage: deploy
+  image: scm.waleed.org.sa:5050/registry/public/images/base/waleed_git_alpine:latest
+  variables:
+    #GIT_CLONE_URL: "https://scm.waleed.org.sa/devsecops/gitops/integeration-k8s.git"
+  script:
+    # Configure Git for pushing changes
+    - echo "$CI_PROJECT_NAMESPACE"
+    - |
+       git config --global user.name "GitLab CI"
+       git config --global user.email "scm@waleed.org.sa"
+       
+       # Clone the private repository
+       if [[ "$CI_PROJECT_NAMESPACE" == "integration-systems/keycloak/external" ]]; then
+          git clone https://$CI_TOKEN_NAME:$CI_TOKEN_SECRET@scm.waleed.org.sa/integration-systems/keycloak/external/ex-kc-plugins-central.git cloned-repo
+       else
+          git clone https://$CI_TOKEN_NAME:$CI_TOKEN_SECRET@scm.waleed.org.sa/integration-systems/keycloak/kc-plugins-central.git cloned-repo
+       fi
+       cd cloned-repo
+
+       cp -r ../target/*.jar  ./providers/
+
+       # Commit and push changes
+       git add . || true
+       git commit -m "Add jars from $CI_PROJECT_NAME " || true
+       git push origin HEAD || true
+
+  only:
+    - main
+    - dev
+    - uat
+
+  tags:
+    - docker-runner

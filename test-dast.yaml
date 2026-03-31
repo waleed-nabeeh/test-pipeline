@@ -1,0 +1,5 @@
+stages:
+    - post-deploy
+include:
+    - 03-security_scans/DAST-Scanning.yaml
+    

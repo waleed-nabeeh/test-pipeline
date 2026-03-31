@@ -1,0 +1,16 @@
+Trigger_Test_Automation:
+  stage: post-deploy
+  needs: ["Deploy-Dev"]
+  allow_failure: true
+  trigger:
+    project: 1waleed/qa/1waleed-tests
+    branch: develop
+    strategy: depend
+  variables:
+    UPSTREAM_PROJECT: $CI_PROJECT_PATH
+    UPSTREAM_PIPELINE_ID: $CI_PIPELINE_ID
+    UPSTREAM_SHA: $CI_COMMIT_SHA
+  only:
+    - dev
+    - develop
+    #- develop_qurrah

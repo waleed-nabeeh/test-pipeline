@@ -1,0 +1,64 @@
+variables:
+  DAST_VERSION: 5
+  # Setting this variable will affect all Security templates
+  # (SAST, Dependency Scanning, ...)
+  SECURE_ANALYZERS_PREFIX: "$CI_TEMPLATE_REGISTRY_HOST/security-products"
+  DAST_IMAGE_SUFFIX: ""
+  DAST_AUTH_PASSWORD: "test123"
+  DAST_AUTH_PASSWORD_FIELD: "name:password"
+  DAST_AUTH_SUBMIT_FIELD: "name:login"
+  #DAST_AUTH_SUCCESS_IF_AT_URL: "https://1waleed-mig.waleed.org.sa/dashboard/"
+  #DAST_AUTH_TYPE:
+  DAST_AUTH_URL: "https://1waleed-dev.waleed.org.sa/auth/realms/1waleed/protocol/openid-connect/auth?client_id=1waleed-app&scope=openid%20email%20profile&response_type=code&redirect_uri=https%3A%2F%2F1waleed-mig.waleed.org.sa%2Fapi%2Fauth%2Fcallback%2Fkeycloak&prompt=login&state=6Z_bAXjB8WWpaUE3Br9bOE5-ma9HkI8UXR6OYubTRaM&code_challenge=6Z3ZwidITEWLLu1zgu220F8-wUvx46U8V8HtsQfOb2Y&code_challenge_method=S256"
+  DAST_AUTH_USERNAME: "omarxahmad"
+  DAST_AUTH_USERNAME_FIELD: "name:username"
+  DAST_CRAWL_GRAPH: "true" 
+  DAST_FULL_SCAN: "true" 
+  DAST_TARGET_URL: "https://1waleed-mig.waleed.org.sa/"
+  DAST_CRAWL_MAX_DEPTH: "30"
+
+dast:
+  stage: post-deploy
+  image:
+    name: "$SECURE_ANALYZERS_PREFIX/dast:$DAST_VERSION$DAST_IMAGE_SUFFIX"
+  variables:
+    GIT_STRATEGY: none
+  allow_failure: true
+  tags:
+    - docker-runner
+  script:
+    - if [[ -f "environment_url.txt" ]]; then DAST_WEBSITE="${DAST_WEBSITE:-$(cat environment_url.txt)}"; export DAST_WEBSITE; fi
+    - /analyze
+  artifacts:
+    access: 'developer'
+    when: always
+    reports:
+      dast: gl-dast-report.json
+    paths:
+      - gl-dast-*.*
+  rules:
+    - if: $DAST_DISABLED == 'true' || $DAST_DISABLED == '1'
+      when: never
+    - if: $DAST_DISABLED_FOR_DEFAULT_BRANCH == 'true' &&
+          $CI_DEFAULT_BRANCH == $CI_COMMIT_REF_NAME
+      when: never
+    - if: $DAST_DISABLED_FOR_DEFAULT_BRANCH == '1' &&
+          $CI_DEFAULT_BRANCH == $CI_COMMIT_REF_NAME
+      when: never
+    - if: $CI_DEFAULT_BRANCH != $CI_COMMIT_REF_NAME &&
+          $REVIEW_DISABLED == 'true'
+      when: never
+    - if: $CI_DEFAULT_BRANCH != $CI_COMMIT_REF_NAME &&
+          $REVIEW_DISABLED == '1'
+      when: never
+    - if: $CI_COMMIT_BRANCH &&
+          $CI_GITLAB_FIPS_MODE == "true" &&
+          $GITLAB_FEATURES =~ /\bdast\b/
+      variables:
+        DAST_IMAGE_SUFFIX: "-fips"
+    - if: $CI_COMMIT_BRANCH &&
+          $GITLAB_FEATURES =~ /\bdast\b/
+  after_script:
+    # For DAST 4 compatibility, remove any debug.log files because they might contain secrets.
+    - rm -f /zap/wrk/**/debug.log
+    - cp -r /zap/wrk dast_artifacts

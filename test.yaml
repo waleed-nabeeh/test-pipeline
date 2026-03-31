@@ -1,0 +1,37 @@
+stages:
+    - pre-commit
+    - code_quality
+    - security_scans
+    - build
+    - container_scan
+    - deploy
+sast:
+  stage: security_scans
+  tags:
+    - docker-runner
+
+dependency_scanning:
+  stage: security_scans
+  tags:
+    - docker-runner
+
+container_scanning:
+  stage: container_scan
+  tags:
+    - docker-runner
+
+include:
+    - 01-pre-commit/Check_Main_Updates.yaml
+    #- 01-pre-commit/Lint_Test.yml
+    - 02-code-quality/Code_Quality.yaml
+    - template: Security/SAST.gitlab-ci.yml
+    # - template: Security/Secret-Detection.gitlab-ci.yml
+    - template: Security/Dependency-Scanning.gitlab-ci.yml
+    - 04-build/Build_Application.yaml
+    - 04-build/Build_Docker_Image.yaml
+    - template: Security/Container-Scanning.gitlab-ci.yml
+    - 06-deploy/Deploy-Dev.yaml
+    - 06-deploy/Deploy-Test.yaml
+    - 06-deploy/Deploy-Mig.yaml
+    - 06-deploy/Deploy-Preprod.yaml
+    - 06-deploy/Deploy-Prod.yaml

@@ -1,0 +1,22 @@
+Build_Docker_Image:
+  stage: build
+  image: scm.waleed.org.sa:5050/registry/public/images/base/waleed-docker:24.0
+  before_script:
+    - echo "Logging into gitlab_registry.."
+    - docker login -u $REGISTRY_USERNAME -p $REGISTRY_TOKEN $CI_REGISTRY
+  script: 
+    - | 
+      echo "Building Docker image..."
+    - echo "10.128.14.43 scm.waleed.org.sa" >> /etc/hosts
+    - cat Dockerfile
+    - docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA .
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+  artifacts:
+    expire_in: 1 months
+  tags:
+    - docker-runner
+  only:
+    - dev
+    - uat
+    #- main
+    - prd

@@ -1,0 +1,20 @@
+stages:
+    - pre-commit
+    - code_quality
+    - security_scans
+    - build
+    - container_scan
+    - deploy
+include:
+    - 01-pre-commit/Check_Main_Updates.yaml
+    - 02-code-quality/Code_Quality.yaml
+    - 03-security_scans/Static_Application_Security_Test.yaml
+    - 03-security_scans/Dependency-Scanning.yaml
+    - 03-security_scans/secret-detection.yml  
+    - 04-build/Build_Application_Maven.yaml
+    - 04-build/Build_Docker_Image_skyhive.yaml
+    - 05-container_scan/Container-Scanning.yaml
+    - 06-deploy/skyhive-dev.yaml
+    - 06-deploy/skyhive-test.yaml
+    - 06-deploy/skyhive-preprod.yaml
+    - 06-deploy/skyhive-prod.yaml

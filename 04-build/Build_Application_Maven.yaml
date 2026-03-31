@@ -1,0 +1,21 @@
+Build_Application:
+  stage: build
+  image: scm.waleed.org.sa:5050/registry/public/images/base/waleed-maven:3.9.5-openjdk-21
+  script:
+    - mvn install:install-file -Dfile=libs/nClient.jar -DgroupId=com.softwareag -DartifactId=nclient -Dversion=9.12 -Dpackaging=jar
+    - mvn spring-javaformat:apply
+    - mvn clean install
+ 
+  artifacts:
+    paths:
+      - target/*.jar
+    expire_in: 1 months 
+  tags:
+    - docker-runner
+    #- k8s-runner
+  only:
+    - dev
+    - develop
+    - main
+    - test
+    - preprod

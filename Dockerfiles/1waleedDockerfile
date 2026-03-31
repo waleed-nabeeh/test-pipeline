@@ -1,0 +1,33 @@
+FROM scm.waleed.org.sa:5050/registry/public/images/base/waleed-openjdk:21-rc-jdk-oraclelinux8
+
+# install unzip
+RUN microdnf install -y unzip curl && microdnf clean all
+
+# Download and unzip apm agent
+ARG APM_URL="https://www.manageengine.com/products/applications_manager/54974026/apminsight-javaagent_v16530.zip"
+
+RUN curl -fSL -o /tmp/apm.zip "$APM_URL" \
+ && mkdir -p /opt/apm \
+ && unzip /tmp/apm.zip -d /opt/apm/javaagent \
+ && rm /tmp/apm.zip
+
+RUN ln -sf /vault/secrets/apminsight.conf /opt/apm/javaagent/apminsight.conf
+
+# Create non-root user
+RUN groupadd --gid 1001 svcuser \
+ && useradd --uid 1001 --gid 1001 --shell /sbin/nologin svcuser
+
+# Ensure required directories exist and are owned by the user
+RUN mkdir -p /app /logs \
+ && chown -R svcuser:svcuser /app /logs /opt/apm
+
+WORKDIR /app
+#RUN mkdir /app
+
+COPY build/libs/*SNAPSHOT.jar /app/app.jar
+
+USER svcuser
+
+EXPOSE 8080
+
+ENTRYPOINT ["java","-jar","/app/app.jar"]

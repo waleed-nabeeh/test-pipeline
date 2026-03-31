@@ -1,0 +1,21 @@
+Build_Application:
+  stage: build
+  image: scm.waleed.org.sa:5050/cms-/backend/liferay/eclipse-temurin:21-jdk
+  before_script:
+    - echo "10.128.14.43 scm.waleed.org.sa" >> /etc/hosts
+    - apt-get update && apt-get install -y git unzip wget curl
+    - git submodule update --init --recursive
+    - chmod +x ./gradlew
+  script:
+    - ./gradlew deploy -Dorg.gradle.jvmargs="-Xmx8192m"
+    - mkdir -p artifact/deploy
+    - |
+      find build/docker/deploy -type f -exec cp {} artifact/deploy/ \; || true
+      find build/docker/client-extensions -type f -exec cp {} artifact/deploy/ \; || true
+  artifacts:
+    name: "build-artifacts"
+    paths:
+      - artifact/
+    expire_in: 7 days
+  tags:
+    - docker-runner

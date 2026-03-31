@@ -1,0 +1,39 @@
+Deploy-Npe1:
+  stage: deploy
+  image: scm.waleed.org.sa:5050/registry/public/images/base/waleed_git_alpine:latest
+  variables:
+    GIT_CLONE_URL: "https://scm.waleed.org.sa/devsecops/gitops/1waleed-gitops-k8s.git"
+  script:
+    - |
+       git config --global user.name "GitLab CI"
+       git config --global user.email "scm@waleed.org.sa"
+
+       # Clone the private repository
+       ROOT_GROUP=$(echo "$CI_PROJECT_NAMESPACE" | cut -d'/' -f1) 
+       echo $ROOT_GROUP
+       git clone https://$CI_TOKEN_NAME:$CI_TOKEN_SECRET@scm.waleed.org.sa/devsecops/gitops/${ROOT_GROUP}-gitops-k8s.git cloned-repo 
+       cd cloned-repo
+       git checkout npe1 
+
+       # Define the target path based on project and branch
+       TARGET_PATH="$CI_PROJECT_NAME/main"
+       cd "$TARGET_PATH"
+
+       # Ensure deployment.yaml exists, or fail
+       if [ ! -f deployment.yaml ]; then echo "Error: deployment.yaml not found!" && exit 1; fi
+
+       # Update the deployment.yaml file
+       sed -i "s|image:.*|image: "$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:$CI_COMMIT_SHORT_SHA"|g" deployment.yaml
+
+       # Commit and push changes
+       git add deployment.yaml || true
+       git commit -m "Update deployment.yaml with image "$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:$CI_COMMIT_SHORT_SHA"" || true
+       git push origin npe1 || true
+ 
+  when: manual
+
+  rules:
+    #- if: '$CI_COMMIT_BRANCH == "main"'
+    - if: '$CI_COMMIT_BRANCH =~ /^hotfix\/.*$/'
+  tags:
+    - docker-runner

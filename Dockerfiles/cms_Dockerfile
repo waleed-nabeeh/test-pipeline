@@ -1,0 +1,25 @@
+FROM scm.waleed.org.sa:5050/cms-/backend/liferay/dxp-custom:2025.q3.45
+
+ARG USER_ID=1000
+
+# Switch to root to install packages
+USER root
+
+# Install adduser and create svcuser
+#RUN apt-get update && apt-get install -y adduser && \
+#    adduser --system --uid ${USER_ID} --shell /sbin/nologin svcuser && \
+#    mkdir -p /logs && chown -R svcuser: /logs && \
+#    rm -rf /var/lib/apt/lists/*
+
+# Set working directory and switch back to svcuser
+#WORKDIR /app
+#USER svcuser
+
+# Copy artifacts
+COPY artifact/deploy/ /opt/liferay/deploy/
+
+USER liferay
+
+#EXPOSE 8080
+
+#ENTRYPOINT ["sh", "-c", "java -jar $(find . -name '*.jar' -type f | head -1)"]

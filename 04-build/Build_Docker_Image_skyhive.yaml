@@ -1,0 +1,60 @@
+Build_Docker_Image:
+  stage: build
+  image: scm.waleed.org.sa:5050/registry/public/images/base/waleed-docker:24.0
+  dependencies:
+    - Build_Application
+  needs:
+    - job: Build_Application
+  before_script:
+    - echo "Logging into gitlab_registry.."
+    - docker login -u $REGISTRY_USERNAME -p $REGISTRY_TOKEN $CI_REGISTRY
+  script: 
+    - | 
+      echo "Building Docker image..."
+      ROOT_GROUP=$(echo "$CI_PROJECT_NAMESPACE" | cut -d'/' -f1) 
+      echo $ROOT_GROUP
+    
+      if [ "$CI_PROJECT_NAME" != "journey" ]; then
+          curl -o Dockerfile --header "PRIVATE-TOKEN: $API_TOKEN" "https://scm.waleed.org.sa/api/v4/projects/79/repository/files/Dockerfiles%2F${ROOT_GROUP}_Dockerfile/raw?ref=main"
+      else
+          cat Dockerfile
+      fi
+      #curl -o Dockerfile --header "PRIVATE-TOKEN: $API_TOKEN" "https://scm.waleed.org.sa/api/v4/projects/79/repository/files/Dockerfiles%2F1waleed_Dockerfile/raw?ref=main"
+
+    - echo "10.128.14.43 scm.waleed.org.sa" >> /etc/hosts
+    #- sed -i "s#app#$CI_PROJECT_NAME#g" Dockerfile
+    #- export jar=$(ls build/libs/ | grep -i SNAPSHOT.jar)
+    - export jar_path=$( [ -d build/libs ] && echo build/libs || ([ -d target ] && echo target)) && export jar=$(ls "$jar_path" | grep -i SNAPSHOT.jar)
+    
+    - sed -i '/COPY/s#/app/#/'"$CI_PROJECT_NAME"'/#' Dockerfile
+    - sed -i '/ENTRYPOINT/s#/app/#/'"$CI_PROJECT_NAME"'/#' Dockerfile
+    - sed -i '/mkdir/s#/app#/'"$CI_PROJECT_NAME"'#' Dockerfile
+    - sed -i '/CMD/s#/app/#/'"$CI_PROJECT_NAME"'/#' Dockerfile
+    - sed -i "s#JAR_NAME#$jar#g" Dockerfile
+  
+    - cat Dockerfile
+    - docker build -t $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:$CI_COMMIT_SHORT_SHA .
+    - docker push $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:$CI_COMMIT_SHORT_SHA
+  artifacts:
+    expire_in: 1 months
+  tags:
+    - docker-runner
+    # k8s-runner
+  # only:
+  #   - dev
+  #   - develop
+  #   - preprod
+  #   - main
+  #   #- merge_requests
+  #   - release/*
+  #   - hotfix/*
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "develop"'
+    - if: '$CI_COMMIT_BRANCH == "test"'
+    - if: '$CI_COMMIT_BRANCH == "dev"'
+    - if: '$CI_COMMIT_BRANCH == "preprod"'
+    - if: '$CI_COMMIT_BRANCH == "main"'
+    #- if: '$CI_COMMIT_BRANCH == "main"'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH =~ /^hotfix\/.*$/'
+    - if: '$CI_COMMIT_BRANCH =~ /^release\/.*$/'

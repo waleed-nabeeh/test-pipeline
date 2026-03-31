@@ -1,0 +1,9 @@
+trigger_docker_pipeline:
+  stage: trigger_docker
+  trigger:
+    project: "1waleed/devops/docker"
+    branch: "develop"
+  rules:
+    - if: '$CI_PROJECT_PATH == "1waleed/backend/libs/flowable-work-extension"'
+      when: on_success
+    - when: never

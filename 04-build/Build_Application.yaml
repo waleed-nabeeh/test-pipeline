@@ -1,0 +1,37 @@
+Build_Application:
+  stage: build
+  image: scm.waleed.org.sa:5050/registry/public/images/base/waleed-docker-jdk21  #scm.waleed.org.sa:5050/registry/public/images/base/waleed-gradle:jdk21
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+  before_script:
+    - echo "10.128.14.43 scm.waleed.org.sa" >> /etc/hosts
+  script:
+    - echo "waleedRepoUsername=${CI_TOKEN_NAME}" >> gradle.properties
+    - echo "waleedRepoPassword=${CI_TOKEN_SECRET}" >> gradle.properties
+    - echo "gitlabBeRepoPath=${GITLAB_BE_REPO_PATH}" >> gradle.properties
+    - chmod +x ./gradlew
+    - ./gradlew build --no-daemon -Dorg.gradle.vfs.watch=false
+    - rm -rf ~/.gradle/caches/modules-2/files-2.1/sa.org.waleed.one.lib/*
+    
+  artifacts:
+    paths:
+      - build/libs/
+    expire_in: 2 months 
+  tags:
+    - docker-runner
+  # only:
+  #   - develop
+  #   - preprod
+  #   - main
+  #   - merge_requests
+  #   - "release/*"
+  #   - "hotfix/*"
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "develop"'
+    - if: '$CI_COMMIT_BRANCH == "develop_qurrah"'
+    - if: '$CI_COMMIT_BRANCH == "preprod"'
+    - if: '$CI_COMMIT_BRANCH == "main"'
+    # - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH =~ /^hotfix\/.*$/'
+    - if: '$CI_COMMIT_BRANCH =~ /^release\/.*$/'
+  
