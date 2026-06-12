@@ -94,6 +94,14 @@ could not lock config file .../.git/config
 
 Check GitLab Runner/OpenShift workspace permissions. That issue is runner/OCP setup, not the Maven pipeline code.
 
+If this error appears during `Getting source from Git repository`:
+
+```text
+could not lock config file /builds/.../.gitconfig: No such file or directory
+```
+
+Do not set `HOME: "$CI_PROJECT_DIR"` in global CI variables. GitLab Runner performs the clone before the project directory exists. Set `HOME` only in `before_script`, after checkout, for Maven jobs.
+
 
 
 ## Getting started
