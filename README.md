@@ -29,10 +29,10 @@ If the GitLab runner uses another tag, replace `asmo` with the correct runner ta
 
 4. Go to `Settings > CI/CD > Variables`.
 
-5. Add Maven Nexus variables if the runner cannot download directly from Maven Central or other external repositories:
+5. Add Maven Nexus variables. From the Nexus repositories page, use the `maven-public` group repository:
 
 ```text
-NEXUS_MAVEN_URL=https://<nexus-url>/repository/maven-public/
+NEXUS_MAVEN_URL=https://nexus.apps.asmonpeclr.np.asmo.com/repository/maven-public/
 NEXUS_USERNAME=<username>
 NEXUS_PASSWORD=<password>
 ```
@@ -64,13 +64,19 @@ build_maven
 
 If `build_maven` passes, the Maven pipeline is working.
 
-10. If `build_image` fails because registry variables are missing, add image variables later:
+10. If `build_image` fails because registry variables are missing, add image variables later.
+
+The screenshot currently shows Maven and NuGet repositories only. It does not show a Docker hosted/group repository. For image publishing, either enable GitLab Container Registry or create a Nexus Docker hosted repository first.
+
+If a Nexus Docker repository is created, add:
 
 ```text
-NEXUS_DOCKER_IMAGE=<nexus-host>/<docker-repo>/mc3s-b2x-asmo-productcatalog
+NEXUS_DOCKER_IMAGE=nexus.apps.asmonpeclr.np.asmo.com/<docker-repo-name>/mc3s-b2x-asmo-productcatalog
 NEXUS_USERNAME=<username>
 NEXUS_PASSWORD=<password>
 ```
+
+For the first test, it is OK if `build_image` does not run or fails due to missing registry settings. Confirm `build_maven` first.
 
 Expected fix from this pipeline:
 
