@@ -58,6 +58,7 @@ variables:
   IMAGE_TAG: "$CI_COMMIT_SHORT_SHA"
   IMAGE_NAME: "$CI_REGISTRY_IMAGE"
   KANIKO_IMAGE: "gcr.io/kaniko-project/executor:v1.23.2-debug"
+  DOCKER_CONFIG: "$CI_PROJECT_DIR/.docker"
   MAVEN_FAST_BUILD_FLAGS: >-
     -Dmaven.test.skip=true
     -Dpmd.skip=true
@@ -128,13 +129,13 @@ build_image:
       set -- "$APP_MODULE"/target/*.jar
       test "$#" -eq 1
       test -f "$1"
-    - mkdir -p /kaniko/.docker
+    - mkdir -p "$DOCKER_CONFIG"
     - |
       REGISTRY_AUTH="$(printf '%s:%s' \
         "$GITLAB_REGISTRY_USERNAME" \
         "$GITLAB_REGISTRY_PASSWORD" | base64 | tr -d '\n')"
       printf '{"auths":{"%s":{"auth":"%s"}}}' \
-        "$CI_REGISTRY" "$REGISTRY_AUTH" > /kaniko/.docker/config.json
+        "$CI_REGISTRY" "$REGISTRY_AUTH" > "$DOCKER_CONFIG/config.json"
     - |
       /kaniko/executor \
         --context "$CI_PROJECT_DIR" \

@@ -166,8 +166,14 @@ The pipeline reads the credentials from:
 $GITLAB_REGISTRY_USERNAME
 $GITLAB_REGISTRY_PASSWORD
 
-The credentials are written only to Kaniko's temporary Docker configuration
-inside the CI job pod. They are not stored in the repository.
+The credentials are written only to:
+
+$CI_PROJECT_DIR/.docker/config.json
+
+inside the CI job pod. This location is writable by the random non-root user
+assigned by OpenShift. Do not use /kaniko/.docker/config.json because that
+directory can return "Permission denied". The credentials are not stored in
+the repository.
 
 Because the internal GitLab Registry may use a private certificate, the
 current Kaniko command includes:
