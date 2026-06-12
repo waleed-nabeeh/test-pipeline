@@ -1,0 +1,365 @@
+{
+  "data": {
+    "category": {
+      "id": "0e289a49-a0c0-45a1-9b6d-f1802decee1e",
+      "key": "FSX-09-02",
+      "stagedProductCount": 0,
+      "nameAllLocales": [
+        {
+          "locale": "de",
+          "value": "Water, Coffee, Tea"
+        },
+        {
+          "locale": "en",
+          "value": "Water, Coffee, Tea"
+        }
+      ],
+      "slugAllLocales": [
+        {
+          "locale": "de",
+          "value": "FSX-09-02_de"
+        },
+        {
+          "locale": "en",
+          "value": "FSX-09-02_en"
+        }
+      ],
+      "custom": {
+        "type": {
+          "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+          "key": "B2BClassificationCategory"
+        },
+        "customFieldsRaw": []
+      },
+      "metaTitleAllLocales": [
+        {
+          "locale": "de",
+          "value": "meta_title_en"
+        },
+        {
+          "locale": "en",
+          "value": "meta_title_en"
+        }
+      ],
+      "metaDescriptionAllLocales": [
+        {
+          "locale": "de",
+          "value": "meta_desc_en"
+        },
+        {
+          "locale": "en",
+          "value": "meta_desc_en"
+        }
+      ],
+      "metaKeywordsAllLocales": [
+        {
+          "locale": "de",
+          "value": "meta_keywords_en"
+        },
+        {
+          "locale": "en",
+          "value": "meta_keywords_en"
+        }
+      ],
+      "ancestors": [
+        {
+          "id": "271111f9-f4da-4ec5-bd7e-c525bd792f74",
+          "key": "FSX",
+          "stagedProductCount": 60,
+          "nameAllLocales": [
+            {
+              "locale": "de",
+              "value": "FSX"
+            },
+            {
+              "locale": "en",
+              "value": "FSX"
+            }
+          ],
+          "slugAllLocales": [
+            {
+              "locale": "de",
+              "value": "FSX_de"
+            },
+            {
+              "locale": "en",
+              "value": "FSX_en"
+            }
+          ],
+          "custom": {
+            "type": {
+              "id": "ae0db8c8-008d-47a3-a1c1-d6eac500010a",
+              "key": "CatalogCategory"
+            },
+            "customFieldsRaw": []
+          }
+        },
+        {
+          "id": "30dc258f-6dd0-4319-aad1-7459e09857ac",
+          "key": "FSX-09",
+          "stagedProductCount": 59,
+          "nameAllLocales": [
+            {
+              "locale": "de",
+              "value": "Beverages"
+            },
+            {
+              "locale": "en",
+              "value": "Beverages"
+            }
+          ],
+          "slugAllLocales": [
+            {
+              "locale": "de",
+              "value": "FSX-09_de"
+            },
+            {
+              "locale": "en",
+              "value": "FSX-09_en"
+            }
+          ],
+          "custom": {
+            "type": {
+              "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+              "key": "B2BClassificationCategory"
+            },
+            "customFieldsRaw": []
+          }
+        }
+      ],
+      "children": [
+        {
+          "id": "217fdf0a-e946-4693-988c-4eb53f7fd2e4",
+          "key": "FSX-09-02-03",
+          "stagedProductCount": 0,
+          "nameAllLocales": [
+            {
+              "locale": "de",
+              "value": "Cocoa"
+            },
+            {
+              "locale": "en",
+              "value": "Cocoa"
+            }
+          ],
+          "slugAllLocales": [
+            {
+              "locale": "de",
+              "value": "FSX-09-02-03_de"
+            },
+            {
+              "locale": "en",
+              "value": "FSX-09-02-03_en"
+            }
+          ],
+          "custom": {
+            "type": {
+              "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+              "key": "B2BClassificationCategory"
+            },
+            "customFieldsRaw": []
+          },
+          "assets": []
+        },
+        {
+          "id": "9ad55d32-ceee-49df-b15e-14d5f2bc8fe6",
+          "key": "FSX-09-02-07",
+          "stagedProductCount": 0,
+          "nameAllLocales": [
+            {
+              "locale": "de",
+              "value": "Milk & Cream"
+            },
+            {
+              "locale": "en",
+              "value": "Milk & Cream"
+            }
+          ],
+          "slugAllLocales": [
+            {
+              "locale": "de",
+              "value": "FSX-09-02-07_de"
+            },
+            {
+              "locale": "en",
+              "value": "FSX-09-02-07_en"
+            }
+          ],
+          "custom": {
+            "type": {
+              "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+              "key": "B2BClassificationCategory"
+            },
+            "customFieldsRaw": []
+          },
+          "assets": []
+        },
+        {
+          "id": "3004d141-0037-4736-adf7-8aaa586c1e9c",
+          "key": "FSX-09-02-01",
+          "stagedProductCount": 0,
+          "nameAllLocales": [
+            {
+              "locale": "de",
+              "value": "Bottled Water"
+            },
+            {
+              "locale": "en",
+              "value": "Bottled Water"
+            }
+          ],
+          "slugAllLocales": [
+            {
+              "locale": "de",
+              "value": "FSX-09-02-01_de"
+            },
+            {
+              "locale": "en",
+              "value": "FSX-09-02-01_en"
+            }
+          ],
+          "custom": {
+            "type": {
+              "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+              "key": "B2BClassificationCategory"
+            },
+            "customFieldsRaw": []
+          },
+          "assets": []
+        },
+        {
+          "id": "7a1006a7-091e-44bb-8e35-2018a942fbf3",
+          "key": "FSX-09-02-05",
+          "stagedProductCount": 0,
+          "nameAllLocales": [
+            {
+              "locale": "de",
+              "value": "Drink Flavorings"
+            },
+            {
+              "locale": "en",
+              "value": "Drink Flavorings"
+            }
+          ],
+          "slugAllLocales": [
+            {
+              "locale": "de",
+              "value": "FSX-09-02-05_de"
+            },
+            {
+              "locale": "en",
+              "value": "FSX-09-02-05_en"
+            }
+          ],
+          "custom": {
+            "type": {
+              "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+              "key": "B2BClassificationCategory"
+            },
+            "customFieldsRaw": []
+          },
+          "assets": []
+        },
+        {
+          "id": "b08f6981-cee1-4d82-81f1-2b3b4dafcaeb",
+          "key": "FSX-09-02-04",
+          "stagedProductCount": 0,
+          "nameAllLocales": [
+            {
+              "locale": "de",
+              "value": "Cold-Brew Coffee & Concentrate"
+            },
+            {
+              "locale": "en",
+              "value": "Cold-Brew Coffee & Concentrate"
+            }
+          ],
+          "slugAllLocales": [
+            {
+              "locale": "de",
+              "value": "FSX-09-02-04_de"
+            },
+            {
+              "locale": "en",
+              "value": "FSX-09-02-04_en"
+            }
+          ],
+          "custom": {
+            "type": {
+              "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+              "key": "B2BClassificationCategory"
+            },
+            "customFieldsRaw": []
+          },
+          "assets": []
+        },
+        {
+          "id": "b38118c8-200c-4a0b-a469-1a95ecbb2ed6",
+          "key": "FSX-09-02-02",
+          "stagedProductCount": 0,
+          "nameAllLocales": [
+            {
+              "locale": "de",
+              "value": "Coffee & Tea"
+            },
+            {
+              "locale": "en",
+              "value": "Coffee & Tea"
+            }
+          ],
+          "slugAllLocales": [
+            {
+              "locale": "de",
+              "value": "FSX-09-02-02_de"
+            },
+            {
+              "locale": "en",
+              "value": "FSX-09-02-02_en"
+            }
+          ],
+          "custom": {
+            "type": {
+              "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+              "key": "B2BClassificationCategory"
+            },
+            "customFieldsRaw": []
+          },
+          "assets": []
+        },
+        {
+          "id": "4dc4c342-cb12-4dc1-96f4-f34e18c648c7",
+          "key": "FSX-09-02-06",
+          "stagedProductCount": 0,
+          "nameAllLocales": [
+            {
+              "locale": "de",
+              "value": "Iced Tea"
+            },
+            {
+              "locale": "en",
+              "value": "Iced Tea"
+            }
+          ],
+          "slugAllLocales": [
+            {
+              "locale": "de",
+              "value": "FSX-09-02-06_de"
+            },
+            {
+              "locale": "en",
+              "value": "FSX-09-02-06_en"
+            }
+          ],
+          "custom": {
+            "type": {
+              "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+              "key": "B2BClassificationCategory"
+            },
+            "customFieldsRaw": []
+          },
+          "assets": []
+        }
+      ]
+    }
+  }
+}

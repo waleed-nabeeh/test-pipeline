@@ -1,0 +1,44 @@
+{
+  "id": "storeId",
+  "key": "storeKey",
+  "productSelections": [
+    {
+      "active": true,
+      "productSelection": {
+        "id": "131ad40d-52f4-4b1b-ae3c-6b9870a2255c"
+      }
+    },
+    {
+      "active": true,
+      "productSelection": {
+        "id": "e380c06c-eb0f-4b96-b446-69227f49b2b3"
+      }
+    },
+    {
+      "active": true,
+      "productSelection": {
+        "id": "2ea6127e-bb2f-44cc-bf32-6af4651d59ed"
+      }
+    },
+    {
+      "active": true,
+      "productSelection": {
+        "id": "28e9c917-4d73-4a3a-b5bd-d01af12b9024"
+      }
+    },
+    {
+      "active": false,
+      "productSelection": {
+        "id": "8644db1b-1b93-431b-92e0-e11800dff20b"
+      }
+    }
+  ],
+  "custom": {
+    "type": {
+      "id": "typeId",
+      "key": "typeKey"
+    },
+    "customFieldsRaw": {
+    }
+  }
+}

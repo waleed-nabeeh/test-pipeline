@@ -1,0 +1,209 @@
+<?xml version="1.0"?>
+<ruleset name="Custom PMD Ruleset"
+    xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
+    <description>Custom B2X PMD ruleset</description>
+
+    <!-- Include all other rulesets as before
+          https://github.com/pmd/pmd/tree/pmd/7.0.x/pmd-java/src/main/resources/category/java
+    -->
+
+    <rule ref="category/java/bestpractices.xml">
+        <exclude name="AbstractClassWithoutAbstractMethod">
+            <property name="ignoreAnnotations" value="Value"/>
+        </exclude>
+        <exclude name="AvoidUsingHardCodedIP">
+            <priority>4</priority>
+        </exclude>
+        <exclude name="AvoidReassigningParameters">
+            <priority>4</priority>
+        </exclude>
+        <exclude name="GuardLogStatement">
+            <priority>4</priority>
+        </exclude>
+        <exclude name="ImplicitFunctionalInterface">
+            <priority>4</priority>
+        </exclude>
+        <exclude name="LooseCoupling">
+            <priority>4</priority>
+            <property name="methodReportLevel" value="60"/>
+            <property name="classReportLevel" value="1500"/>
+            <property name="packages" value=""/>
+            <property name="classes" value=""/>
+        </exclude>
+        <exclude name="UnitTestContainsTooManyAsserts">
+            <priority>4</priority>
+        </exclude>
+        <exclude name="UnitTestAssertionsShouldIncludeMessage">
+            <priority>4</priority>
+        </exclude>
+        <exclude name="UnusedPrivateMethod">
+            <property name="ignoreAnnotations"
+                value="android.support.annotation.VisibleForTesting,
+                 co.elastic.clients.util.VisibleForTesting,
+                 com.google.common.annotations.VisibleForTesting,
+                 org.junit.jupiter.api.AfterAll,
+                 org.junit.jupiter.api.AfterEach,
+                 org.junit.jupiter.api.BeforeAll,
+                 org.junit.jupiter.api.BeforeEach,
+                 org.junit.jupiter.api.RepeatedTest,
+                 org.junit.jupiter.api.Test,
+                 org.junit.jupiter.api.TestFactory,
+                 org.junit.jupiter.api.TestTemplate,
+                 org.junit.jupiter.api.extension.RegisterExtension,
+                 org.junit.jupiter.params.ParameterizedTest,
+                 org.testng.annotations.AfterClass,
+                 org.testng.annotations.AfterGroups,
+                 org.testng.annotations.AfterMethod,
+                 org.testng.annotations.AfterSuite,
+                 org.testng.annotations.AfterTest,
+                 org.testng.annotations.BeforeClass,
+                 org.testng.annotations.BeforeGroups,
+                 org.testng.annotations.BeforeMethod,
+                 org.testng.annotations.BeforeSuite,
+                 org.testng.annotations.BeforeTest,
+                 org.testng.annotations.Test,
+                 org.junit.jupiter.api.Nested"/>
+        </exclude>
+    </rule>
+
+    <rule ref="category/java/codestyle.xml">
+        <exclude name="AtLeastOneConstructor">
+            <priority>4</priority>
+        </exclude>
+        <exclude name="ClassNamingConventions">
+            <property name="testClassPattern" value="^Test.*$|^[A-Z][a-zA-Z0-9]*Test(s|Case)?$"/>
+        </exclude>
+        <exclude name="CommentDefaultAccessModifier">
+            <property name="testClassPattern" value="^Test.*$|^[A-Z][a-zA-Z0-9]*Test(s|Case)?$"/>
+        </exclude>
+        <exclude name="LinguisticNaming">
+            <property name="ignoredAnnotations" value="Test"/>
+        </exclude>
+        <exclude name="LongVariable">
+            <priority>5</priority>
+        </exclude>
+        <exclude name="MethodArgumentCouldBeFinal">
+            <priority>4</priority>
+        </exclude>
+        <exclude name="MethodNamingConventions">
+            <property name="junit5TestPattern" value="[a-z][a-zA-Z0-9]*"/>
+        </exclude>
+        <exclude name="OnlyOneReturn">
+            <priority>4</priority>
+        </exclude>
+        <exclude name="ShortVariable">
+            <priority>5</priority>
+        </exclude>
+        <exclude name="ShortMethodName">
+            <priority>5</priority>
+        </exclude>
+        <exclude name="TooManyStaticImports">
+            <priority>5</priority>
+        </exclude>
+        <exclude name="UnnecessaryAnnotationValueElement">
+            <priority>4</priority>
+        </exclude>
+        <exclude name="UseExplicitTypes">
+            <priority>5</priority>
+        </exclude>
+    </rule>
+
+    <rule ref="category/java/design.xml">
+        <exclude name="AvoidCatchingGenericException">
+            <priority>4</priority>
+        </exclude>
+        <exclude name="AvoidDeeplyNestedIfStmts">
+            <property name="maxDepth" value="3"/>
+        </exclude>
+        <exclude name="AvoidThrowingRawExceptionTypes">
+            <priority>4</priority>
+        </exclude>
+        <exclude name="CouplingBetweenObjects">
+            <property name="threshold" value="22"/>
+        </exclude>
+        <exclude name="CyclomaticComplexity">
+            <property name="methodReportLevel" value="21"/>
+        </exclude>
+        <exclude name="DataClass">
+            <priority>4</priority>
+        </exclude>
+        <exclude name="ExcessiveImports">
+            <property name="maxImports" value="30"/>
+        </exclude>
+        <exclude name="ExcessiveParameterList">
+            <property name="minimum" value="15"/>
+        </exclude>
+        <exclude name="GodClass">
+            <priority>4</priority>
+        </exclude>
+        <exclude name="ImmutableField">
+            <property name="ignoreAnnotations" value="Value"/>
+        </exclude>
+        <exclude name="LawOfDemeter">
+            <priority>4</priority>
+        </exclude>
+        <exclude name="NcssCount">
+            <priority>4</priority>
+        </exclude>
+        <exclude name="NPathComplexity">
+            <priority>4</priority>
+        </exclude>
+        <exclude name="TooManyFields">
+            <priority>4</priority>
+        </exclude>
+        <exclude name="TooManyMethods">
+            <priority>4</priority>
+        </exclude>
+        <exclude name="UseObjectForClearerAPI">
+            <priority>4</priority>
+        </exclude>
+    </rule>
+
+    <rule ref="category/java/errorprone.xml">
+        <exclude name="AssignmentInOperand">
+            <priority>4</priority>
+        </exclude>
+        <exclude name="AvoidDuplicateLiterals">
+            <property name="exceptionList" value="unexpected"/>
+        </exclude>
+        <exclude name="CloseResource">
+            <priority>4</priority>
+        </exclude>
+        <exclude name="MissingSerialVersionUID">
+            <priority>4</priority>
+        </exclude>
+        <exclude name="TestClassWithoutTestCases">
+            <priority>4</priority>
+        </exclude>
+        <exclude name="ReplaceJavaUtilDate">
+            <priority>4</priority>
+        </exclude>
+    </rule>
+
+    <rule ref="category/java/multithreading.xml">
+        <exclude name="DoNotUseThreads">
+            <priority>4</priority>
+        </exclude>
+        <exclude name="UseConcurrentHashMap">
+            <priority>4</priority>
+        </exclude>
+    </rule>
+
+    <rule ref="category/java/performance.xml">
+        <exclude name="AvoidInstantiatingObjectsInLoops">
+            <priority>4</priority>
+        </exclude>
+        <exclude name="AvoidFileStream">
+            <priority>4</priority>
+        </exclude>
+        <exclude name="InsufficientStringBufferDeclaration">
+            <priority>4</priority>
+        </exclude>
+    </rule>
+
+    <rule ref="category/java/security.xml">
+
+    </rule>
+</ruleset>

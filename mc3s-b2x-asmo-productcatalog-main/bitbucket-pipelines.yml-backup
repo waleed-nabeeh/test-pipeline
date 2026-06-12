@@ -1,0 +1,372 @@
+image: maven:3.9.12-eclipse-temurin-21
+
+definitions:
+  caches:
+    sonar: ~/.sonar
+    owasp-dep-check: .owasp-dep-check-data
+    renovate: renovate
+  steps:
+    - step: &set_env
+        name: Set Environment (set_env)
+        oidc: true
+        script:
+          - |
+            cat     <<"EOF" >>set_env.sh
+            apt-get update && apt-get install -y unzip curl jq python3-pip
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            ./aws/install --update
+            aws --version
+            APP_NAME=$(echo $BITBUCKET_REPO_SLUG | sed 's/.*-//')
+            export AWS_REGION=eu-central-1
+            export AWS_DEFAULT_REGION=eu-central-1
+            export AWS_ROLE_ARN=arn:aws:iam::${AWS_ACCOUNT_ID}:role/mc3s-b2x-deploy-${APP_NAME}
+            CREDS=$(aws sts assume-role-with-web-identity \
+              --role-arn $AWS_ROLE_ARN \
+              --role-session-name bitbucket-pipeline \
+              --web-identity-token $BITBUCKET_STEP_OIDC_TOKEN)
+            export AWS_ACCESS_KEY_ID=$(echo $CREDS | jq -r .Credentials.AccessKeyId)
+            export AWS_SECRET_ACCESS_KEY=$(echo $CREDS | jq -r .Credentials.SecretAccessKey)
+            export AWS_SESSION_TOKEN=$(echo $CREDS | jq -r .Credentials.SessionToken)
+            EOF
+        artifacts:
+          - set_env.sh
+    - step: &fetch-maven-dependencies
+        name: Fetch Maven Dependencies (fetch-maven-dependencies)
+        oidc: true
+        caches:
+          - maven
+        script:
+          - export AWS_ACCOUNT_ID=${DEV_AWS_ACCOUNT_ID}
+          - source set_env.sh
+          - ./scripts/configure-maven.sh
+          - mv mvn-settings.xml ~/.m2/settings.xml
+          - ./mvnw -B -Pci,!install-git-hooks initialize de.qaware.maven:go-offline-maven-plugin:resolve-dependencies org.codehaus.mojo:versions-maven-plugin:help org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.skip org.apache.maven.plugins:maven-assembly-plugin:help org.apache.maven.plugins:maven-clean-plugin:help org.apache.maven.plugins:maven-jar-plugin:help org.apache.maven.plugins:maven-javadoc-plugin:help org.apache.maven.plugins:maven-plugin-plugin:help org.apache.maven.plugins:maven-release-plugin:help org.apache.maven.plugins:maven-project-info-reports-plugin:help org.jacoco:jacoco-maven-plugin:help
+          - ( cd ~ && tar cf "${BITBUCKET_CLONE_DIR}/m2.tar" .m2/ )
+        artifacts:
+          - m2.tar
+    - step: &gitleaks
+        name: Gitleaks (gitleaks)
+        image: zricethezav/gitleaks
+        script:
+          - mkdir target
+          - ./scripts/run_gitleaks.sh
+        artifacts:
+          - target/gitleaks-out.json
+    - step: &owasp-dependency-check
+        name: OWASP Dependency Check - not breaking (owasp-dependency-check)
+        caches:
+          - owasp-dep-check
+        script:
+          - echo "Starting OWASP Dependency Check scan..."
+          - ./scripts/run_dependency_check.sh || true
+        artifacts:
+          - target/dependency-check-report.xml
+    - step: &scan-maven-updates
+        name: Scan Maven Updates & Licenses (scan-maven-updates)
+        script:
+          - ( cd ~ && rm -rf .m2 && tar xf "${BITBUCKET_CLONE_DIR}/m2.tar" )
+          - ./mvnw -B -Pci,!install-git-hooks org.codehaus.mojo:versions-maven-plugin:dependency-updates-aggregate-report -DonlyProjectDependencies=true -DdependencyUpdatesReportFormats=xml
+          - ./mvnw -B -Pci,!install-git-hooks org.codehaus.mojo:license-maven-plugin:2.3.0:aggregate-download-licenses dependency:tree --define outputFile=target/mvn-dependency-tree-out.txt
+          - find * -name mvn-dependency-tree-out.txt | grep -v \/src\/ | tar cvf mvn-dependency-tree-files.tar --files-from -
+          - ./scripts/run_license_check.sh
+        artifacts:
+          - target/dependency-updates-aggregate-report.xml
+          - target/generated-resources/licenses.xml
+          - mvn-dependency-tree-files.tar
+    - step: &branch-test
+        name: 'Test branch'
+        caches:
+          - maven
+        script:
+          - ( cd ~ && rm -rf .m2 && tar xf "${BITBUCKET_CLONE_DIR}/m2.tar" )
+          - ./mvnw -B test
+    - step: &verify-sonar
+        name: 'Maven Build + Sonar Scan (verify-sonar)'
+        caches:
+          - maven
+          - sonar
+        script:
+          - export AWS_ACCOUNT_ID=${DEV_AWS_ACCOUNT_ID}
+          - source set_env.sh
+          - ( cd ~ && rm -rf .m2 && tar xf "${BITBUCKET_CLONE_DIR}/m2.tar" )
+          - ./mvnw -B verify sonar:sonar -Dsonar.projectVersion="PR-${BITBUCKET_BUILD_NUMBER}"
+    - step: &verify
+        name: 'Verify Maven Build (verify)'
+        caches:
+          - maven
+        script:
+          - ( cd ~ && rm -rf .m2 && tar xf "${BITBUCKET_CLONE_DIR}/m2.tar" )
+          - ./mvnw -B verify
+        artifacts:
+          - target/pmd.html
+          - target/pmd/pmd.xml
+    - step: &build_deploy
+        name: "Unit Tests, Verify, Build (build_deploy)"
+        size: 2x # Total memory is 8GB
+        oidc: true
+        caches:
+          - maven
+        script:
+          - ( cd ~ && rm -rf .m2 && tar xf "${BITBUCKET_CLONE_DIR}/m2.tar" )
+          - source target/build.properties
+          - export AWS_ACCOUNT_ID=${DEV_AWS_ACCOUNT_ID}
+          - source set_env.sh
+          - ./mvnw -B -e -Dstyle.color=always org.codehaus.mojo:versions-maven-plugin:2.18.0:set -DnewVersion=${BUILD_VERSION} -DgenerateBackupPoms=false
+          - ./mvnw -B install verify deploy sonar:sonar
+    - step: &versioning
+        name: "Build Versioning"
+        script:
+          - echo "[INFO] Finding build version"
+          - ./scripts/get-build-info.sh
+          - source target/build.properties
+          - echo "Build Version Number = ${BUILD_VERSION}"
+        artifacts:
+          - target/build.properties
+    - step: &tagging
+        image: atlassian/default-image:5
+        name: 'Tagging (tagging)'
+        script:
+          - source target/build.properties
+          - git tag -am "Tag for build version ${BUILD_VERSION}" ${BUILD_VERSION}
+          - git push origin ${BUILD_VERSION}
+
+    - step: &dev-docker-push
+        name: "Docker Push Dev"
+        services:
+          - docker
+        caches:
+          - maven
+          - docker
+        oidc: true
+        script:
+          - yum update -y && yum install awscli -y
+          - export AWS_ACCOUNT_ID=${DEV_AWS_ACCOUNT_ID}
+          - source set_env.sh
+          - ( cd ~ && rm -rf .m2 && tar xf "${BITBUCKET_CLONE_DIR}/m2.tar" )
+          - source target/build.properties
+          - aws ecr get-login-password --region eu-central-1
+          - aws ecr get-login-password --region eu-central-1| docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.eu-central-1.amazonaws.com
+          - ./mvnw -B -e -Dstyle.color=always org.codehaus.mojo:versions-maven-plugin:2.18.0:set -DnewVersion=${BUILD_VERSION} -DgenerateBackupPoms=false
+          - ./mvnw -B -f mc3s-app-aggregator-${APP_NAME}/pom.xml clean compile jib:build -Djib.to.image=${AWS_ACCOUNT_ID}.dkr.ecr.eu-central-1.amazonaws.com/mc3s-b2x-aggregator-${APP_NAME}:$BUILD_VERSION
+        artifacts:
+          - "manifests/*.yaml"
+
+    - step: &k8s-deploy
+        image: public.ecr.aws/k2i3r6n8/b2x-dev-infra-cicd:latest
+        oidc: true
+        script:
+          - pwd
+          - chmod +x ./scripts/k8s_deploy.sh && ./scripts/k8s_deploy.sh
+    - step: &pull-image-from-dev
+        name: Pull image from DEV
+        image: public.ecr.aws/k2i3r6n8/b2x-dev-infra-cicd:latest
+        services:
+          - docker
+        caches:
+          - docker
+        oidc: true
+        script:
+          - export AWS_ACCOUNT_ID=${DEV_AWS_ACCOUNT_ID}
+          - source set_env.sh
+          - aws ecr get-login-password --region eu-central-1
+          - aws ecr get-login-password --region eu-central-1| docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.eu-central-1.amazonaws.com
+          - docker pull ${AWS_ACCOUNT_ID}.dkr.ecr.eu-central-1.amazonaws.com/mc3s-b2x-aggregator-${APP_NAME}:$VERSION
+          - docker save --output tmp-image.tar ${AWS_ACCOUNT_ID}.dkr.ecr.eu-central-1.amazonaws.com/mc3s-b2x-aggregator-${APP_NAME}:$VERSION
+        artifacts:
+          - tmp-image.tar
+
+    - step: &push-image-to-test
+        name: Push image to TEST
+        image: public.ecr.aws/k2i3r6n8/b2x-dev-infra-cicd:latest
+        services:
+          - docker
+        caches:
+          - docker
+        oidc: true
+        script:
+          - export DEV_AWS_ACCOUNT_ID=${DEV_AWS_ACCOUNT_ID}
+          - export AWS_ACCOUNT_ID=${TEST_AWS_ACCOUNT_ID}
+          - source set_env.sh
+          - aws ecr get-login-password --region eu-central-1
+          - aws ecr get-login-password --region eu-central-1| docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.eu-central-1.amazonaws.com
+          - docker load --input tmp-image.tar
+          - docker tag ${DEV_AWS_ACCOUNT_ID}.dkr.ecr.eu-central-1.amazonaws.com/mc3s-b2x-aggregator-${APP_NAME}:$VERSION ${AWS_ACCOUNT_ID}.dkr.ecr.eu-central-1.amazonaws.com/mc3s-b2x-aggregator-${APP_NAME}:$VERSION
+          - docker push ${AWS_ACCOUNT_ID}.dkr.ecr.eu-central-1.amazonaws.com/mc3s-b2x-aggregator-${APP_NAME}:$VERSION
+
+    - step: &push-image-to-demo
+        name: Push image to DEMO
+        image: public.ecr.aws/k2i3r6n8/b2x-dev-infra-cicd:latest
+        services:
+          - docker
+        caches:
+          - docker
+        oidc: true
+        script:
+          - export DEV_AWS_ACCOUNT_ID=${DEV_AWS_ACCOUNT_ID}
+          - export AWS_ACCOUNT_ID=${DEMO_AWS_ACCOUNT_ID}
+          - source set_env.sh
+          - aws ecr get-login-password --region eu-central-1
+          - aws ecr get-login-password --region eu-central-1| docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.eu-central-1.amazonaws.com
+          - docker load --input tmp-image.tar
+          - docker tag ${DEV_AWS_ACCOUNT_ID}.dkr.ecr.eu-central-1.amazonaws.com/mc3s-b2x-aggregator-${APP_NAME}:$VERSION ${AWS_ACCOUNT_ID}.dkr.ecr.eu-central-1.amazonaws.com/mc3s-b2x-aggregator-${APP_NAME}:$VERSION
+          - docker push ${AWS_ACCOUNT_ID}.dkr.ecr.eu-central-1.amazonaws.com/mc3s-b2x-aggregator-${APP_NAME}:$VERSION
+
+    - step: &run-renovate
+        name: 'Run renovate (run-renovate)'
+        script:
+          - ./run-renovate.sh
+    - step: &run-renovate-automerge
+        name: 'Run renovate - automerge'
+        script:
+          - ./run-renovate-automerge.sh
+    - step: &cloc
+        name: Count Lines of Code (cloc)
+        services:
+          - docker
+        caches:
+          - docker
+        script:
+          - docker pull aldanial/cloc:latest
+          - mkdir -p target
+          - docker run --rm -v "${PWD}:${PWD}" -w "${PWD}" aldanial/cloc:latest --json --vcs=git --out=target/cloc-out.json .
+        artifacts:
+          - target/cloc-out.json
+
+    - step: &karate-test
+        name: 'Run Karate Tests'
+        services:
+          - docker
+        caches:
+          - docker
+          - maven
+        oidc: true
+        script:
+          - export AWS_ACCOUNT_ID=${DEV_AWS_ACCOUNT_ID}
+          - source set_env.sh
+          - ./scripts/configure-maven.sh
+          - mv mvn-settings.xml ~/.m2/settings.xml
+          - export ENVIRONMENT=$ENVIRONMENT
+          - export BITBUCKET_GIT_HTTP_ORIGIN=${BITBUCKET_GIT_HTTP_ORIGIN}
+          - export BITBUCKET_BUILD_NUMBER=${BITBUCKET_BUILD_NUMBER}
+          - export BITBUCKET_REPO_SLUG=${BITBUCKET_REPO_SLUG}
+          - export EXECUTE_KARATE_TESTS=true
+          - ./mvnw verify -Dgroups=KarateTest
+        artifacts:
+          - mc3s-app-aggregator-productcatalog/target/karate-reports/**
+
+    - step: &kpi-mutation-test
+        name: 'kpi-mutation-test'
+        caches:
+          - maven
+        script:
+          - ( cd ~ && rm -rf .m2 && tar xf "${BITBUCKET_CLONE_DIR}/m2.tar" )
+          - ./mvnw install test-compile org.pitest:pitest-maven:mutationCoverage -Dpitest.execution.skip=false
+          - tar cvf mutation-tests.tar docs/pit
+        artifacts:
+          - mutation-tests.tar
+    - step: &kpi-license
+        name: 'kpi-license'
+        caches:
+          - maven
+        script:
+          - ( cd ~ && rm -rf .m2 && tar xf "${BITBUCKET_CLONE_DIR}/m2.tar" )
+          - ./mvnw install org.codehaus.mojo:license-maven-plugin:2.4.0:aggregate-download-licenses --define license.writeExcelFile=true
+        artifacts:
+          - target/generated-resources/licenses.xlsx
+          - target/generated-resources/licenses.xml
+    - step: &push-karate-gatling
+        name: 'Push karate gatling'
+        condition:
+          changesets:
+            includePaths:
+              - "mc3s-app-aggregator-productcatalog/src/test/resources/karate/**"
+        script:
+          - chmod +x ./scripts/push-karate-gatling-test.sh
+          - ./scripts/push-karate-gatling-test.sh
+
+pipelines:
+  pull-requests:
+    "**":
+      - step: *set_env
+      - step: *fetch-maven-dependencies
+      - parallel:
+          - step: *gitleaks
+          - step: *scan-maven-updates
+          - step: *owasp-dependency-check
+          - step: *cloc
+          - step: *verify-sonar
+      - step: *run-renovate-automerge
+
+  branches:
+    "{master}":
+      - step: *set_env
+      - parallel:
+          - step: *fetch-maven-dependencies
+          - step: *versioning
+      - step: *build_deploy
+      - step: *tagging
+      - parallel:
+          - step: *run-renovate
+          - step: *dev-docker-push
+      - parallel:
+          - step: *push-karate-gatling
+          - step:
+              <<: *k8s-deploy
+              name: "K8s Deploy Dev"
+              deployment: Dev
+  custom:
+    deploy-test:
+      - variables:
+          - name: VERSION
+            description: "Build Version to Deploy to TEST environment"
+      - step: *set_env
+      - step: *pull-image-from-dev
+      - step: *push-image-to-test
+      - step:
+          <<: *k8s-deploy
+          name: K8s deploy to TEST
+          deployment: Test
+    deploy-demo:
+      - variables:
+          - name: VERSION
+            description: "Build Version to Deploy to DEMO environment"
+      - step: *set_env
+      - step: *pull-image-from-dev
+      - step: *push-image-to-demo
+      - step:
+          <<: *k8s-deploy
+          name: K8s deploy to DEMO
+          deployment: Demo
+
+
+    karate-test-execution:
+      - variables:
+          - name: ENVIRONMENT
+            default: test
+            allowed-values:
+              - test
+              - dev
+              - demo
+      - step: *set_env
+      - step: *karate-test
+
+    karate-test-execution-dev:
+      - variables:
+          - name: ENVIRONMENT
+            default: dev
+      - step: *set_env
+      - step: *karate-test
+
+    kpi-report-collection:
+      - step: *fetch-maven-dependencies
+      - parallel:
+          - step: *gitleaks
+          - step: *owasp-dependency-check
+          - step: *scan-maven-updates
+          - step: *cloc
+      - parallel:
+          - step: *verify-sonar
+          - step: *kpi-mutation-test
+          - step: *kpi-license
+          - step: *karate-test

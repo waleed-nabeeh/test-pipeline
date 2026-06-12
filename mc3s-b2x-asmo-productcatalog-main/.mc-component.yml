@@ -1,0 +1,7 @@
+component:
+  format_version: 1
+  branching_model: legacy-trunk-based
+  has_sonar_project: true
+  valid_ticket_prefixes:
+    - MC3SB2BX
+  ide_project_link: https://bitbucket.org/mindcurv/mc3s-b2x-all-idea-project/

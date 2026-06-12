@@ -1,0 +1,134 @@
+[
+  {
+    "id": "6ac489b3-4604-4c88-b5e1-74709a0d09c7",
+    "version": 1,
+    "createdAt": "2021-02-24T13:30:23.291Z",
+    "lastModifiedAt": "2021-02-24T13:30:23.291Z",
+    "lastModifiedBy": {
+      "clientId": "sample-client-id",
+      "isPlatformClient": false
+    },
+    "createdBy": {
+      "clientId": "sample-client-id",
+      "isPlatformClient": false
+    },
+    "container": "attribute_metadata",
+    "key": "B2BProduct",
+    "value": {
+      "accessories": {
+        "displayGroup": "REFERENCES"
+      },
+      "color": {
+        "displayGroup": "TECHNICAL"
+      },
+      "dummy": {
+        "displayGroup": "GLOBAL"
+      },
+      "imageAnalysisResults": {
+        "displayGroup": "GLOBAL"
+      },
+      "material": {
+        "displayGroup": "DEFAULT"
+      },
+      "merchant": {
+        "displayGroup": "GLOBAL"
+      },
+      "size": {
+        "displayGroup": "TECHNICAL"
+      },
+      "subscriptionsAllowed": {
+        "displayGroup": "NONE"
+      }
+    }
+  },
+  {
+    "id": "06817827-dbac-428d-9e3f-1b65ba2a8afa",
+    "version": 1,
+    "createdAt": "2021-02-24T13:30:23.293Z",
+    "lastModifiedAt": "2021-02-24T13:30:23.293Z",
+    "lastModifiedBy": {
+      "clientId": "sample-client-id",
+      "isPlatformClient": false
+    },
+    "createdBy": {
+      "clientId": "sample-client-id",
+      "isPlatformClient": false
+    },
+    "container": "attribute_metadata",
+    "key": "ConfigurableProduct",
+    "value": {
+      "accessories": {
+        "displayGroup": "REFERENCES"
+      },
+      "configurator_base": {
+        "displayGroup": "CONFIGURATOR"
+      },
+      "configurator_base_on": {
+        "displayGroup": "CONFIGURATOR"
+      },
+      "configurator_covermaterial": {
+        "displayGroup": "CONFIGURATOR"
+      },
+      "configurator_leather": {
+        "displayGroup": "CONFIGURATOR"
+      },
+      "configurator_version": {
+        "displayGroup": "CONFIGURATOR"
+      },
+      "configurator_wood": {
+        "displayGroup": "CONFIGURATOR"
+      },
+      "designer": {
+        "displayGroup": "GLOBAL"
+      },
+      "designeryear": {
+        "displayGroup": "GLOBAL"
+      }
+    }
+  },
+  {
+    "id": "b6817827-dbac-428d-9e3f-1b65ba2a8afb",
+    "version": 1,
+    "createdAt": "2021-02-24T13:30:23.293Z",
+    "lastModifiedAt": "2021-02-24T13:30:23.293Z",
+    "lastModifiedBy": {
+      "clientId": "sample-client-id",
+      "isPlatformClient": false
+    },
+    "createdBy": {
+      "clientId": "sample-client-id",
+      "isPlatformClient": false
+    },
+    "container": "attribute_metadata",
+    "key": "FurnitureProduct",
+    "value": {
+      "accessories": {
+        "displayGroup": "REFERENCES"
+      },
+      "furniture_base": {
+        "displayGroup": "CONFIGURATOR"
+      },
+      "furniture_base_on": {
+        "displayGroup": "CONFIGURATOR"
+      },
+      "furniture_covermaterial": {
+        "displayGroup": "CONFIGURATOR"
+      },
+      "furniture_leather": {
+        "displayGroup": "CONFIGURATOR"
+      },
+      "furniture_version": {
+        "displayGroup": "CONFIGURATOR"
+      },
+      "furniture_wood": {
+        "displayGroup": "CONFIGURATOR"
+      },
+      "designer": {
+        "displayGroup": "GLOBAL"
+      },
+      "designeryear": {
+        "displayGroup": "GLOBAL"
+      }
+    }
+  }
+]

@@ -1,0 +1,83 @@
+{
+  "id": "4e812900-ac0d-4fbd-8e94-cad9974dd53b",
+  "version": 22,
+  "createdAt": "2021-01-06T09:59:18.491Z",
+  "lastModifiedAt": "2021-02-09T08:51:48.233Z",
+  "lastModifiedBy": {
+    "isPlatformClient": true,
+    "user": {
+      "typeId": "user",
+      "id": "5c01bceb-bf8a-4340-bfcf-4a112c7a4ab9"
+    }
+  },
+  "createdBy": {
+    "isPlatformClient": true,
+    "user": {
+      "typeId": "user",
+      "id": "5c01bceb-bf8a-4340-bfcf-4a112c7a4ab9"
+    }
+  },
+  "key": "web-DE",
+  "name": {
+    "de": "web-DE Store",
+    "en": "web-DE Store",
+    "fr": "web-DE Store",
+    "nl": "web-DE Store"
+  },
+  "description": {
+    "de": "web-DE Store",
+    "en": "web-DE Store",
+    "fr": "web-DE Store",
+    "nl": "web-DE Store"
+  },
+  "languages": [
+    "de",
+    "en"
+  ],
+  "distributionChannels": [
+    {
+      "id": "4e812900-ac0d-4fbd-8e94-cad9974dd53b",
+      "typeId": "channel"
+    },{
+      "id": "b8413ed4-f9dd-4af8-8782-ec6e65e4a3ff",
+      "typeId": "channel"
+    }
+  ],
+  "supplyChannels": [
+    {
+      "id": "4e812900-ac0d-4fbd-8e94-cad9974dd53b",
+      "typeId": "channel"
+    },{
+      "id": "b8413ed4-f9dd-4af8-8782-ec6e65e4a3ff",
+      "typeId": "channel"
+    }
+  ],
+  "custom": {
+    "type": {
+      "typeId": "type",
+      "id": "54d2fe18-2fc9-40e4-a45a-8e32adbb7293"
+    },
+    "fields": {
+      "frontendUrlPrefix": "http://localhost:9092",
+      "mailFrom": "test.b2b+noreply@mindcurv.com",
+      "siteAdminEmail": [
+        "test.b2b+siteadmin@mindcurv.com"
+      ],
+      "paymentProviders": [
+        "OFFLINE_INVOICE",
+        "OFFLINE_COSTCENTER"
+      ],
+      "catalogs": [
+        {
+          "typeId": "category",
+          "id": "60b500d0-b34a-430d-b051-625e78cd84bf"
+        },
+        {
+          "typeId": "category",
+          "id": "271111f9-f4da-4ec5-bd7e-c525bd792f74"
+        }
+      ],
+      "currency": "EUR"
+    }
+  }
+}

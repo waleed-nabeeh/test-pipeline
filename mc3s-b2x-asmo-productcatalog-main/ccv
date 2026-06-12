@@ -1,0 +1,72 @@
+#!/bin/sh
+DESC='Mindcurv Repository Policy'
+groupIdPath='com/mindcurv/tools'
+artifactId='mc-repo-policy'
+IMAGE="public.ecr.aws/mindcurv/${artifactId}:latest"
+
+# Defaults
+if [ "$DOCKER_PULL" = "" ]; then
+  DOCKER_PULL=1
+fi
+if [ -f mvnw ]; then
+  MVN='./mvnw'
+else
+  MVN='mvn'
+fi
+
+# Prepare for invoking any tool
+mkdir -p target
+
+# Invoke: gitleaks
+docker pull zricethezav/gitleaks:latest
+docker run --rm -v "${PWD}:/${PWD}" -w "${PWD}" zricethezav/gitleaks:latest detect --no-banner --no-git --report-path=target/gitleaks-out.json --verbose --redact
+
+# Invoke: cloc
+docker pull aldanial/cloc:latest
+docker run --rm -v "${PWD}:${PWD}" -w "${PWD}" aldanial/cloc:latest --json --vcs=git --out=target/cloc-out.json .
+
+# Invoke:
+# - Maven Dependency Plugin → tree
+# - Codehaus License Maven plugin → aggregate download licenses
+# - Codehaus Versions Maven plugin → dependency updates aggregate report
+# - OWASP Dependency Check Maven plugin → aggregate
+${MVN} org.apache.maven.plugins:maven-dependency-plugin:3.6.1:tree --define outputFile=target/mvn-dependency-tree-out.txt \
+    org.codehaus.mojo:license-maven-plugin:2.3.0:aggregate-download-licenses \
+    org.codehaus.mojo:versions-maven-plugin:2.14.2:dependency-updates-aggregate-report --define dependencyUpdatesReportFormats=xml \
+    org.owasp:dependency-check-maven:9.0.9:aggregate --define format=XML --define nvdApiKey=${NVD_API_KEY}
+
+# Invoke CCV
+if [ "${SKIP_CCV}" = "1" ]; then
+  echo "Skipping CCV execution."
+elif [ "${USE_LOCAL_JAR}" = "1" ]; then
+  echo "Using local JAR file."
+  java -jar "target/${artifactId}-full.jar" check "$@"
+elif [ "${USE_DOCKER}" != "0" ]; then
+  [ "$DOCKER_PULL" = "1" ] && docker pull $IMAGE
+  echo "Using Docker container."
+  if [ -t 1 ]; then
+    docker run --rm -it -v "$PWD:$PWD" -e CI -e SCAN_TYPE -e SONAR_TOKEN -e BITBUCKET_USER -e BITBUCKET_PASS -e BITBUCKET_PR_ID -e BITBUCKET_BUILD_NUMBER -e BITBUCKET_STEP_UUID -e BITBUCKET_COMMIT -e BITBUCKET_BRANCH -w "$PWD" $IMAGE check "$@"
+  else
+    docker run --rm -v "$PWD:$PWD" -e CI -e SCAN_TYPE -e SONAR_TOKEN -e BITBUCKET_USER -e BITBUCKET_PASS -e BITBUCKET_PR_ID -e BITBUCKET_BUILD_NUMBER -e BITBUCKET_STEP_UUID -e BITBUCKET_COMMIT -e BITBUCKET_BRANCH -w "$PWD" $IMAGE check "$@"
+  fi
+else
+  echo "Using remote JAR file."
+
+  artifactMetadataUrl="https://artifactory-de.mindcurv.com/artifactory/public-libs/${groupIdPath}/${artifactId}/maven-metadata.xml"
+  echo "Downloading ${DESC} metadata from: ${artifactMetadataUrl}"
+  curl -so ccv-metadata.xml "${artifactMetadataUrl}"
+  echo "Downloaded ${DESC} metadata"
+
+  artifactVersion=$(grep "^[[:space:]]*<release>.*</release>[[:space:]]*$" ccv-metadata.xml | awk -F'[><]' '{print $3}' | head -n 1)
+  echo "Latest ${DESC} release version is: ${artifactVersion}"
+
+  artifactUrl="https://artifactory-de.mindcurv.com/artifactory/public-libs/${groupIdPath}/${artifactId}/${artifactVersion}/${artifactId}-${artifactVersion}-full.jar"
+  echo "Downloading ${DESC} JAR from: ${artifactUrl}"
+  curl -so "${artifactId}-full.jar" "${artifactUrl}"
+  echo "Downloaded ${DESC} JAR"
+
+  if [ "${JAVA_CMD}" = "" ]; then
+    JAVA_CMD=java
+  fi
+  "${JAVA_CMD}" -jar "${artifactId}-full.jar" check "$@"
+fi

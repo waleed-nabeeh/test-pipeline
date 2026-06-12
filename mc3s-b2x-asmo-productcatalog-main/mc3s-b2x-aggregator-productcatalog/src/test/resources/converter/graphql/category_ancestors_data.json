@@ -1,0 +1,82 @@
+{
+  "category": {
+    "custom": {
+      "type": {
+        "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+        "key": "B2BClassificationCategory"
+      },
+      "customFieldsRaw": []
+    },
+    "id": "id_0",
+    "key": "TEST_0",
+    "nameAllLocales": [
+      {
+        "locale": "de",
+        "value": "TEST_0_name_de"
+      },
+      {
+        "locale": "fr",
+        "value": "TEST_0_name_fr"
+      },
+      {
+        "locale": "en",
+        "value": "TEST_0_name_en"
+      }
+    ],
+    "slugAllLocales": [
+      {
+        "locale": "de",
+        "value": "TEST_0_slug_de"
+      },
+      {
+        "locale": "fr",
+        "value": "TEST_0_slug_fr"
+      },
+      {
+        "locale": "en",
+        "value": "TEST_0_slug_en"
+      }
+    ],
+    "ancestors": [
+      {
+        "id": "id_1",
+        "key": "TEST_1",
+        "nameAllLocales": [
+          {
+            "locale": "de",
+            "value": "TEST_1_name_de"
+          },
+          {
+            "locale": "fr",
+            "value": "TEST_1_name_fr"
+          },
+          {
+            "locale": "en",
+            "value": "TEST_1_name_en"
+          }
+        ],
+        "slugAllLocales": [
+          {
+            "locale": "de",
+            "value": "TEST_1_slug_de"
+          },
+          {
+            "locale": "fr",
+            "value": "TEST_1_slug_fr"
+          },
+          {
+            "locale": "en",
+            "value": "TEST_1_slug_en"
+          }
+        ],
+        "custom": {
+          "type": {
+            "id": "ae0db8c8-008d-47a3-a1c1-d6eac500010a",
+            "key": "CatalogCategory"
+          },
+          "customFieldsRaw": []
+        }
+      }
+    ]
+  }
+}

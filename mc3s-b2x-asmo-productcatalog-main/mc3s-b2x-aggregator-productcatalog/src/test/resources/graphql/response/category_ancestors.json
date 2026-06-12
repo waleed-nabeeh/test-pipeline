@@ -1,0 +1,109 @@
+{
+  "data": {
+    "category": {
+      "id": "9000a478-ad04-41a0-92c7-4a727a91c6ad",
+      "key": "FSX-09-01",
+      "nameAllLocales": [
+        {
+          "locale": "de",
+          "value": "Beers & Wine"
+        },
+        {
+          "locale": "en",
+          "value": "Beers & Wine"
+        }
+      ],
+      "slugAllLocales": [
+        {
+          "locale": "de",
+          "value": "FSX-09-01_de"
+        },
+        {
+          "locale": "en",
+          "value": "FSX-09-01_en"
+        }
+      ],
+      "custom": {
+        "type": {
+          "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+          "key": "B2BClassificationCategory"
+        },
+        "customFieldsRaw": []
+      },
+      "ancestors": [
+        {
+          "id": "271111f9-f4da-4ec5-bd7e-c525bd792f74",
+          "key": "FSX",
+          "nameAllLocales": [
+            {
+              "locale": "de",
+              "value": "FSX"
+            },
+            {
+              "locale": "en",
+              "value": "FSX"
+            }
+          ],
+          "slugAllLocales": [
+            {
+              "locale": "de",
+              "value": "FSX_de"
+            },
+            {
+              "locale": "en",
+              "value": "FSX_en"
+            }
+          ],
+          "custom": {
+            "type": {
+              "id": "ae0db8c8-008d-47a3-a1c1-d6eac500010a",
+              "key": "CatalogCategory"
+            },
+            "customFieldsRaw": [
+              {
+                "name": "restrictedTo",
+                "value": [
+                  {
+                    "typeId": "customer",
+                    "id": "9174c899-2b9b-49bb-9567-f94259173c96"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "30dc258f-6dd0-4319-aad1-7459e09857ac",
+          "key": "FSX-09",
+          "nameAllLocales": [
+            {
+              "locale": "de",
+              "value": "Beverages"
+            },
+            {
+              "locale": "en",
+              "value": "Beverages"
+            }
+          ],
+          "slugAllLocales": [
+            {
+              "locale": "de",
+              "value": "FSX-09_de"
+            },
+            {
+              "locale": "en",
+              "value": "FSX-09_en"
+            }
+          ],
+          "custom": {
+            "type": {
+              "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+              "key": "B2BClassificationCategory"
+            },
+            "customFieldsRaw": []
+          }
+        }
+      ]
+    }
+  }
+}

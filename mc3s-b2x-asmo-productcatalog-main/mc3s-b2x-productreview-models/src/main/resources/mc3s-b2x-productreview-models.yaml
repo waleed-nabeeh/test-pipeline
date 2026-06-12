@@ -1,0 +1,333 @@
+openapi: 3.0.1
+info:
+  title: API - mc3s-b2x-productreview
+  description: |
+    
+    # Key Features 'mc3s-b2x-productreview'
+    
+    ## ProductReview
+    APIs to fetch getting category information 
+    - Get reviews for product
+    - Get Review Details
+    - Create Product Review  
+
+  version: 0-SNAPSHOT
+tags:
+  - name: ProductReview
+    description: "Product Review related APIs"
+paths:
+  /aggregator/review/product/key={key}/list:
+    get:
+      tags:
+        - ProductReview
+      description: 'All product reviews by product Key (scope: not required).'
+      operationId: ProductReviewsByKey
+      parameters:
+        - name: key
+          in: path
+          description: Product Key
+          required: true
+          schema:
+            type: string
+            minLength: 2
+            maxLength: 255
+            pattern: "^[/A-Za-z0-9_-]+$"
+        - name: offset
+          in: query
+          description: Page index
+          required: false
+          schema:
+            type: integer
+            format: int64
+            default: 0
+        - name: limit
+          in: query
+          description: Items per page
+          required: false
+          schema:
+            type: integer
+            format: int64
+            default: 20
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductReviewSummary'
+              examples:
+                ProductReviewSummary:
+                  summary: ProductReviewSummary
+                  description: ProductReviewSummary
+                  value:
+                    ratings:
+                      offset: 0
+                      limit: 5
+                      total: 5
+                      totalPages: 1
+                      count: 5
+                      results:
+                        - id: 3b7832bf-6450-4048-ab24-ede6d8b8dc52
+                          key: beauty
+  /aggregator/review/product/{id}/list:
+    get:
+      tags:
+        - ProductReview
+      description: 'All product reviews by product id (scope: not required).'
+      operationId: ProductReviewsByProductId
+      parameters:
+        - name: id
+          in: path
+          description: Product ID
+          required: true
+          schema:
+            type: string
+            minLength: 2
+            maxLength: 255
+            pattern: "^[/A-Za-z0-9_-]+$"
+        - name: offset
+          in: query
+          description: Page index
+          required: false
+          schema:
+            type: integer
+            format: int64
+            default: 0
+        - name: limit
+          in: query
+          description: Items per page
+          required: false
+          schema:
+            type: integer
+            format: int64
+            default: 20
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductReviewSummary'
+              examples:
+                ProductReviewSummary:
+                  summary: ProductReviewSummary
+                  description: ProductReviewSummary
+                  value:
+                    ratings:
+                      offset: 0
+                      limit: 5
+                      total: 5
+                      totalPages: 1
+                      count: 5
+                      results:
+                        - id: 3b7832bf-6450-4048-ab24-ede6d8b8dc52
+                          key: beauty
+  /aggregator/review/product:
+    post:
+      tags:
+        - ProductReview
+      description: 'Create Product Review (scope: none).'
+      operationId: ProductReview
+      security:
+        - bearerAuth: [ ]
+        - oauth:
+            - none
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductReviewCreateRequest'
+            examples:
+              ProductReviewAggregation:
+                summary: ProductReviewCreateRequest
+                description: ProductReviewCreateRequest
+                value:
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductReviewAggregation'
+              examples:
+                pageable of ProductReview Aggregation:
+                  summary: Pageable of ProductReview
+                  description: pageable of ProductReview
+                  value:
+                    offset: 0
+                    limit: 5
+                    total: 5
+                    totalPages: 1
+                    count: 5
+                    results:
+                      - id: 3b7832bf-6450-4048-ab24-ede6d8b8dc52
+                        key: beauty
+  /aggregator/review/product/{id}:
+    get:
+      tags:
+        - ProductReview
+      description: 'Get product review by ID (scope: not required).'
+      operationId: ProductReviewById
+      parameters:
+        - name: id
+          in: path
+          description: Product Review id
+          required: true
+          schema:
+            type: string
+            minLength: 2
+            maxLength: 255
+            pattern: "^[/A-Za-z0-9_-]+$"
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductReviewAggregation'
+              examples:
+                ProductReview:
+                  summary: ProductReview
+                  description: ProductReview
+                  value:
+                    id: 3b7832bf-6450-4048-ab24-ede6d8b8dc52
+                    key: beauty
+  /aggregator/review/product/key={key}:
+    get:
+      tags:
+        - ProductReview
+      description: 'Get product review by Key (scope: not required).'
+      operationId: ProductReviewByKey
+      parameters:
+        - name: key
+          in: path
+          description: Product Review key
+          required: true
+          schema:
+            type: string
+            minLength: 2
+            maxLength: 255
+            pattern: "^[/A-Za-z0-9_-]+$"
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductReviewAggregation'
+              examples:
+                ProductReview Aggregation:
+                  summary: ProductReviewAggregation
+                  description: ProductReviewAggregation
+                  value:
+                    id: 3b7832bf-6450-4048-ab24-ede6d8b8dc52
+                    key: beauty
+components:
+  schemas:
+    ProductReviewCreateRequest:
+      type: object
+      required:
+        - key
+        - rating
+        - review
+      properties:
+        key:
+          type: string
+          description: Product Key
+          pattern: "^[/A-Za-z0-9_-]+$"
+        rating:
+          minimum: 0
+          maximum: 5
+          type: number
+          description: Rating
+        title:
+          type: string
+          minLength: 2
+          maxLength: 255
+          description: Product Review Title
+        review:
+          type: string
+          minLength: 2
+          maxLength: 4000
+          description: Product Review Text
+    ProductReviewAggregation:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Review ID
+          pattern: "^[/A-Za-z0-9_-]+$"
+        key:
+          type: string
+          description: Review Key
+          pattern: "^[/A-Za-z0-9_-]+$"
+        rating:
+          minimum: 0
+          maximum: 5
+          type: number
+          description: Rating
+        title:
+          type: string
+          description: Review Title
+        review:
+          type: string
+          description: Product Review
+        product:
+          $ref: '#/components/schemas/Reference'
+        state:
+          $ref: '#/components/schemas/StateAggregation'
+        author:
+          $ref: '#/components/schemas/ProductReviewAuthor'
+    ProductReviewAuthor:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name
+        customer:
+          $ref: '#/components/schemas/Reference'
+    ProductReviewSummary:
+      type: object
+      properties:
+        product:
+          $ref: '#/components/schemas/Reference'
+        averageRating:
+          minimum: 0
+          maximum: 5
+          type: number
+          format: double
+          default: 0
+        minRating:
+          type: number
+          format: double
+          description: minimum Rating
+          default: 0
+        maxRating:
+          type: number
+          format: double
+          description: maximum Rating
+          default: 0
+        count:
+          type: integer
+          description: Ratings count
+          default: 0
+        reviews:
+          $ref: '#/components/schemas/PageableOfProductReviewAggregation'
+  securitySchemes:
+    bearerAuth:
+      # allows using JWTs in Swagger UI
+      description: Please use a JWT to authorize any request.
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    oauth:
+      type: oauth2
+      description: Only used for scopes. In SwaggerUI please user bearer token.
+      flows:
+        implicit:
+          # unused – dummy values
+          authorizationUrl: http://localhost
+          scopes:
+            none: Logged in user
+x-original-swagger-version: "2.0"

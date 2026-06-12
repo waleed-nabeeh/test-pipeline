@@ -1,0 +1,5897 @@
+openapi: 3.0.1
+info:
+  contact:
+    email: info@mindcurv.com
+    name: Mindcurv Group
+    url: https://mindcurvgroup.com/en/services/digital-experiences-solutions/b2xaccelerator-for-composable-platforms-built-with-mach.html
+  description: "mc3s-b2x-productcatalog REST API [build:2024-11-14T00:36:24.118Z]\n\
+    \n# Header\nThe application accepts header parameters to control context\n\n|\
+    \ Header             | Description     |\n| ------------------ | ---------------\
+    \ |\n| Content-Language   | Active language |\n| X-Store            | Active store\
+    \    |\n| X-Organization     | Active Unit     |\n| X-Company          | Active\
+    \ Company  |\n| X-AnonymousId      | Anonymous Id    |\n\n\n---\n\n# Key Features\
+    \ 'mc3s-b2x-productcatalog'\n\n## Category\nAPIs to fetch getting category information\
+    \ \n- Get category tree for store\n- get category details \n- get category hierarchy\
+    \ \n\n## Product\nAPIs to fetch product data \n- Get product by ID\n- Get product\
+    \ by Key\n- Get product by Sku\n\n## ProductInStore\nAPIs to fetch product data\
+    \ for current store \n- Get product by ID\n- Get product by Key\n- Get product\
+    \ by Sku\n\n## Product Types\nAPIs to fetch Product Type data \n- Get Product\
+    \ Type by ID\n- Get Product Type by Key\n- Get Product Type Meta Data by ID\n\
+    - Get Product Type Meta Data by Key\n\n## Listing\nAPIs to fetch product listing\
+    \ information \n\n- Product Listing for store by ID\n- Product Listing for store\
+    \ by Key\n- Product Listing for store by SKU\n- Product Listing for store by cart\n\
+    - Product Listing for store by order\n- Product Listing for store by shoppinglist\n\
+    \n## AttributeGroup\nAPIs to fetch Attribute Groups \n\n- Get all Attribute Groups\n\
+    - Get Attribute Group by ID\n- Get Attribute Group by Key\n- Get Attribute Group\
+    \ for Product Type \n\n\n"
+  title: API - mc3s-b2x-productcatalog
+  version: 4.11.2877
+externalDocs:
+  description: Capabilities
+  url: https://mindcurv.atlassian.net/wiki/spaces/MC3S/pages/6912410041
+servers:
+- description: Generated server url
+  url: https://productcatalog.dev.b2x.b2bx.mindcurv.io
+tags:
+- description: Category related APIs like fetching all or individual categories
+  name: Category
+- description: "APIs to fetch product details. Products can be fetched using *sku\
+    \ id*, *product key* or  *product id*"
+  name: Product
+- description: APIs to fetch product type information.
+  name: Product Types
+- description: APIs to fetch product details in store
+  name: ProductInStore
+- description: APIs to fetch product AttributeGroup information
+  name: AttributeGroup
+- description: Catalog related APIs
+  name: Catalog
+- description: APIs to fetch product listing information
+  name: Listing
+paths:
+  /aggregator/listing:
+    post:
+      description: "Product Listings (scope: not required)."
+      operationId: listingsByReference
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: "#/components/schemas/Reference"
+              type: array
+        required: true
+      responses:
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PageableOfListingAggregation"
+          description: Unauthorized
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PageableOfListingAggregation"
+          description: Validation failed
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PageableOfListingAggregation"
+          description: Success
+      tags:
+      - Listing
+  /aggregator/producttypes:
+    get:
+      description: "All product types (scope: catalog)."
+      operationId: productTypes
+      responses:
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PageableOfProductTypeAggregation"
+          description: Unauthorized
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PageableOfProductTypeAggregation"
+          description: Success
+      security:
+      - bearerAuth: []
+      - oauth:
+        - catalog
+      tags:
+      - Product Types
+  /aggregator/producttypes/{id}:
+    get:
+      description: "Product Type by id (scope: catalog)."
+      operationId: productTypeById
+      parameters:
+      - description: Product Type ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          pattern: "^[/A-Za-z0-9_-]{2,255}$"
+          type: string
+        style: simple
+      responses:
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductTypeAggregation"
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductTypeAggregation"
+          description: Not found
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductTypeAggregation"
+          description: Success
+      security:
+      - bearerAuth: []
+      - oauth:
+        - catalog
+      tags:
+      - Product Types
+  /aggregator/producttypes/key={key}:
+    get:
+      description: "Product Type by key (scope: catalog)."
+      operationId: productTypeByKey
+      parameters:
+      - description: Product Type key
+        explode: false
+        in: path
+        name: key
+        required: true
+        schema:
+          pattern: "^[/A-Za-z0-9_-]+$"
+          type: string
+        style: simple
+      responses:
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductTypeAggregation"
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductTypeAggregation"
+          description: Not found
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductTypeAggregation"
+          description: Success
+      security:
+      - bearerAuth: []
+      - oauth:
+        - catalog
+      tags:
+      - Product Types
+  /aggregator/product:
+    get:
+      description: "All products (scope: not required)."
+      operationId: products
+      parameters:
+      - description: Page index
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          format: int64
+          type: integer
+        style: form
+      - description: Items per page
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 20
+          format: int64
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PageableOfProductAggregation"
+          description: Success
+      tags:
+      - Product
+  /aggregator/product/{id}:
+    get:
+      description: "Product by id (scope: not required)."
+      operationId: productById
+      parameters:
+      - description: Product id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          pattern: "^[/A-Za-z0-9_-]{2,255}$"
+          type: string
+        style: simple
+      responses:
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductAggregation"
+          description: Not found
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductAggregation"
+          description: Success
+      tags:
+      - Product
+  /aggregator/product/slug={slug}:
+    get:
+      description: "Product by slug (scope: not required)."
+      operationId: productBySlug
+      parameters:
+      - description: Product slug
+        explode: false
+        in: path
+        name: slug
+        required: true
+        schema:
+          pattern: "^[/A-Za-z0-9_-]+$"
+          type: string
+        style: simple
+      responses:
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductAggregation"
+          description: Not found
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductAggregation"
+          description: Success
+      tags:
+      - Product
+  /aggregator/product/sku={sku}:
+    get:
+      description: "Product by sku (scope: not required)."
+      operationId: productBySku
+      parameters:
+      - description: Sku id
+        explode: false
+        in: path
+        name: sku
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductAggregation"
+          description: Not found
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductAggregation"
+          description: Success
+      tags:
+      - Product
+  /aggregator/product/key={key}:
+    get:
+      description: "Product by key (scope: not required)."
+      operationId: productByKey
+      parameters:
+      - description: Product key
+        explode: false
+        in: path
+        name: key
+        required: true
+        schema:
+          pattern: "^[/A-Za-z0-9_-]+$"
+          type: string
+        style: simple
+      responses:
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductAggregation"
+          description: Not found
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductAggregation"
+          description: Success
+      tags:
+      - Product
+  /aggregator/product-store/{id}:
+    get:
+      description: "Product in store by id (scope: not required)."
+      operationId: productInStoreById
+      parameters:
+      - description: Product id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          pattern: "^[/A-Za-z0-9_-]{2,255}$"
+          type: string
+        style: simple
+      responses:
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductAggregation"
+          description: Not found
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductAggregation"
+          description: Success
+      tags:
+      - ProductInStore
+  /aggregator/product-store/slug={slug}:
+    get:
+      description: "Product in store by slug (scope: not required)."
+      operationId: productInStoreBySlug
+      parameters:
+      - description: slug
+        explode: false
+        in: path
+        name: slug
+        required: true
+        schema:
+          pattern: "^[/A-Za-z0-9_-]+$"
+          type: string
+        style: simple
+      responses:
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductAggregation"
+          description: Not found
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductAggregation"
+          description: Success
+      tags:
+      - ProductInStore
+  /aggregator/product-store/sku={sku}:
+    get:
+      description: "Product in store by sku (scope: not required)."
+      operationId: productInStoreBySku
+      parameters:
+      - description: Sku
+        explode: false
+        in: path
+        name: sku
+        required: true
+        schema:
+          pattern: "^[/A-Za-z0-9_-]+$"
+          type: string
+        style: simple
+      responses:
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductAggregation"
+          description: Not found
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductAggregation"
+          description: Success
+      tags:
+      - ProductInStore
+  /aggregator/product-store/key={key}:
+    get:
+      description: "Product in store by key (scope: not required)."
+      operationId: productInStoreByKey
+      parameters:
+      - description: Product key
+        explode: false
+        in: path
+        name: key
+        required: true
+        schema:
+          pattern: "^[/A-Za-z0-9_-]+$"
+          type: string
+        style: simple
+      responses:
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductAggregation"
+          description: Not found
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductAggregation"
+          description: Success
+      tags:
+      - ProductInStore
+  /aggregator/listing/{id}:
+    get:
+      description: "Product listing by id (scope: not required)."
+      operationId: listingById
+      parameters:
+      - description: Product id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          pattern: "^[/A-Za-z0-9_-]{2,255}$"
+          type: string
+        style: simple
+      responses:
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListingAggregation"
+          description: Unauthorized
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListingAggregation"
+          description: Success
+      tags:
+      - Listing
+  /aggregator/listing/sku={sku}:
+    get:
+      description: "Product listing by sku (scope: not required)."
+      operationId: listingBySku
+      parameters:
+      - description: SKU
+        explode: false
+        in: path
+        name: sku
+        required: true
+        schema:
+          pattern: "^[/A-Za-z0-9_-]+$"
+          type: string
+        style: simple
+      responses:
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListingAggregation"
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListingAggregation"
+          description: Not found
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListingAggregation"
+          description: Success
+      tags:
+      - Listing
+  /aggregator/listing/shoppinglist/{id}:
+    get:
+      description: "Product Listing by shoppinglist (scope: shoppinglist)."
+      operationId: listingByShoppinglist
+      parameters:
+      - description: shoppinglist id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          pattern: "^[/A-Za-z0-9_-]{2,255}$"
+          type: string
+        style: simple
+      responses:
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PageableOfListingAggregation"
+          description: Unauthorized
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PageableOfListingAggregation"
+          description: Success
+      security:
+      - bearerAuth: []
+      - oauth:
+        - shoppinglist
+      tags:
+      - Listing
+  /aggregator/listing/order/{id}:
+    get:
+      description: "Product listing by order (scope: order)."
+      operationId: listingByOrder
+      parameters:
+      - description: order id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          pattern: "^[/A-Za-z0-9_-]{2,255}$"
+          type: string
+        style: simple
+      responses:
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PageableOfListingAggregation"
+          description: Unauthorized
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PageableOfListingAggregation"
+          description: Success
+      security:
+      - bearerAuth: []
+      - oauth:
+        - order
+      tags:
+      - Listing
+  /aggregator/listing/key={key}:
+    get:
+      description: "Product listing by key (scope: not required)."
+      operationId: listingByKey
+      parameters:
+      - description: Product key
+        explode: false
+        in: path
+        name: key
+        required: true
+        schema:
+          pattern: "^[/A-Za-z0-9_-]+$"
+          type: string
+        style: simple
+      responses:
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListingAggregation"
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListingAggregation"
+          description: Not found
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListingAggregation"
+          description: Success
+      tags:
+      - Listing
+  /aggregator/listing/cart:
+    get:
+      description: "Product listing by cart (scope: cart)."
+      operationId: listingByCart
+      parameters:
+      - description: cart Id
+        explode: true
+        in: query
+        name: id
+        required: false
+        schema:
+          pattern: "^[/A-Za-z0-9_-]{2,255}$"
+          type: string
+        style: form
+      responses:
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PageableOfListingAggregation"
+          description: Unauthorized
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PageableOfListingAggregation"
+          description: Success
+      security:
+      - bearerAuth: []
+      - oauth:
+        - cart
+      tags:
+      - Listing
+  /aggregator/category:
+    get:
+      description: "All categories (scope: not required)."
+      operationId: categories
+      parameters:
+      - description: Page index
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          format: int64
+          type: integer
+        style: form
+      - description: Items per page
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 20
+          format: int64
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PageableOfCategoryAggregation"
+          description: Success
+      tags:
+      - Category
+  /aggregator/category/{id}:
+    get:
+      description: "Category by id (scope: not required)."
+      operationId: categoryById
+      parameters:
+      - description: Category id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          pattern: "^[/A-Za-z0-9_-]{2,255}$"
+          type: string
+        style: simple
+      responses:
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoryAggregation"
+          description: Not found
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoryAggregation"
+          description: Success
+      tags:
+      - Category
+  /aggregator/category/tree:
+    get:
+      description: "Category tree for store (scope: not required). The level amount\
+        \ (default = 2) is configured on Store.navigationLevels."
+      operationId: categoryTree
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PageableOfCategoryNavigationAggregation"
+          description: Success
+      tags:
+      - Category
+  /aggregator/category/slug={slug}:
+    get:
+      description: "Category by slug (scope: not required)."
+      operationId: categoryBySlug
+      parameters:
+      - description: Category slug
+        explode: false
+        in: path
+        name: slug
+        required: true
+        schema:
+          pattern: "^[/A-Za-z0-9_-]{2,255}$"
+          type: string
+        style: simple
+      responses:
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoryAggregation"
+          description: Not found
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoryAggregation"
+          description: Success
+      tags:
+      - Category
+  /aggregator/category/key={key}:
+    get:
+      description: "Category by key (scope: not required)."
+      operationId: categoryByKey
+      parameters:
+      - description: Category key
+        explode: false
+        in: path
+        name: key
+        required: true
+        schema:
+          pattern: "^[/A-Za-z0-9_-]+$"
+          type: string
+        style: simple
+      responses:
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoryAggregation"
+          description: Not found
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoryAggregation"
+          description: Success
+      tags:
+      - Category
+  /aggregator/catalog:
+    get:
+      description: "All catalogs for context (scope: not required)."
+      operationId: catalogs
+      parameters:
+      - description: Page index
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          format: int64
+          type: integer
+        style: form
+      - description: Items per page
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 20
+          format: int64
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PageableOfCatalogAggregation"
+          description: Success
+      tags:
+      - Catalog
+  /aggregator/attributeMetaData/{id}:
+    get:
+      description: "ProductType Attribute MetaData by Id (scope: catalog)."
+      operationId: productAttributeMetaDataById
+      parameters:
+      - description: Product Type ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          pattern: "^[/A-Za-z0-9_-]{2,255}$"
+          type: string
+        style: simple
+      responses:
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PageableOfAttributeMetaData"
+          description: Unauthorized
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PageableOfAttributeMetaData"
+          description: Success
+      tags:
+      - Product Types
+  /aggregator/attributeMetaData/key={key}:
+    get:
+      description: "ProductType Attribute MetaData by key (scope: not required)."
+      operationId: productAttributeMetaDataByKey
+      parameters:
+      - description: Product Type Key
+        explode: false
+        in: path
+        name: key
+        required: true
+        schema:
+          pattern: "^[/A-Za-z0-9_-]+$"
+          type: string
+        style: simple
+      responses:
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PageableOfAttributeMetaData"
+          description: Unauthorized
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PageableOfAttributeMetaData"
+          description: Success
+      tags:
+      - Product Types
+  /aggregator/attribute-group:
+    get:
+      description: "All AttributeGroups (scope: catalog)."
+      operationId: attributeGroups
+      parameters:
+      - description: Page index
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          default: 0
+          format: int64
+          type: integer
+        style: form
+      - description: Items per page
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          default: 20
+          format: int64
+          type: integer
+        style: form
+      responses:
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PageableOfAttributeGroupAggregation"
+          description: Unauthorized
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PageableOfAttributeGroupAggregation"
+          description: Success
+      security:
+      - bearerAuth: []
+      - oauth:
+        - catalog
+      tags:
+      - AttributeGroup
+  /aggregator/attribute-group/{id}:
+    get:
+      description: "AttributeGroup by id (scope: catalog)."
+      operationId: attributeGroupById
+      parameters:
+      - description: AttributeGroup id
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          pattern: "^[/A-Za-z0-9_-]{2,255}$"
+          type: string
+        style: simple
+      responses:
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AttributeGroupAggregation"
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AttributeGroupAggregation"
+          description: Not found
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AttributeGroupAggregation"
+          description: Success
+      security:
+      - bearerAuth: []
+      - oauth:
+        - catalog
+      tags:
+      - AttributeGroup
+  /aggregator/attribute-group/type={key}:
+    get:
+      description: "All AttributeGroups for Product Type (scope: catalog)."
+      operationId: attributeGroupsForType
+      parameters:
+      - description: ProductType key
+        explode: false
+        in: path
+        name: key
+        required: true
+        schema:
+          pattern: "^[/A-Za-z0-9_-]+$"
+          type: string
+        style: simple
+      responses:
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MapOfAttributeGroupAggregation"
+          description: Unauthorized
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MapOfAttributeGroupAggregation"
+          description: Success
+      security:
+      - bearerAuth: []
+      - oauth:
+        - catalog
+      tags:
+      - AttributeGroup
+  /aggregator/attribute-group/key={key}:
+    get:
+      description: "AttributeGroup using the key (scope: catalog)."
+      operationId: attributeGroupByKey
+      parameters:
+      - description: AttributeGroup key
+        explode: false
+        in: path
+        name: key
+        required: true
+        schema:
+          pattern: "^[/A-Za-z0-9_-]+$"
+          type: string
+        style: simple
+      responses:
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AttributeGroupAggregation"
+          description: Unauthorized
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AttributeGroupAggregation"
+          description: Not found
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AttributeGroupAggregation"
+          description: Success
+      security:
+      - bearerAuth: []
+      - oauth:
+        - catalog
+      tags:
+      - AttributeGroup
+components:
+  schemas:
+    ListingAggregation:
+      example:
+        reference:
+          typeId: typeId
+          id: id
+          key: key
+        listings:
+        - mode: mode
+          includedSkus:
+          - includedSkus
+          - includedSkus
+          excludedSkus:
+          - excludedSkus
+          - excludedSkus
+          id: id
+          key: key
+        - mode: mode
+          includedSkus:
+          - includedSkus
+          - includedSkus
+          excludedSkus:
+          - excludedSkus
+          - excludedSkus
+          id: id
+          key: key
+        listed: true
+        store: store
+      properties:
+        store:
+          description: Store Key
+          type: string
+        reference:
+          $ref: "#/components/schemas/Reference"
+        listed:
+          description: Listed Flag
+          type: boolean
+        listings:
+          description: Listings
+          items:
+            $ref: "#/components/schemas/ListingAggregationEntry"
+          type: array
+      type: object
+    ListingAggregationEntry:
+      description: Listings
+      example:
+        mode: mode
+        includedSkus:
+        - includedSkus
+        - includedSkus
+        excludedSkus:
+        - excludedSkus
+        - excludedSkus
+        id: id
+        key: key
+      properties:
+        id:
+          description: Product Listing ID
+          type: string
+        key:
+          description: Product Listing Key
+          type: string
+        mode:
+          description: Product Listing Mode
+          type: string
+        includedSkus:
+          description: Included SKUs
+          items:
+            description: Included SKUs
+            type: string
+          type: array
+        excludedSkus:
+          description: Excluded SKUs
+          items:
+            description: Excluded SKUs
+            type: string
+          type: array
+      type: object
+    PageableFilterOption:
+      example:
+        attribute: attribute
+        value: value
+      properties:
+        attribute:
+          description: filter attribute
+          type: string
+        value:
+          description: filter value
+          type: string
+      required:
+      - attribute
+      - value
+      type: object
+    PageableOfListingAggregation:
+      example:
+        searchRequest:
+          filter:
+          - attribute: attribute
+            value: value
+          - attribute: attribute
+            value: value
+          displayType: DETAIL
+          offset: 0
+          limit: 115
+          includeCount: true
+          sorts:
+          - attribute: attribute
+            direction: direction
+          - attribute: attribute
+            direction: direction
+        total: 1
+        offset: 0
+        limit: 6
+        totalPages: 5
+        count: 5
+        results:
+        - reference:
+            typeId: typeId
+            id: id
+            key: key
+          listings:
+          - mode: mode
+            includedSkus:
+            - includedSkus
+            - includedSkus
+            excludedSkus:
+            - excludedSkus
+            - excludedSkus
+            id: id
+            key: key
+          - mode: mode
+            includedSkus:
+            - includedSkus
+            - includedSkus
+            excludedSkus:
+            - excludedSkus
+            - excludedSkus
+            id: id
+            key: key
+          listed: true
+          store: store
+        - reference:
+            typeId: typeId
+            id: id
+            key: key
+          listings:
+          - mode: mode
+            includedSkus:
+            - includedSkus
+            - includedSkus
+            excludedSkus:
+            - excludedSkus
+            - excludedSkus
+            id: id
+            key: key
+          - mode: mode
+            includedSkus:
+            - includedSkus
+            - includedSkus
+            excludedSkus:
+            - excludedSkus
+            - excludedSkus
+            id: id
+            key: key
+          listed: true
+          store: store
+      properties:
+        offset:
+          format: int64
+          type: integer
+        limit:
+          format: int64
+          type: integer
+        total:
+          format: int64
+          type: integer
+        totalPages:
+          format: int64
+          type: integer
+        count:
+          format: int64
+          type: integer
+        results:
+          items:
+            $ref: "#/components/schemas/ListingAggregation"
+          type: array
+        searchRequest:
+          $ref: "#/components/schemas/PageableSearchRequest"
+      type: object
+    PageableSearchRequest:
+      example:
+        filter:
+        - attribute: attribute
+          value: value
+        - attribute: attribute
+          value: value
+        displayType: DETAIL
+        offset: 0
+        limit: 115
+        includeCount: true
+        sorts:
+        - attribute: attribute
+          direction: direction
+        - attribute: attribute
+          direction: direction
+      properties:
+        limit:
+          description: Limit
+          format: int64
+          maximum: 500
+          minimum: 1
+          type: integer
+        offset:
+          description: Offset
+          format: int64
+          minimum: 0
+          type: integer
+        filter:
+          items:
+            $ref: "#/components/schemas/PageableFilterOption"
+          type: array
+        sorts:
+          items:
+            $ref: "#/components/schemas/PageableSortOption"
+          type: array
+        displayType:
+          enum:
+          - DETAIL
+          - LIST
+          - REVERSE
+          type: string
+        includeCount:
+          type: boolean
+      type: object
+    PageableSortOption:
+      example:
+        attribute: attribute
+        direction: direction
+      properties:
+        attribute:
+          description: sort attribute
+          type: string
+        direction:
+          description: sort direction
+          type: string
+      type: object
+    Reference:
+      example:
+        typeId: typeId
+        id: id
+        key: key
+      properties:
+        id:
+          description: Reference UUID
+          pattern: "^[/A-Za-z0-9_-]{2,255}$"
+          type: string
+        key:
+          description: Reference Key
+          pattern: "^[/A-Za-z0-9_-]{2,255}$"
+          type: string
+        typeId:
+          description: Reference Type identifier
+          pattern: "^[/A-Za-z0-9_-]{2,255}$"
+          type: string
+      type: object
+    AttributeMetaData:
+      example:
+        unitType: unitType
+        unitOfMeasure: unitOfMeasure
+        name: name
+        unitSystem: unitSystem
+        group: group
+      properties:
+        name:
+          description: Attribute Name
+          type: string
+        group:
+          description: Group Identifier
+          type: string
+        unitOfMeasure:
+          description: Unit of measure
+          type: string
+        unitType:
+          description: Unit type
+          type: string
+        unitSystem:
+          description: Unit System
+          type: string
+      type: object
+    EnumValueAggregation:
+      description: Attribute enumeration values
+      example:
+        label: label
+        key: key
+      properties:
+        key:
+          description: Key
+          type: string
+        label:
+          description: Label
+          type: string
+      type: object
+    PageableOfProductTypeAggregation:
+      example:
+        searchRequest:
+          filter:
+          - attribute: attribute
+            value: value
+          - attribute: attribute
+            value: value
+          displayType: DETAIL
+          offset: 0
+          limit: 115
+          includeCount: true
+          sorts:
+          - attribute: attribute
+            direction: direction
+          - attribute: attribute
+            direction: direction
+        total: 1
+        offset: 0
+        limit: 6
+        totalPages: 5
+        count: 5
+        results:
+        - name: name
+          attributes:
+          - metaData:
+              unitType: unitType
+              unitOfMeasure: unitOfMeasure
+              name: name
+              unitSystem: unitSystem
+              group: group
+            set: true
+            name: name
+            constraint: constraint
+            label: label
+            type: type
+            inputTip: inputTip
+            enumValues:
+            - label: label
+              key: key
+            - label: label
+              key: key
+          - metaData:
+              unitType: unitType
+              unitOfMeasure: unitOfMeasure
+              name: name
+              unitSystem: unitSystem
+              group: group
+            set: true
+            name: name
+            constraint: constraint
+            label: label
+            type: type
+            inputTip: inputTip
+            enumValues:
+            - label: label
+              key: key
+            - label: label
+              key: key
+          id: id
+          key: key
+        - name: name
+          attributes:
+          - metaData:
+              unitType: unitType
+              unitOfMeasure: unitOfMeasure
+              name: name
+              unitSystem: unitSystem
+              group: group
+            set: true
+            name: name
+            constraint: constraint
+            label: label
+            type: type
+            inputTip: inputTip
+            enumValues:
+            - label: label
+              key: key
+            - label: label
+              key: key
+          - metaData:
+              unitType: unitType
+              unitOfMeasure: unitOfMeasure
+              name: name
+              unitSystem: unitSystem
+              group: group
+            set: true
+            name: name
+            constraint: constraint
+            label: label
+            type: type
+            inputTip: inputTip
+            enumValues:
+            - label: label
+              key: key
+            - label: label
+              key: key
+          id: id
+          key: key
+      properties:
+        offset:
+          format: int64
+          type: integer
+        limit:
+          format: int64
+          type: integer
+        total:
+          format: int64
+          type: integer
+        totalPages:
+          format: int64
+          type: integer
+        count:
+          format: int64
+          type: integer
+        results:
+          items:
+            $ref: "#/components/schemas/ProductTypeAggregation"
+          type: array
+        searchRequest:
+          $ref: "#/components/schemas/PageableSearchRequest"
+      type: object
+    ProductAttributeAggregation:
+      description: Attributes
+      example:
+        metaData:
+          unitType: unitType
+          unitOfMeasure: unitOfMeasure
+          name: name
+          unitSystem: unitSystem
+          group: group
+        set: true
+        name: name
+        constraint: constraint
+        label: label
+        type: type
+        inputTip: inputTip
+        enumValues:
+        - label: label
+          key: key
+        - label: label
+          key: key
+      properties:
+        name:
+          description: Attribute name
+          type: string
+        label:
+          description: Attribute label
+          type: string
+        inputTip:
+          description: Attribute input tip
+          type: string
+        constraint:
+          description: Attribute constraint
+          type: string
+        set:
+          description: Is attribute of type set
+          type: boolean
+        type:
+          description: Attribute type
+          type: string
+        enumValues:
+          description: Attribute enumeration values
+          items:
+            $ref: "#/components/schemas/EnumValueAggregation"
+          type: array
+        metaData:
+          $ref: "#/components/schemas/AttributeMetaData"
+      type: object
+    ProductTypeAggregation:
+      example:
+        name: name
+        attributes:
+        - metaData:
+            unitType: unitType
+            unitOfMeasure: unitOfMeasure
+            name: name
+            unitSystem: unitSystem
+            group: group
+          set: true
+          name: name
+          constraint: constraint
+          label: label
+          type: type
+          inputTip: inputTip
+          enumValues:
+          - label: label
+            key: key
+          - label: label
+            key: key
+        - metaData:
+            unitType: unitType
+            unitOfMeasure: unitOfMeasure
+            name: name
+            unitSystem: unitSystem
+            group: group
+          set: true
+          name: name
+          constraint: constraint
+          label: label
+          type: type
+          inputTip: inputTip
+          enumValues:
+          - label: label
+            key: key
+          - label: label
+            key: key
+        id: id
+        key: key
+      properties:
+        id:
+          description: UUID
+          type: string
+        key:
+          description: Key
+          type: string
+        name:
+          description: Name
+          type: string
+        attributes:
+          description: Attributes
+          items:
+            $ref: "#/components/schemas/ProductAttributeAggregation"
+          type: array
+      type: object
+    AssetAggregation:
+      example:
+        sources:
+        - width: 4
+          contentType: contentType
+          uri: uri
+          key: key
+          height: 2
+        - width: 4
+          contentType: contentType
+          uri: uri
+          key: key
+          height: 2
+        custom:
+          name: name
+          description: description
+          attributes:
+            key:
+              metaData:
+                unitType: unitType
+                unitOfMeasure: unitOfMeasure
+                name: name
+                unitSystem: unitSystem
+                group: group
+              name: name
+              label: label
+              type: type
+              value: "{}"
+              elementType:
+                collectionType: true
+                values:
+                  key: "{}"
+                referenceTypeId: referenceTypeId
+                name: name
+          type:
+            typeId: typeId
+            id: id
+            key: key
+        name: name
+        description: description
+        id: id
+        key: key
+        tags:
+        - tags
+        - tags
+      properties:
+        custom:
+          $ref: "#/components/schemas/CustomAggregation"
+        id:
+          description: Asset ID
+          type: string
+        key:
+          description: Asset Key
+          type: string
+        name:
+          description: Asset Name
+          type: string
+        description:
+          description: Asset Description
+          type: string
+        sources:
+          description: Assigned Asset Sources
+          items:
+            $ref: "#/components/schemas/AssetSourceAggregation"
+          type: array
+        tags:
+          description: Tags
+          items:
+            description: Tags
+            type: string
+          type: array
+      type: object
+    AssetSourceAggregation:
+      description: Assigned Asset Sources
+      example:
+        width: 4
+        contentType: contentType
+        uri: uri
+        key: key
+        height: 2
+      properties:
+        contentType:
+          description: Mime Type
+          type: string
+        height:
+          description: Height
+          format: int32
+          type: integer
+        key:
+          description: Asset Source Key
+          type: string
+        uri:
+          description: Asset Source URI
+          type: string
+        width:
+          description: Width
+          format: int32
+          type: integer
+      type: object
+    AttributeAggregation:
+      description: Attribute Aggregation
+      example:
+        metaData:
+          unitType: unitType
+          unitOfMeasure: unitOfMeasure
+          name: name
+          unitSystem: unitSystem
+          group: group
+        name: name
+        label: label
+        type: type
+        value: "{}"
+        elementType:
+          collectionType: true
+          values:
+            key: "{}"
+          referenceTypeId: referenceTypeId
+          name: name
+      properties:
+        name:
+          description: Localized Attribute name
+          type: string
+        label:
+          description: Localized Attribute label
+          type: string
+        value:
+          description: Attribute value
+          type: object
+        type:
+          description: Attribute type
+          type: string
+        metaData:
+          $ref: "#/components/schemas/AttributeMetaData"
+        elementType:
+          $ref: "#/components/schemas/AttributeElementType"
+      type: object
+    AttributeElementType:
+      example:
+        collectionType: true
+        values:
+          key: "{}"
+        referenceTypeId: referenceTypeId
+        name: name
+      properties:
+        name:
+          description: Attribute element name
+          type: string
+        collectionType:
+          description: Attribute is collection
+          type: boolean
+        values:
+          additionalProperties:
+            description: Attribute values
+            type: object
+          description: Attribute values
+          type: object
+        referenceTypeId:
+          description: Attribute reference type
+          type: string
+      type: object
+    CategoryNavigationAggregation:
+      description: Child Categories
+      example:
+        image:
+          width: 7
+          label: label
+          url: url
+          height: 9
+        catalog: true
+        custom:
+          name: name
+          description: description
+          attributes:
+            key:
+              metaData:
+                unitType: unitType
+                unitOfMeasure: unitOfMeasure
+                name: name
+                unitSystem: unitSystem
+                group: group
+              name: name
+              label: label
+              type: type
+              value: "{}"
+              elementType:
+                collectionType: true
+                values:
+                  key: "{}"
+                referenceTypeId: referenceTypeId
+                name: name
+          type:
+            typeId: typeId
+            id: id
+            key: key
+        description: description
+        type: type
+        restrictedCustomers:
+        - restrictedCustomers
+        - restrictedCustomers
+        children:
+        - null
+        - null
+        restricted: true
+        name: name
+        id: id
+        ancestors:
+        - null
+        - null
+        productsCount: 2
+        key: key
+        slug: slug
+      properties:
+        id:
+          description: Category ID
+          type: string
+        key:
+          description: Category Key
+          type: string
+        name:
+          description: Category Name
+          type: string
+        slug:
+          description: Category Slug
+          type: string
+        description:
+          description: Category Description
+          type: string
+        catalog:
+          description: Catalog flag
+          type: boolean
+        type:
+          description: Category Type
+          type: string
+        ancestors:
+          description: Ancestor categories
+          items:
+            $ref: "#/components/schemas/CategoryNavigationAggregation"
+          type: array
+        children:
+          description: Child categories
+          items:
+            $ref: "#/components/schemas/CategoryNavigationAggregation"
+          type: array
+        productsCount:
+          description: Products count
+          format: int32
+          type: integer
+        restricted:
+          description: Restricted Flag
+          type: boolean
+        restrictedCustomers:
+          description: Restricted customer ID list
+          items:
+            description: Restricted customer ID list
+            type: string
+          type: array
+        image:
+          $ref: "#/components/schemas/ImageAggregation"
+        custom:
+          $ref: "#/components/schemas/CustomAggregation"
+      type: object
+    CustomAggregation:
+      example:
+        name: name
+        description: description
+        attributes:
+          key:
+            metaData:
+              unitType: unitType
+              unitOfMeasure: unitOfMeasure
+              name: name
+              unitSystem: unitSystem
+              group: group
+            name: name
+            label: label
+            type: type
+            value: "{}"
+            elementType:
+              collectionType: true
+              values:
+                key: "{}"
+              referenceTypeId: referenceTypeId
+              name: name
+        type:
+          typeId: typeId
+          id: id
+          key: key
+      properties:
+        type:
+          $ref: "#/components/schemas/Reference"
+        name:
+          description: Localized Type name
+          type: string
+        description:
+          description: Localized Type description
+          type: string
+        attributes:
+          additionalProperties:
+            $ref: "#/components/schemas/AttributeAggregation"
+          description: Type attributes
+          type: object
+      type: object
+    ImageAggregation:
+      example:
+        width: 7
+        label: label
+        url: url
+        height: 9
+      properties:
+        url:
+          description: Image URL
+          type: string
+        label:
+          description: label
+          type: string
+        width:
+          description: width
+          format: int32
+          type: integer
+        height:
+          description: height
+          format: int32
+          type: integer
+      type: object
+    MetaDataAggregation:
+      example:
+        keywords: keywords
+        description: description
+        title: title
+        slug: slug
+      properties:
+        description:
+          description: Meta Description
+          type: string
+        keywords:
+          description: Meta Keywords
+          type: string
+        slug:
+          description: Slug
+          type: string
+        title:
+          description: Meta Title
+          type: string
+      type: object
+    PageableOfProductAggregation:
+      example:
+        searchRequest:
+          filter:
+          - attribute: attribute
+            value: value
+          - attribute: attribute
+            value: value
+          displayType: DETAIL
+          offset: 0
+          limit: 115
+          includeCount: true
+          sorts:
+          - attribute: attribute
+            direction: direction
+          - attribute: attribute
+            direction: direction
+        total: 1
+        offset: 0
+        limit: 6
+        totalPages: 5
+        count: 5
+        results:
+        - metaData:
+            keywords: keywords
+            description: description
+            title: title
+            slug: slug
+          name: name
+          description: description
+          tax:
+            amount: 7.386281948385884
+            rates:
+            - country: country
+              amount: 1.2315135367772556
+              includedInPrice: true
+              name: name
+              id: id
+            - country: country
+              amount: 1.2315135367772556
+              includedInPrice: true
+              name: name
+              id: id
+            name: name
+            description: description
+            id: id
+            key: key
+          id: id
+          categories:
+          - image:
+              width: 7
+              label: label
+              url: url
+              height: 9
+            catalog: true
+            custom:
+              name: name
+              description: description
+              attributes:
+                key:
+                  metaData:
+                    unitType: unitType
+                    unitOfMeasure: unitOfMeasure
+                    name: name
+                    unitSystem: unitSystem
+                    group: group
+                  name: name
+                  label: label
+                  type: type
+                  value: "{}"
+                  elementType:
+                    collectionType: true
+                    values:
+                      key: "{}"
+                    referenceTypeId: referenceTypeId
+                    name: name
+              type:
+                typeId: typeId
+                id: id
+                key: key
+            description: description
+            type: type
+            restrictedCustomers:
+            - restrictedCustomers
+            - restrictedCustomers
+            children:
+            - null
+            - null
+            restricted: true
+            name: name
+            id: id
+            ancestors:
+            - null
+            - null
+            productsCount: 2
+            key: key
+            slug: slug
+          - image:
+              width: 7
+              label: label
+              url: url
+              height: 9
+            catalog: true
+            custom:
+              name: name
+              description: description
+              attributes:
+                key:
+                  metaData:
+                    unitType: unitType
+                    unitOfMeasure: unitOfMeasure
+                    name: name
+                    unitSystem: unitSystem
+                    group: group
+                  name: name
+                  label: label
+                  type: type
+                  value: "{}"
+                  elementType:
+                    collectionType: true
+                    values:
+                      key: "{}"
+                    referenceTypeId: referenceTypeId
+                    name: name
+              type:
+                typeId: typeId
+                id: id
+                key: key
+            description: description
+            type: type
+            restrictedCustomers:
+            - restrictedCustomers
+            - restrictedCustomers
+            children:
+            - null
+            - null
+            restricted: true
+            name: name
+            id: id
+            ancestors:
+            - null
+            - null
+            productsCount: 2
+            key: key
+            slug: slug
+          variants:
+          - images:
+            - width: 7
+              label: label
+              url: url
+              height: 9
+            - width: 7
+              label: label
+              url: url
+              height: 9
+            assets:
+            - sources:
+              - width: 4
+                contentType: contentType
+                uri: uri
+                key: key
+                height: 2
+              - width: 4
+                contentType: contentType
+                uri: uri
+                key: key
+                height: 2
+              custom:
+                name: name
+                description: description
+                attributes:
+                  key:
+                    metaData:
+                      unitType: unitType
+                      unitOfMeasure: unitOfMeasure
+                      name: name
+                      unitSystem: unitSystem
+                      group: group
+                    name: name
+                    label: label
+                    type: type
+                    value: "{}"
+                    elementType:
+                      collectionType: true
+                      values:
+                        key: "{}"
+                      referenceTypeId: referenceTypeId
+                      name: name
+                type:
+                  typeId: typeId
+                  id: id
+                  key: key
+              name: name
+              description: description
+              id: id
+              key: key
+              tags:
+              - tags
+              - tags
+            - sources:
+              - width: 4
+                contentType: contentType
+                uri: uri
+                key: key
+                height: 2
+              - width: 4
+                contentType: contentType
+                uri: uri
+                key: key
+                height: 2
+              custom:
+                name: name
+                description: description
+                attributes:
+                  key:
+                    metaData:
+                      unitType: unitType
+                      unitOfMeasure: unitOfMeasure
+                      name: name
+                      unitSystem: unitSystem
+                      group: group
+                    name: name
+                    label: label
+                    type: type
+                    value: "{}"
+                    elementType:
+                      collectionType: true
+                      values:
+                        key: "{}"
+                      referenceTypeId: referenceTypeId
+                      name: name
+                type:
+                  typeId: typeId
+                  id: id
+                  key: key
+              name: name
+              description: description
+              id: id
+              key: key
+              tags:
+              - tags
+              - tags
+            defaultVariant: true
+            custom:
+              name: name
+              description: description
+              attributes:
+                key:
+                  metaData:
+                    unitType: unitType
+                    unitOfMeasure: unitOfMeasure
+                    name: name
+                    unitSystem: unitSystem
+                    group: group
+                  name: name
+                  label: label
+                  type: type
+                  value: "{}"
+                  elementType:
+                    collectionType: true
+                    values:
+                      key: "{}"
+                    referenceTypeId: referenceTypeId
+                    name: name
+              type:
+                typeId: typeId
+                id: id
+                key: key
+            attributes:
+            - metaData:
+                unitType: unitType
+                unitOfMeasure: unitOfMeasure
+                name: name
+                unitSystem: unitSystem
+                group: group
+              name: name
+              label: label
+              type: type
+              value: "{}"
+              elementType:
+                collectionType: true
+                values:
+                  key: "{}"
+                referenceTypeId: referenceTypeId
+                name: name
+            - metaData:
+                unitType: unitType
+                unitOfMeasure: unitOfMeasure
+                name: name
+                unitSystem: unitSystem
+                group: group
+              name: name
+              label: label
+              type: type
+              value: "{}"
+              elementType:
+                collectionType: true
+                values:
+                  key: "{}"
+                referenceTypeId: referenceTypeId
+                name: name
+            id: 3
+            sku: sku
+            key: key
+          - images:
+            - width: 7
+              label: label
+              url: url
+              height: 9
+            - width: 7
+              label: label
+              url: url
+              height: 9
+            assets:
+            - sources:
+              - width: 4
+                contentType: contentType
+                uri: uri
+                key: key
+                height: 2
+              - width: 4
+                contentType: contentType
+                uri: uri
+                key: key
+                height: 2
+              custom:
+                name: name
+                description: description
+                attributes:
+                  key:
+                    metaData:
+                      unitType: unitType
+                      unitOfMeasure: unitOfMeasure
+                      name: name
+                      unitSystem: unitSystem
+                      group: group
+                    name: name
+                    label: label
+                    type: type
+                    value: "{}"
+                    elementType:
+                      collectionType: true
+                      values:
+                        key: "{}"
+                      referenceTypeId: referenceTypeId
+                      name: name
+                type:
+                  typeId: typeId
+                  id: id
+                  key: key
+              name: name
+              description: description
+              id: id
+              key: key
+              tags:
+              - tags
+              - tags
+            - sources:
+              - width: 4
+                contentType: contentType
+                uri: uri
+                key: key
+                height: 2
+              - width: 4
+                contentType: contentType
+                uri: uri
+                key: key
+                height: 2
+              custom:
+                name: name
+                description: description
+                attributes:
+                  key:
+                    metaData:
+                      unitType: unitType
+                      unitOfMeasure: unitOfMeasure
+                      name: name
+                      unitSystem: unitSystem
+                      group: group
+                    name: name
+                    label: label
+                    type: type
+                    value: "{}"
+                    elementType:
+                      collectionType: true
+                      values:
+                        key: "{}"
+                      referenceTypeId: referenceTypeId
+                      name: name
+                type:
+                  typeId: typeId
+                  id: id
+                  key: key
+              name: name
+              description: description
+              id: id
+              key: key
+              tags:
+              - tags
+              - tags
+            defaultVariant: true
+            custom:
+              name: name
+              description: description
+              attributes:
+                key:
+                  metaData:
+                    unitType: unitType
+                    unitOfMeasure: unitOfMeasure
+                    name: name
+                    unitSystem: unitSystem
+                    group: group
+                  name: name
+                  label: label
+                  type: type
+                  value: "{}"
+                  elementType:
+                    collectionType: true
+                    values:
+                      key: "{}"
+                    referenceTypeId: referenceTypeId
+                    name: name
+              type:
+                typeId: typeId
+                id: id
+                key: key
+            attributes:
+            - metaData:
+                unitType: unitType
+                unitOfMeasure: unitOfMeasure
+                name: name
+                unitSystem: unitSystem
+                group: group
+              name: name
+              label: label
+              type: type
+              value: "{}"
+              elementType:
+                collectionType: true
+                values:
+                  key: "{}"
+                referenceTypeId: referenceTypeId
+                name: name
+            - metaData:
+                unitType: unitType
+                unitOfMeasure: unitOfMeasure
+                name: name
+                unitSystem: unitSystem
+                group: group
+              name: name
+              label: label
+              type: type
+              value: "{}"
+              elementType:
+                collectionType: true
+                values:
+                  key: "{}"
+                referenceTypeId: referenceTypeId
+                name: name
+            id: 3
+            sku: sku
+            key: key
+          type:
+            name: name
+            attributes:
+            - metaData:
+                unitType: unitType
+                unitOfMeasure: unitOfMeasure
+                name: name
+                unitSystem: unitSystem
+                group: group
+              set: true
+              name: name
+              constraint: constraint
+              label: label
+              type: type
+              inputTip: inputTip
+              enumValues:
+              - label: label
+                key: key
+              - label: label
+                key: key
+            - metaData:
+                unitType: unitType
+                unitOfMeasure: unitOfMeasure
+                name: name
+                unitSystem: unitSystem
+                group: group
+              set: true
+              name: name
+              constraint: constraint
+              label: label
+              type: type
+              inputTip: inputTip
+              enumValues:
+              - label: label
+                key: key
+              - label: label
+                key: key
+            id: id
+            key: key
+          key: key
+          status:
+            name: name
+            description: description
+            id: id
+            transitions:
+            - null
+            - null
+            type: type
+            key: key
+        - metaData:
+            keywords: keywords
+            description: description
+            title: title
+            slug: slug
+          name: name
+          description: description
+          tax:
+            amount: 7.386281948385884
+            rates:
+            - country: country
+              amount: 1.2315135367772556
+              includedInPrice: true
+              name: name
+              id: id
+            - country: country
+              amount: 1.2315135367772556
+              includedInPrice: true
+              name: name
+              id: id
+            name: name
+            description: description
+            id: id
+            key: key
+          id: id
+          categories:
+          - image:
+              width: 7
+              label: label
+              url: url
+              height: 9
+            catalog: true
+            custom:
+              name: name
+              description: description
+              attributes:
+                key:
+                  metaData:
+                    unitType: unitType
+                    unitOfMeasure: unitOfMeasure
+                    name: name
+                    unitSystem: unitSystem
+                    group: group
+                  name: name
+                  label: label
+                  type: type
+                  value: "{}"
+                  elementType:
+                    collectionType: true
+                    values:
+                      key: "{}"
+                    referenceTypeId: referenceTypeId
+                    name: name
+              type:
+                typeId: typeId
+                id: id
+                key: key
+            description: description
+            type: type
+            restrictedCustomers:
+            - restrictedCustomers
+            - restrictedCustomers
+            children:
+            - null
+            - null
+            restricted: true
+            name: name
+            id: id
+            ancestors:
+            - null
+            - null
+            productsCount: 2
+            key: key
+            slug: slug
+          - image:
+              width: 7
+              label: label
+              url: url
+              height: 9
+            catalog: true
+            custom:
+              name: name
+              description: description
+              attributes:
+                key:
+                  metaData:
+                    unitType: unitType
+                    unitOfMeasure: unitOfMeasure
+                    name: name
+                    unitSystem: unitSystem
+                    group: group
+                  name: name
+                  label: label
+                  type: type
+                  value: "{}"
+                  elementType:
+                    collectionType: true
+                    values:
+                      key: "{}"
+                    referenceTypeId: referenceTypeId
+                    name: name
+              type:
+                typeId: typeId
+                id: id
+                key: key
+            description: description
+            type: type
+            restrictedCustomers:
+            - restrictedCustomers
+            - restrictedCustomers
+            children:
+            - null
+            - null
+            restricted: true
+            name: name
+            id: id
+            ancestors:
+            - null
+            - null
+            productsCount: 2
+            key: key
+            slug: slug
+          variants:
+          - images:
+            - width: 7
+              label: label
+              url: url
+              height: 9
+            - width: 7
+              label: label
+              url: url
+              height: 9
+            assets:
+            - sources:
+              - width: 4
+                contentType: contentType
+                uri: uri
+                key: key
+                height: 2
+              - width: 4
+                contentType: contentType
+                uri: uri
+                key: key
+                height: 2
+              custom:
+                name: name
+                description: description
+                attributes:
+                  key:
+                    metaData:
+                      unitType: unitType
+                      unitOfMeasure: unitOfMeasure
+                      name: name
+                      unitSystem: unitSystem
+                      group: group
+                    name: name
+                    label: label
+                    type: type
+                    value: "{}"
+                    elementType:
+                      collectionType: true
+                      values:
+                        key: "{}"
+                      referenceTypeId: referenceTypeId
+                      name: name
+                type:
+                  typeId: typeId
+                  id: id
+                  key: key
+              name: name
+              description: description
+              id: id
+              key: key
+              tags:
+              - tags
+              - tags
+            - sources:
+              - width: 4
+                contentType: contentType
+                uri: uri
+                key: key
+                height: 2
+              - width: 4
+                contentType: contentType
+                uri: uri
+                key: key
+                height: 2
+              custom:
+                name: name
+                description: description
+                attributes:
+                  key:
+                    metaData:
+                      unitType: unitType
+                      unitOfMeasure: unitOfMeasure
+                      name: name
+                      unitSystem: unitSystem
+                      group: group
+                    name: name
+                    label: label
+                    type: type
+                    value: "{}"
+                    elementType:
+                      collectionType: true
+                      values:
+                        key: "{}"
+                      referenceTypeId: referenceTypeId
+                      name: name
+                type:
+                  typeId: typeId
+                  id: id
+                  key: key
+              name: name
+              description: description
+              id: id
+              key: key
+              tags:
+              - tags
+              - tags
+            defaultVariant: true
+            custom:
+              name: name
+              description: description
+              attributes:
+                key:
+                  metaData:
+                    unitType: unitType
+                    unitOfMeasure: unitOfMeasure
+                    name: name
+                    unitSystem: unitSystem
+                    group: group
+                  name: name
+                  label: label
+                  type: type
+                  value: "{}"
+                  elementType:
+                    collectionType: true
+                    values:
+                      key: "{}"
+                    referenceTypeId: referenceTypeId
+                    name: name
+              type:
+                typeId: typeId
+                id: id
+                key: key
+            attributes:
+            - metaData:
+                unitType: unitType
+                unitOfMeasure: unitOfMeasure
+                name: name
+                unitSystem: unitSystem
+                group: group
+              name: name
+              label: label
+              type: type
+              value: "{}"
+              elementType:
+                collectionType: true
+                values:
+                  key: "{}"
+                referenceTypeId: referenceTypeId
+                name: name
+            - metaData:
+                unitType: unitType
+                unitOfMeasure: unitOfMeasure
+                name: name
+                unitSystem: unitSystem
+                group: group
+              name: name
+              label: label
+              type: type
+              value: "{}"
+              elementType:
+                collectionType: true
+                values:
+                  key: "{}"
+                referenceTypeId: referenceTypeId
+                name: name
+            id: 3
+            sku: sku
+            key: key
+          - images:
+            - width: 7
+              label: label
+              url: url
+              height: 9
+            - width: 7
+              label: label
+              url: url
+              height: 9
+            assets:
+            - sources:
+              - width: 4
+                contentType: contentType
+                uri: uri
+                key: key
+                height: 2
+              - width: 4
+                contentType: contentType
+                uri: uri
+                key: key
+                height: 2
+              custom:
+                name: name
+                description: description
+                attributes:
+                  key:
+                    metaData:
+                      unitType: unitType
+                      unitOfMeasure: unitOfMeasure
+                      name: name
+                      unitSystem: unitSystem
+                      group: group
+                    name: name
+                    label: label
+                    type: type
+                    value: "{}"
+                    elementType:
+                      collectionType: true
+                      values:
+                        key: "{}"
+                      referenceTypeId: referenceTypeId
+                      name: name
+                type:
+                  typeId: typeId
+                  id: id
+                  key: key
+              name: name
+              description: description
+              id: id
+              key: key
+              tags:
+              - tags
+              - tags
+            - sources:
+              - width: 4
+                contentType: contentType
+                uri: uri
+                key: key
+                height: 2
+              - width: 4
+                contentType: contentType
+                uri: uri
+                key: key
+                height: 2
+              custom:
+                name: name
+                description: description
+                attributes:
+                  key:
+                    metaData:
+                      unitType: unitType
+                      unitOfMeasure: unitOfMeasure
+                      name: name
+                      unitSystem: unitSystem
+                      group: group
+                    name: name
+                    label: label
+                    type: type
+                    value: "{}"
+                    elementType:
+                      collectionType: true
+                      values:
+                        key: "{}"
+                      referenceTypeId: referenceTypeId
+                      name: name
+                type:
+                  typeId: typeId
+                  id: id
+                  key: key
+              name: name
+              description: description
+              id: id
+              key: key
+              tags:
+              - tags
+              - tags
+            defaultVariant: true
+            custom:
+              name: name
+              description: description
+              attributes:
+                key:
+                  metaData:
+                    unitType: unitType
+                    unitOfMeasure: unitOfMeasure
+                    name: name
+                    unitSystem: unitSystem
+                    group: group
+                  name: name
+                  label: label
+                  type: type
+                  value: "{}"
+                  elementType:
+                    collectionType: true
+                    values:
+                      key: "{}"
+                    referenceTypeId: referenceTypeId
+                    name: name
+              type:
+                typeId: typeId
+                id: id
+                key: key
+            attributes:
+            - metaData:
+                unitType: unitType
+                unitOfMeasure: unitOfMeasure
+                name: name
+                unitSystem: unitSystem
+                group: group
+              name: name
+              label: label
+              type: type
+              value: "{}"
+              elementType:
+                collectionType: true
+                values:
+                  key: "{}"
+                referenceTypeId: referenceTypeId
+                name: name
+            - metaData:
+                unitType: unitType
+                unitOfMeasure: unitOfMeasure
+                name: name
+                unitSystem: unitSystem
+                group: group
+              name: name
+              label: label
+              type: type
+              value: "{}"
+              elementType:
+                collectionType: true
+                values:
+                  key: "{}"
+                referenceTypeId: referenceTypeId
+                name: name
+            id: 3
+            sku: sku
+            key: key
+          type:
+            name: name
+            attributes:
+            - metaData:
+                unitType: unitType
+                unitOfMeasure: unitOfMeasure
+                name: name
+                unitSystem: unitSystem
+                group: group
+              set: true
+              name: name
+              constraint: constraint
+              label: label
+              type: type
+              inputTip: inputTip
+              enumValues:
+              - label: label
+                key: key
+              - label: label
+                key: key
+            - metaData:
+                unitType: unitType
+                unitOfMeasure: unitOfMeasure
+                name: name
+                unitSystem: unitSystem
+                group: group
+              set: true
+              name: name
+              constraint: constraint
+              label: label
+              type: type
+              inputTip: inputTip
+              enumValues:
+              - label: label
+                key: key
+              - label: label
+                key: key
+            id: id
+            key: key
+          key: key
+          status:
+            name: name
+            description: description
+            id: id
+            transitions:
+            - null
+            - null
+            type: type
+            key: key
+      properties:
+        offset:
+          format: int64
+          type: integer
+        limit:
+          format: int64
+          type: integer
+        total:
+          format: int64
+          type: integer
+        totalPages:
+          format: int64
+          type: integer
+        count:
+          format: int64
+          type: integer
+        results:
+          items:
+            $ref: "#/components/schemas/ProductAggregation"
+          type: array
+        searchRequest:
+          $ref: "#/components/schemas/PageableSearchRequest"
+      type: object
+    ProductAggregation:
+      example:
+        metaData:
+          keywords: keywords
+          description: description
+          title: title
+          slug: slug
+        name: name
+        description: description
+        tax:
+          amount: 7.386281948385884
+          rates:
+          - country: country
+            amount: 1.2315135367772556
+            includedInPrice: true
+            name: name
+            id: id
+          - country: country
+            amount: 1.2315135367772556
+            includedInPrice: true
+            name: name
+            id: id
+          name: name
+          description: description
+          id: id
+          key: key
+        id: id
+        categories:
+        - image:
+            width: 7
+            label: label
+            url: url
+            height: 9
+          catalog: true
+          custom:
+            name: name
+            description: description
+            attributes:
+              key:
+                metaData:
+                  unitType: unitType
+                  unitOfMeasure: unitOfMeasure
+                  name: name
+                  unitSystem: unitSystem
+                  group: group
+                name: name
+                label: label
+                type: type
+                value: "{}"
+                elementType:
+                  collectionType: true
+                  values:
+                    key: "{}"
+                  referenceTypeId: referenceTypeId
+                  name: name
+            type:
+              typeId: typeId
+              id: id
+              key: key
+          description: description
+          type: type
+          restrictedCustomers:
+          - restrictedCustomers
+          - restrictedCustomers
+          children:
+          - null
+          - null
+          restricted: true
+          name: name
+          id: id
+          ancestors:
+          - null
+          - null
+          productsCount: 2
+          key: key
+          slug: slug
+        - image:
+            width: 7
+            label: label
+            url: url
+            height: 9
+          catalog: true
+          custom:
+            name: name
+            description: description
+            attributes:
+              key:
+                metaData:
+                  unitType: unitType
+                  unitOfMeasure: unitOfMeasure
+                  name: name
+                  unitSystem: unitSystem
+                  group: group
+                name: name
+                label: label
+                type: type
+                value: "{}"
+                elementType:
+                  collectionType: true
+                  values:
+                    key: "{}"
+                  referenceTypeId: referenceTypeId
+                  name: name
+            type:
+              typeId: typeId
+              id: id
+              key: key
+          description: description
+          type: type
+          restrictedCustomers:
+          - restrictedCustomers
+          - restrictedCustomers
+          children:
+          - null
+          - null
+          restricted: true
+          name: name
+          id: id
+          ancestors:
+          - null
+          - null
+          productsCount: 2
+          key: key
+          slug: slug
+        variants:
+        - images:
+          - width: 7
+            label: label
+            url: url
+            height: 9
+          - width: 7
+            label: label
+            url: url
+            height: 9
+          assets:
+          - sources:
+            - width: 4
+              contentType: contentType
+              uri: uri
+              key: key
+              height: 2
+            - width: 4
+              contentType: contentType
+              uri: uri
+              key: key
+              height: 2
+            custom:
+              name: name
+              description: description
+              attributes:
+                key:
+                  metaData:
+                    unitType: unitType
+                    unitOfMeasure: unitOfMeasure
+                    name: name
+                    unitSystem: unitSystem
+                    group: group
+                  name: name
+                  label: label
+                  type: type
+                  value: "{}"
+                  elementType:
+                    collectionType: true
+                    values:
+                      key: "{}"
+                    referenceTypeId: referenceTypeId
+                    name: name
+              type:
+                typeId: typeId
+                id: id
+                key: key
+            name: name
+            description: description
+            id: id
+            key: key
+            tags:
+            - tags
+            - tags
+          - sources:
+            - width: 4
+              contentType: contentType
+              uri: uri
+              key: key
+              height: 2
+            - width: 4
+              contentType: contentType
+              uri: uri
+              key: key
+              height: 2
+            custom:
+              name: name
+              description: description
+              attributes:
+                key:
+                  metaData:
+                    unitType: unitType
+                    unitOfMeasure: unitOfMeasure
+                    name: name
+                    unitSystem: unitSystem
+                    group: group
+                  name: name
+                  label: label
+                  type: type
+                  value: "{}"
+                  elementType:
+                    collectionType: true
+                    values:
+                      key: "{}"
+                    referenceTypeId: referenceTypeId
+                    name: name
+              type:
+                typeId: typeId
+                id: id
+                key: key
+            name: name
+            description: description
+            id: id
+            key: key
+            tags:
+            - tags
+            - tags
+          defaultVariant: true
+          custom:
+            name: name
+            description: description
+            attributes:
+              key:
+                metaData:
+                  unitType: unitType
+                  unitOfMeasure: unitOfMeasure
+                  name: name
+                  unitSystem: unitSystem
+                  group: group
+                name: name
+                label: label
+                type: type
+                value: "{}"
+                elementType:
+                  collectionType: true
+                  values:
+                    key: "{}"
+                  referenceTypeId: referenceTypeId
+                  name: name
+            type:
+              typeId: typeId
+              id: id
+              key: key
+          attributes:
+          - metaData:
+              unitType: unitType
+              unitOfMeasure: unitOfMeasure
+              name: name
+              unitSystem: unitSystem
+              group: group
+            name: name
+            label: label
+            type: type
+            value: "{}"
+            elementType:
+              collectionType: true
+              values:
+                key: "{}"
+              referenceTypeId: referenceTypeId
+              name: name
+          - metaData:
+              unitType: unitType
+              unitOfMeasure: unitOfMeasure
+              name: name
+              unitSystem: unitSystem
+              group: group
+            name: name
+            label: label
+            type: type
+            value: "{}"
+            elementType:
+              collectionType: true
+              values:
+                key: "{}"
+              referenceTypeId: referenceTypeId
+              name: name
+          id: 3
+          sku: sku
+          key: key
+        - images:
+          - width: 7
+            label: label
+            url: url
+            height: 9
+          - width: 7
+            label: label
+            url: url
+            height: 9
+          assets:
+          - sources:
+            - width: 4
+              contentType: contentType
+              uri: uri
+              key: key
+              height: 2
+            - width: 4
+              contentType: contentType
+              uri: uri
+              key: key
+              height: 2
+            custom:
+              name: name
+              description: description
+              attributes:
+                key:
+                  metaData:
+                    unitType: unitType
+                    unitOfMeasure: unitOfMeasure
+                    name: name
+                    unitSystem: unitSystem
+                    group: group
+                  name: name
+                  label: label
+                  type: type
+                  value: "{}"
+                  elementType:
+                    collectionType: true
+                    values:
+                      key: "{}"
+                    referenceTypeId: referenceTypeId
+                    name: name
+              type:
+                typeId: typeId
+                id: id
+                key: key
+            name: name
+            description: description
+            id: id
+            key: key
+            tags:
+            - tags
+            - tags
+          - sources:
+            - width: 4
+              contentType: contentType
+              uri: uri
+              key: key
+              height: 2
+            - width: 4
+              contentType: contentType
+              uri: uri
+              key: key
+              height: 2
+            custom:
+              name: name
+              description: description
+              attributes:
+                key:
+                  metaData:
+                    unitType: unitType
+                    unitOfMeasure: unitOfMeasure
+                    name: name
+                    unitSystem: unitSystem
+                    group: group
+                  name: name
+                  label: label
+                  type: type
+                  value: "{}"
+                  elementType:
+                    collectionType: true
+                    values:
+                      key: "{}"
+                    referenceTypeId: referenceTypeId
+                    name: name
+              type:
+                typeId: typeId
+                id: id
+                key: key
+            name: name
+            description: description
+            id: id
+            key: key
+            tags:
+            - tags
+            - tags
+          defaultVariant: true
+          custom:
+            name: name
+            description: description
+            attributes:
+              key:
+                metaData:
+                  unitType: unitType
+                  unitOfMeasure: unitOfMeasure
+                  name: name
+                  unitSystem: unitSystem
+                  group: group
+                name: name
+                label: label
+                type: type
+                value: "{}"
+                elementType:
+                  collectionType: true
+                  values:
+                    key: "{}"
+                  referenceTypeId: referenceTypeId
+                  name: name
+            type:
+              typeId: typeId
+              id: id
+              key: key
+          attributes:
+          - metaData:
+              unitType: unitType
+              unitOfMeasure: unitOfMeasure
+              name: name
+              unitSystem: unitSystem
+              group: group
+            name: name
+            label: label
+            type: type
+            value: "{}"
+            elementType:
+              collectionType: true
+              values:
+                key: "{}"
+              referenceTypeId: referenceTypeId
+              name: name
+          - metaData:
+              unitType: unitType
+              unitOfMeasure: unitOfMeasure
+              name: name
+              unitSystem: unitSystem
+              group: group
+            name: name
+            label: label
+            type: type
+            value: "{}"
+            elementType:
+              collectionType: true
+              values:
+                key: "{}"
+              referenceTypeId: referenceTypeId
+              name: name
+          id: 3
+          sku: sku
+          key: key
+        type:
+          name: name
+          attributes:
+          - metaData:
+              unitType: unitType
+              unitOfMeasure: unitOfMeasure
+              name: name
+              unitSystem: unitSystem
+              group: group
+            set: true
+            name: name
+            constraint: constraint
+            label: label
+            type: type
+            inputTip: inputTip
+            enumValues:
+            - label: label
+              key: key
+            - label: label
+              key: key
+          - metaData:
+              unitType: unitType
+              unitOfMeasure: unitOfMeasure
+              name: name
+              unitSystem: unitSystem
+              group: group
+            set: true
+            name: name
+            constraint: constraint
+            label: label
+            type: type
+            inputTip: inputTip
+            enumValues:
+            - label: label
+              key: key
+            - label: label
+              key: key
+          id: id
+          key: key
+        key: key
+        status:
+          name: name
+          description: description
+          id: id
+          transitions:
+          - null
+          - null
+          type: type
+          key: key
+      properties:
+        id:
+          description: Product Id
+          type: string
+        key:
+          description: Product Key
+          type: string
+        name:
+          description: Product Name
+          type: string
+        description:
+          description: Product Description
+          type: string
+        categories:
+          description: Product Categories
+          items:
+            $ref: "#/components/schemas/CategoryNavigationAggregation"
+          type: array
+        variants:
+          description: Variants
+          items:
+            $ref: "#/components/schemas/ProductVariantAggregation"
+          type: array
+        metaData:
+          $ref: "#/components/schemas/MetaDataAggregation"
+        status:
+          $ref: "#/components/schemas/StateAggregation"
+        tax:
+          $ref: "#/components/schemas/TaxCategoryAggregation"
+        type:
+          $ref: "#/components/schemas/ProductTypeAggregation"
+      type: object
+    ProductVariantAggregation:
+      description: Variants
+      example:
+        images:
+        - width: 7
+          label: label
+          url: url
+          height: 9
+        - width: 7
+          label: label
+          url: url
+          height: 9
+        assets:
+        - sources:
+          - width: 4
+            contentType: contentType
+            uri: uri
+            key: key
+            height: 2
+          - width: 4
+            contentType: contentType
+            uri: uri
+            key: key
+            height: 2
+          custom:
+            name: name
+            description: description
+            attributes:
+              key:
+                metaData:
+                  unitType: unitType
+                  unitOfMeasure: unitOfMeasure
+                  name: name
+                  unitSystem: unitSystem
+                  group: group
+                name: name
+                label: label
+                type: type
+                value: "{}"
+                elementType:
+                  collectionType: true
+                  values:
+                    key: "{}"
+                  referenceTypeId: referenceTypeId
+                  name: name
+            type:
+              typeId: typeId
+              id: id
+              key: key
+          name: name
+          description: description
+          id: id
+          key: key
+          tags:
+          - tags
+          - tags
+        - sources:
+          - width: 4
+            contentType: contentType
+            uri: uri
+            key: key
+            height: 2
+          - width: 4
+            contentType: contentType
+            uri: uri
+            key: key
+            height: 2
+          custom:
+            name: name
+            description: description
+            attributes:
+              key:
+                metaData:
+                  unitType: unitType
+                  unitOfMeasure: unitOfMeasure
+                  name: name
+                  unitSystem: unitSystem
+                  group: group
+                name: name
+                label: label
+                type: type
+                value: "{}"
+                elementType:
+                  collectionType: true
+                  values:
+                    key: "{}"
+                  referenceTypeId: referenceTypeId
+                  name: name
+            type:
+              typeId: typeId
+              id: id
+              key: key
+          name: name
+          description: description
+          id: id
+          key: key
+          tags:
+          - tags
+          - tags
+        defaultVariant: true
+        custom:
+          name: name
+          description: description
+          attributes:
+            key:
+              metaData:
+                unitType: unitType
+                unitOfMeasure: unitOfMeasure
+                name: name
+                unitSystem: unitSystem
+                group: group
+              name: name
+              label: label
+              type: type
+              value: "{}"
+              elementType:
+                collectionType: true
+                values:
+                  key: "{}"
+                referenceTypeId: referenceTypeId
+                name: name
+          type:
+            typeId: typeId
+            id: id
+            key: key
+        attributes:
+        - metaData:
+            unitType: unitType
+            unitOfMeasure: unitOfMeasure
+            name: name
+            unitSystem: unitSystem
+            group: group
+          name: name
+          label: label
+          type: type
+          value: "{}"
+          elementType:
+            collectionType: true
+            values:
+              key: "{}"
+            referenceTypeId: referenceTypeId
+            name: name
+        - metaData:
+            unitType: unitType
+            unitOfMeasure: unitOfMeasure
+            name: name
+            unitSystem: unitSystem
+            group: group
+          name: name
+          label: label
+          type: type
+          value: "{}"
+          elementType:
+            collectionType: true
+            values:
+              key: "{}"
+            referenceTypeId: referenceTypeId
+            name: name
+        id: 3
+        sku: sku
+        key: key
+      properties:
+        id:
+          description: Variant ID
+          format: int32
+          type: integer
+        key:
+          description: Variant Key
+          type: string
+        sku:
+          description: Sku
+          type: string
+        defaultVariant:
+          description: Default Flag
+          type: boolean
+        images:
+          description: Variant Images
+          items:
+            $ref: "#/components/schemas/ImageAggregation"
+          type: array
+        assets:
+          description: Variant assets
+          items:
+            $ref: "#/components/schemas/AssetAggregation"
+          type: array
+        attributes:
+          description: Variant Attributes
+          items:
+            $ref: "#/components/schemas/AttributeAggregation"
+          type: array
+        custom:
+          $ref: "#/components/schemas/CustomAggregation"
+      type: object
+    StateAggregation:
+      example:
+        name: name
+        description: description
+        id: id
+        transitions:
+        - null
+        - null
+        type: type
+        key: key
+      properties:
+        id:
+          description: State ID
+          type: string
+        key:
+          description: State Key
+          type: string
+        name:
+          description: Localized Name
+          type: string
+        description:
+          description: Localized Description
+          type: string
+        transitions:
+          description: Allowed transitions
+          items:
+            $ref: "#/components/schemas/StateAggregation"
+          type: array
+        type:
+          description: State type
+          type: string
+      type: object
+    TaxCategoryAggregation:
+      description: Tax Category Aggregation
+      example:
+        amount: 7.386281948385884
+        rates:
+        - country: country
+          amount: 1.2315135367772556
+          includedInPrice: true
+          name: name
+          id: id
+        - country: country
+          amount: 1.2315135367772556
+          includedInPrice: true
+          name: name
+          id: id
+        name: name
+        description: description
+        id: id
+        key: key
+      properties:
+        id:
+          description: ID
+          type: string
+        key:
+          description: Key
+          type: string
+        name:
+          description: Name
+          type: string
+        description:
+          description: Description
+          type: string
+        amount:
+          description: Amount
+          type: number
+        rates:
+          items:
+            $ref: "#/components/schemas/TaxRateAggregation"
+          type: array
+      type: object
+    TaxRateAggregation:
+      description: Tax Rate Aggregation
+      example:
+        country: country
+        amount: 1.2315135367772556
+        includedInPrice: true
+        name: name
+        id: id
+      properties:
+        id:
+          description: ID
+          type: string
+        name:
+          description: Name
+          type: string
+        amount:
+          description: Amount
+          type: number
+        includedInPrice:
+          description: Included In Price Flag (net/gross)
+          type: boolean
+        country:
+          description: Country ISO Code
+          type: string
+      type: object
+    CategoryAggregation:
+      example:
+        parent: null
+        image:
+          width: 7
+          label: label
+          url: url
+          height: 9
+        catalog: true
+        custom:
+          name: name
+          description: description
+          attributes:
+            key:
+              metaData:
+                unitType: unitType
+                unitOfMeasure: unitOfMeasure
+                name: name
+                unitSystem: unitSystem
+                group: group
+              name: name
+              label: label
+              type: type
+              value: "{}"
+              elementType:
+                collectionType: true
+                values:
+                  key: "{}"
+                referenceTypeId: referenceTypeId
+                name: name
+          type:
+            typeId: typeId
+            id: id
+            key: key
+        description: description
+        type: type
+        restrictedCustomers:
+        - restrictedCustomers
+        - restrictedCustomers
+        metaData:
+          keywords: keywords
+          description: description
+          title: title
+          slug: slug
+        assets:
+        - sources:
+          - width: 4
+            contentType: contentType
+            uri: uri
+            key: key
+            height: 2
+          - width: 4
+            contentType: contentType
+            uri: uri
+            key: key
+            height: 2
+          custom:
+            name: name
+            description: description
+            attributes:
+              key:
+                metaData:
+                  unitType: unitType
+                  unitOfMeasure: unitOfMeasure
+                  name: name
+                  unitSystem: unitSystem
+                  group: group
+                name: name
+                label: label
+                type: type
+                value: "{}"
+                elementType:
+                  collectionType: true
+                  values:
+                    key: "{}"
+                  referenceTypeId: referenceTypeId
+                  name: name
+            type:
+              typeId: typeId
+              id: id
+              key: key
+          name: name
+          description: description
+          id: id
+          key: key
+          tags:
+          - tags
+          - tags
+        - sources:
+          - width: 4
+            contentType: contentType
+            uri: uri
+            key: key
+            height: 2
+          - width: 4
+            contentType: contentType
+            uri: uri
+            key: key
+            height: 2
+          custom:
+            name: name
+            description: description
+            attributes:
+              key:
+                metaData:
+                  unitType: unitType
+                  unitOfMeasure: unitOfMeasure
+                  name: name
+                  unitSystem: unitSystem
+                  group: group
+                name: name
+                label: label
+                type: type
+                value: "{}"
+                elementType:
+                  collectionType: true
+                  values:
+                    key: "{}"
+                  referenceTypeId: referenceTypeId
+                  name: name
+            type:
+              typeId: typeId
+              id: id
+              key: key
+          name: name
+          description: description
+          id: id
+          key: key
+          tags:
+          - tags
+          - tags
+        children:
+        - image:
+            width: 7
+            label: label
+            url: url
+            height: 9
+          catalog: true
+          custom:
+            name: name
+            description: description
+            attributes:
+              key:
+                metaData:
+                  unitType: unitType
+                  unitOfMeasure: unitOfMeasure
+                  name: name
+                  unitSystem: unitSystem
+                  group: group
+                name: name
+                label: label
+                type: type
+                value: "{}"
+                elementType:
+                  collectionType: true
+                  values:
+                    key: "{}"
+                  referenceTypeId: referenceTypeId
+                  name: name
+            type:
+              typeId: typeId
+              id: id
+              key: key
+          description: description
+          type: type
+          restrictedCustomers:
+          - restrictedCustomers
+          - restrictedCustomers
+          children:
+          - null
+          - null
+          restricted: true
+          name: name
+          id: id
+          ancestors:
+          - null
+          - null
+          productsCount: 2
+          key: key
+          slug: slug
+        - image:
+            width: 7
+            label: label
+            url: url
+            height: 9
+          catalog: true
+          custom:
+            name: name
+            description: description
+            attributes:
+              key:
+                metaData:
+                  unitType: unitType
+                  unitOfMeasure: unitOfMeasure
+                  name: name
+                  unitSystem: unitSystem
+                  group: group
+                name: name
+                label: label
+                type: type
+                value: "{}"
+                elementType:
+                  collectionType: true
+                  values:
+                    key: "{}"
+                  referenceTypeId: referenceTypeId
+                  name: name
+            type:
+              typeId: typeId
+              id: id
+              key: key
+          description: description
+          type: type
+          restrictedCustomers:
+          - restrictedCustomers
+          - restrictedCustomers
+          children:
+          - null
+          - null
+          restricted: true
+          name: name
+          id: id
+          ancestors:
+          - null
+          - null
+          productsCount: 2
+          key: key
+          slug: slug
+        restricted: true
+        name: name
+        id: id
+        productsCount: 2
+        ancestors:
+        - image:
+            width: 7
+            label: label
+            url: url
+            height: 9
+          catalog: true
+          custom:
+            name: name
+            description: description
+            attributes:
+              key:
+                metaData:
+                  unitType: unitType
+                  unitOfMeasure: unitOfMeasure
+                  name: name
+                  unitSystem: unitSystem
+                  group: group
+                name: name
+                label: label
+                type: type
+                value: "{}"
+                elementType:
+                  collectionType: true
+                  values:
+                    key: "{}"
+                  referenceTypeId: referenceTypeId
+                  name: name
+            type:
+              typeId: typeId
+              id: id
+              key: key
+          description: description
+          type: type
+          restrictedCustomers:
+          - restrictedCustomers
+          - restrictedCustomers
+          children:
+          - null
+          - null
+          restricted: true
+          name: name
+          id: id
+          ancestors:
+          - null
+          - null
+          productsCount: 2
+          key: key
+          slug: slug
+        - image:
+            width: 7
+            label: label
+            url: url
+            height: 9
+          catalog: true
+          custom:
+            name: name
+            description: description
+            attributes:
+              key:
+                metaData:
+                  unitType: unitType
+                  unitOfMeasure: unitOfMeasure
+                  name: name
+                  unitSystem: unitSystem
+                  group: group
+                name: name
+                label: label
+                type: type
+                value: "{}"
+                elementType:
+                  collectionType: true
+                  values:
+                    key: "{}"
+                  referenceTypeId: referenceTypeId
+                  name: name
+            type:
+              typeId: typeId
+              id: id
+              key: key
+          description: description
+          type: type
+          restrictedCustomers:
+          - restrictedCustomers
+          - restrictedCustomers
+          children:
+          - null
+          - null
+          restricted: true
+          name: name
+          id: id
+          ancestors:
+          - null
+          - null
+          productsCount: 2
+          key: key
+          slug: slug
+        key: key
+        slug: slug
+      properties:
+        catalog:
+          description: Catalog Flag
+          type: boolean
+        productsCount:
+          description: Products Count
+          format: int32
+          type: integer
+        restricted:
+          description: Restrcited Flag
+          type: boolean
+        restrictedCustomers:
+          description: Resticted Customer ID list
+          items:
+            description: Resticted Customer ID list
+            type: string
+          type: array
+        metaData:
+          $ref: "#/components/schemas/MetaDataAggregation"
+        type:
+          description: Category Type
+          type: string
+        parent:
+          $ref: "#/components/schemas/CategoryAggregation"
+        ancestors:
+          items:
+            $ref: "#/components/schemas/CategoryNavigationAggregation"
+          type: array
+        id:
+          description: ID
+          type: string
+        key:
+          description: Key
+          type: string
+        name:
+          description: Name
+          type: string
+        description:
+          description: Description
+          type: string
+        slug:
+          description: Slug
+          type: string
+        children:
+          description: Child Categories
+          items:
+            $ref: "#/components/schemas/CategoryNavigationAggregation"
+          type: array
+        image:
+          $ref: "#/components/schemas/ImageAggregation"
+        assets:
+          items:
+            $ref: "#/components/schemas/AssetAggregation"
+          type: array
+        custom:
+          $ref: "#/components/schemas/CustomAggregation"
+      type: object
+    PageableOfCategoryAggregation:
+      example:
+        searchRequest:
+          filter:
+          - attribute: attribute
+            value: value
+          - attribute: attribute
+            value: value
+          displayType: DETAIL
+          offset: 0
+          limit: 115
+          includeCount: true
+          sorts:
+          - attribute: attribute
+            direction: direction
+          - attribute: attribute
+            direction: direction
+        total: 1
+        offset: 0
+        limit: 6
+        totalPages: 5
+        count: 5
+        results:
+        - parent: null
+          image:
+            width: 7
+            label: label
+            url: url
+            height: 9
+          catalog: true
+          custom:
+            name: name
+            description: description
+            attributes:
+              key:
+                metaData:
+                  unitType: unitType
+                  unitOfMeasure: unitOfMeasure
+                  name: name
+                  unitSystem: unitSystem
+                  group: group
+                name: name
+                label: label
+                type: type
+                value: "{}"
+                elementType:
+                  collectionType: true
+                  values:
+                    key: "{}"
+                  referenceTypeId: referenceTypeId
+                  name: name
+            type:
+              typeId: typeId
+              id: id
+              key: key
+          description: description
+          type: type
+          restrictedCustomers:
+          - restrictedCustomers
+          - restrictedCustomers
+          metaData:
+            keywords: keywords
+            description: description
+            title: title
+            slug: slug
+          assets:
+          - sources:
+            - width: 4
+              contentType: contentType
+              uri: uri
+              key: key
+              height: 2
+            - width: 4
+              contentType: contentType
+              uri: uri
+              key: key
+              height: 2
+            custom:
+              name: name
+              description: description
+              attributes:
+                key:
+                  metaData:
+                    unitType: unitType
+                    unitOfMeasure: unitOfMeasure
+                    name: name
+                    unitSystem: unitSystem
+                    group: group
+                  name: name
+                  label: label
+                  type: type
+                  value: "{}"
+                  elementType:
+                    collectionType: true
+                    values:
+                      key: "{}"
+                    referenceTypeId: referenceTypeId
+                    name: name
+              type:
+                typeId: typeId
+                id: id
+                key: key
+            name: name
+            description: description
+            id: id
+            key: key
+            tags:
+            - tags
+            - tags
+          - sources:
+            - width: 4
+              contentType: contentType
+              uri: uri
+              key: key
+              height: 2
+            - width: 4
+              contentType: contentType
+              uri: uri
+              key: key
+              height: 2
+            custom:
+              name: name
+              description: description
+              attributes:
+                key:
+                  metaData:
+                    unitType: unitType
+                    unitOfMeasure: unitOfMeasure
+                    name: name
+                    unitSystem: unitSystem
+                    group: group
+                  name: name
+                  label: label
+                  type: type
+                  value: "{}"
+                  elementType:
+                    collectionType: true
+                    values:
+                      key: "{}"
+                    referenceTypeId: referenceTypeId
+                    name: name
+              type:
+                typeId: typeId
+                id: id
+                key: key
+            name: name
+            description: description
+            id: id
+            key: key
+            tags:
+            - tags
+            - tags
+          children:
+          - image:
+              width: 7
+              label: label
+              url: url
+              height: 9
+            catalog: true
+            custom:
+              name: name
+              description: description
+              attributes:
+                key:
+                  metaData:
+                    unitType: unitType
+                    unitOfMeasure: unitOfMeasure
+                    name: name
+                    unitSystem: unitSystem
+                    group: group
+                  name: name
+                  label: label
+                  type: type
+                  value: "{}"
+                  elementType:
+                    collectionType: true
+                    values:
+                      key: "{}"
+                    referenceTypeId: referenceTypeId
+                    name: name
+              type:
+                typeId: typeId
+                id: id
+                key: key
+            description: description
+            type: type
+            restrictedCustomers:
+            - restrictedCustomers
+            - restrictedCustomers
+            children:
+            - null
+            - null
+            restricted: true
+            name: name
+            id: id
+            ancestors:
+            - null
+            - null
+            productsCount: 2
+            key: key
+            slug: slug
+          - image:
+              width: 7
+              label: label
+              url: url
+              height: 9
+            catalog: true
+            custom:
+              name: name
+              description: description
+              attributes:
+                key:
+                  metaData:
+                    unitType: unitType
+                    unitOfMeasure: unitOfMeasure
+                    name: name
+                    unitSystem: unitSystem
+                    group: group
+                  name: name
+                  label: label
+                  type: type
+                  value: "{}"
+                  elementType:
+                    collectionType: true
+                    values:
+                      key: "{}"
+                    referenceTypeId: referenceTypeId
+                    name: name
+              type:
+                typeId: typeId
+                id: id
+                key: key
+            description: description
+            type: type
+            restrictedCustomers:
+            - restrictedCustomers
+            - restrictedCustomers
+            children:
+            - null
+            - null
+            restricted: true
+            name: name
+            id: id
+            ancestors:
+            - null
+            - null
+            productsCount: 2
+            key: key
+            slug: slug
+          restricted: true
+          name: name
+          id: id
+          productsCount: 2
+          ancestors:
+          - image:
+              width: 7
+              label: label
+              url: url
+              height: 9
+            catalog: true
+            custom:
+              name: name
+              description: description
+              attributes:
+                key:
+                  metaData:
+                    unitType: unitType
+                    unitOfMeasure: unitOfMeasure
+                    name: name
+                    unitSystem: unitSystem
+                    group: group
+                  name: name
+                  label: label
+                  type: type
+                  value: "{}"
+                  elementType:
+                    collectionType: true
+                    values:
+                      key: "{}"
+                    referenceTypeId: referenceTypeId
+                    name: name
+              type:
+                typeId: typeId
+                id: id
+                key: key
+            description: description
+            type: type
+            restrictedCustomers:
+            - restrictedCustomers
+            - restrictedCustomers
+            children:
+            - null
+            - null
+            restricted: true
+            name: name
+            id: id
+            ancestors:
+            - null
+            - null
+            productsCount: 2
+            key: key
+            slug: slug
+          - image:
+              width: 7
+              label: label
+              url: url
+              height: 9
+            catalog: true
+            custom:
+              name: name
+              description: description
+              attributes:
+                key:
+                  metaData:
+                    unitType: unitType
+                    unitOfMeasure: unitOfMeasure
+                    name: name
+                    unitSystem: unitSystem
+                    group: group
+                  name: name
+                  label: label
+                  type: type
+                  value: "{}"
+                  elementType:
+                    collectionType: true
+                    values:
+                      key: "{}"
+                    referenceTypeId: referenceTypeId
+                    name: name
+              type:
+                typeId: typeId
+                id: id
+                key: key
+            description: description
+            type: type
+            restrictedCustomers:
+            - restrictedCustomers
+            - restrictedCustomers
+            children:
+            - null
+            - null
+            restricted: true
+            name: name
+            id: id
+            ancestors:
+            - null
+            - null
+            productsCount: 2
+            key: key
+            slug: slug
+          key: key
+          slug: slug
+        - parent: null
+          image:
+            width: 7
+            label: label
+            url: url
+            height: 9
+          catalog: true
+          custom:
+            name: name
+            description: description
+            attributes:
+              key:
+                metaData:
+                  unitType: unitType
+                  unitOfMeasure: unitOfMeasure
+                  name: name
+                  unitSystem: unitSystem
+                  group: group
+                name: name
+                label: label
+                type: type
+                value: "{}"
+                elementType:
+                  collectionType: true
+                  values:
+                    key: "{}"
+                  referenceTypeId: referenceTypeId
+                  name: name
+            type:
+              typeId: typeId
+              id: id
+              key: key
+          description: description
+          type: type
+          restrictedCustomers:
+          - restrictedCustomers
+          - restrictedCustomers
+          metaData:
+            keywords: keywords
+            description: description
+            title: title
+            slug: slug
+          assets:
+          - sources:
+            - width: 4
+              contentType: contentType
+              uri: uri
+              key: key
+              height: 2
+            - width: 4
+              contentType: contentType
+              uri: uri
+              key: key
+              height: 2
+            custom:
+              name: name
+              description: description
+              attributes:
+                key:
+                  metaData:
+                    unitType: unitType
+                    unitOfMeasure: unitOfMeasure
+                    name: name
+                    unitSystem: unitSystem
+                    group: group
+                  name: name
+                  label: label
+                  type: type
+                  value: "{}"
+                  elementType:
+                    collectionType: true
+                    values:
+                      key: "{}"
+                    referenceTypeId: referenceTypeId
+                    name: name
+              type:
+                typeId: typeId
+                id: id
+                key: key
+            name: name
+            description: description
+            id: id
+            key: key
+            tags:
+            - tags
+            - tags
+          - sources:
+            - width: 4
+              contentType: contentType
+              uri: uri
+              key: key
+              height: 2
+            - width: 4
+              contentType: contentType
+              uri: uri
+              key: key
+              height: 2
+            custom:
+              name: name
+              description: description
+              attributes:
+                key:
+                  metaData:
+                    unitType: unitType
+                    unitOfMeasure: unitOfMeasure
+                    name: name
+                    unitSystem: unitSystem
+                    group: group
+                  name: name
+                  label: label
+                  type: type
+                  value: "{}"
+                  elementType:
+                    collectionType: true
+                    values:
+                      key: "{}"
+                    referenceTypeId: referenceTypeId
+                    name: name
+              type:
+                typeId: typeId
+                id: id
+                key: key
+            name: name
+            description: description
+            id: id
+            key: key
+            tags:
+            - tags
+            - tags
+          children:
+          - image:
+              width: 7
+              label: label
+              url: url
+              height: 9
+            catalog: true
+            custom:
+              name: name
+              description: description
+              attributes:
+                key:
+                  metaData:
+                    unitType: unitType
+                    unitOfMeasure: unitOfMeasure
+                    name: name
+                    unitSystem: unitSystem
+                    group: group
+                  name: name
+                  label: label
+                  type: type
+                  value: "{}"
+                  elementType:
+                    collectionType: true
+                    values:
+                      key: "{}"
+                    referenceTypeId: referenceTypeId
+                    name: name
+              type:
+                typeId: typeId
+                id: id
+                key: key
+            description: description
+            type: type
+            restrictedCustomers:
+            - restrictedCustomers
+            - restrictedCustomers
+            children:
+            - null
+            - null
+            restricted: true
+            name: name
+            id: id
+            ancestors:
+            - null
+            - null
+            productsCount: 2
+            key: key
+            slug: slug
+          - image:
+              width: 7
+              label: label
+              url: url
+              height: 9
+            catalog: true
+            custom:
+              name: name
+              description: description
+              attributes:
+                key:
+                  metaData:
+                    unitType: unitType
+                    unitOfMeasure: unitOfMeasure
+                    name: name
+                    unitSystem: unitSystem
+                    group: group
+                  name: name
+                  label: label
+                  type: type
+                  value: "{}"
+                  elementType:
+                    collectionType: true
+                    values:
+                      key: "{}"
+                    referenceTypeId: referenceTypeId
+                    name: name
+              type:
+                typeId: typeId
+                id: id
+                key: key
+            description: description
+            type: type
+            restrictedCustomers:
+            - restrictedCustomers
+            - restrictedCustomers
+            children:
+            - null
+            - null
+            restricted: true
+            name: name
+            id: id
+            ancestors:
+            - null
+            - null
+            productsCount: 2
+            key: key
+            slug: slug
+          restricted: true
+          name: name
+          id: id
+          productsCount: 2
+          ancestors:
+          - image:
+              width: 7
+              label: label
+              url: url
+              height: 9
+            catalog: true
+            custom:
+              name: name
+              description: description
+              attributes:
+                key:
+                  metaData:
+                    unitType: unitType
+                    unitOfMeasure: unitOfMeasure
+                    name: name
+                    unitSystem: unitSystem
+                    group: group
+                  name: name
+                  label: label
+                  type: type
+                  value: "{}"
+                  elementType:
+                    collectionType: true
+                    values:
+                      key: "{}"
+                    referenceTypeId: referenceTypeId
+                    name: name
+              type:
+                typeId: typeId
+                id: id
+                key: key
+            description: description
+            type: type
+            restrictedCustomers:
+            - restrictedCustomers
+            - restrictedCustomers
+            children:
+            - null
+            - null
+            restricted: true
+            name: name
+            id: id
+            ancestors:
+            - null
+            - null
+            productsCount: 2
+            key: key
+            slug: slug
+          - image:
+              width: 7
+              label: label
+              url: url
+              height: 9
+            catalog: true
+            custom:
+              name: name
+              description: description
+              attributes:
+                key:
+                  metaData:
+                    unitType: unitType
+                    unitOfMeasure: unitOfMeasure
+                    name: name
+                    unitSystem: unitSystem
+                    group: group
+                  name: name
+                  label: label
+                  type: type
+                  value: "{}"
+                  elementType:
+                    collectionType: true
+                    values:
+                      key: "{}"
+                    referenceTypeId: referenceTypeId
+                    name: name
+              type:
+                typeId: typeId
+                id: id
+                key: key
+            description: description
+            type: type
+            restrictedCustomers:
+            - restrictedCustomers
+            - restrictedCustomers
+            children:
+            - null
+            - null
+            restricted: true
+            name: name
+            id: id
+            ancestors:
+            - null
+            - null
+            productsCount: 2
+            key: key
+            slug: slug
+          key: key
+          slug: slug
+      properties:
+        offset:
+          format: int64
+          type: integer
+        limit:
+          format: int64
+          type: integer
+        total:
+          format: int64
+          type: integer
+        totalPages:
+          format: int64
+          type: integer
+        count:
+          format: int64
+          type: integer
+        results:
+          items:
+            $ref: "#/components/schemas/CategoryAggregation"
+          type: array
+        searchRequest:
+          $ref: "#/components/schemas/PageableSearchRequest"
+      type: object
+    PageableOfCategoryNavigationAggregation:
+      example:
+        searchRequest:
+          filter:
+          - attribute: attribute
+            value: value
+          - attribute: attribute
+            value: value
+          displayType: DETAIL
+          offset: 0
+          limit: 115
+          includeCount: true
+          sorts:
+          - attribute: attribute
+            direction: direction
+          - attribute: attribute
+            direction: direction
+        total: 1
+        offset: 0
+        limit: 6
+        totalPages: 5
+        count: 5
+        results:
+        - image:
+            width: 7
+            label: label
+            url: url
+            height: 9
+          catalog: true
+          custom:
+            name: name
+            description: description
+            attributes:
+              key:
+                metaData:
+                  unitType: unitType
+                  unitOfMeasure: unitOfMeasure
+                  name: name
+                  unitSystem: unitSystem
+                  group: group
+                name: name
+                label: label
+                type: type
+                value: "{}"
+                elementType:
+                  collectionType: true
+                  values:
+                    key: "{}"
+                  referenceTypeId: referenceTypeId
+                  name: name
+            type:
+              typeId: typeId
+              id: id
+              key: key
+          description: description
+          type: type
+          restrictedCustomers:
+          - restrictedCustomers
+          - restrictedCustomers
+          children:
+          - null
+          - null
+          restricted: true
+          name: name
+          id: id
+          ancestors:
+          - null
+          - null
+          productsCount: 2
+          key: key
+          slug: slug
+        - image:
+            width: 7
+            label: label
+            url: url
+            height: 9
+          catalog: true
+          custom:
+            name: name
+            description: description
+            attributes:
+              key:
+                metaData:
+                  unitType: unitType
+                  unitOfMeasure: unitOfMeasure
+                  name: name
+                  unitSystem: unitSystem
+                  group: group
+                name: name
+                label: label
+                type: type
+                value: "{}"
+                elementType:
+                  collectionType: true
+                  values:
+                    key: "{}"
+                  referenceTypeId: referenceTypeId
+                  name: name
+            type:
+              typeId: typeId
+              id: id
+              key: key
+          description: description
+          type: type
+          restrictedCustomers:
+          - restrictedCustomers
+          - restrictedCustomers
+          children:
+          - null
+          - null
+          restricted: true
+          name: name
+          id: id
+          ancestors:
+          - null
+          - null
+          productsCount: 2
+          key: key
+          slug: slug
+      properties:
+        offset:
+          format: int64
+          type: integer
+        limit:
+          format: int64
+          type: integer
+        total:
+          format: int64
+          type: integer
+        totalPages:
+          format: int64
+          type: integer
+        count:
+          format: int64
+          type: integer
+        results:
+          items:
+            $ref: "#/components/schemas/CategoryNavigationAggregation"
+          type: array
+        searchRequest:
+          $ref: "#/components/schemas/PageableSearchRequest"
+      type: object
+    CatalogAggregation:
+      example:
+        metaData:
+          keywords: keywords
+          description: description
+          title: title
+          slug: slug
+        image:
+          width: 7
+          label: label
+          url: url
+          height: 9
+        assets:
+        - sources:
+          - width: 4
+            contentType: contentType
+            uri: uri
+            key: key
+            height: 2
+          - width: 4
+            contentType: contentType
+            uri: uri
+            key: key
+            height: 2
+          custom:
+            name: name
+            description: description
+            attributes:
+              key:
+                metaData:
+                  unitType: unitType
+                  unitOfMeasure: unitOfMeasure
+                  name: name
+                  unitSystem: unitSystem
+                  group: group
+                name: name
+                label: label
+                type: type
+                value: "{}"
+                elementType:
+                  collectionType: true
+                  values:
+                    key: "{}"
+                  referenceTypeId: referenceTypeId
+                  name: name
+            type:
+              typeId: typeId
+              id: id
+              key: key
+          name: name
+          description: description
+          id: id
+          key: key
+          tags:
+          - tags
+          - tags
+        - sources:
+          - width: 4
+            contentType: contentType
+            uri: uri
+            key: key
+            height: 2
+          - width: 4
+            contentType: contentType
+            uri: uri
+            key: key
+            height: 2
+          custom:
+            name: name
+            description: description
+            attributes:
+              key:
+                metaData:
+                  unitType: unitType
+                  unitOfMeasure: unitOfMeasure
+                  name: name
+                  unitSystem: unitSystem
+                  group: group
+                name: name
+                label: label
+                type: type
+                value: "{}"
+                elementType:
+                  collectionType: true
+                  values:
+                    key: "{}"
+                  referenceTypeId: referenceTypeId
+                  name: name
+            type:
+              typeId: typeId
+              id: id
+              key: key
+          name: name
+          description: description
+          id: id
+          key: key
+          tags:
+          - tags
+          - tags
+        children:
+        - image:
+            width: 7
+            label: label
+            url: url
+            height: 9
+          catalog: true
+          custom:
+            name: name
+            description: description
+            attributes:
+              key:
+                metaData:
+                  unitType: unitType
+                  unitOfMeasure: unitOfMeasure
+                  name: name
+                  unitSystem: unitSystem
+                  group: group
+                name: name
+                label: label
+                type: type
+                value: "{}"
+                elementType:
+                  collectionType: true
+                  values:
+                    key: "{}"
+                  referenceTypeId: referenceTypeId
+                  name: name
+            type:
+              typeId: typeId
+              id: id
+              key: key
+          description: description
+          type: type
+          restrictedCustomers:
+          - restrictedCustomers
+          - restrictedCustomers
+          children:
+          - null
+          - null
+          restricted: true
+          name: name
+          id: id
+          ancestors:
+          - null
+          - null
+          productsCount: 2
+          key: key
+          slug: slug
+        - image:
+            width: 7
+            label: label
+            url: url
+            height: 9
+          catalog: true
+          custom:
+            name: name
+            description: description
+            attributes:
+              key:
+                metaData:
+                  unitType: unitType
+                  unitOfMeasure: unitOfMeasure
+                  name: name
+                  unitSystem: unitSystem
+                  group: group
+                name: name
+                label: label
+                type: type
+                value: "{}"
+                elementType:
+                  collectionType: true
+                  values:
+                    key: "{}"
+                  referenceTypeId: referenceTypeId
+                  name: name
+            type:
+              typeId: typeId
+              id: id
+              key: key
+          description: description
+          type: type
+          restrictedCustomers:
+          - restrictedCustomers
+          - restrictedCustomers
+          children:
+          - null
+          - null
+          restricted: true
+          name: name
+          id: id
+          ancestors:
+          - null
+          - null
+          productsCount: 2
+          key: key
+          slug: slug
+        restricted: true
+        custom:
+          name: name
+          description: description
+          attributes:
+            key:
+              metaData:
+                unitType: unitType
+                unitOfMeasure: unitOfMeasure
+                name: name
+                unitSystem: unitSystem
+                group: group
+              name: name
+              label: label
+              type: type
+              value: "{}"
+              elementType:
+                collectionType: true
+                values:
+                  key: "{}"
+                referenceTypeId: referenceTypeId
+                name: name
+          type:
+            typeId: typeId
+            id: id
+            key: key
+        name: name
+        description: description
+        id: id
+        restrictedCustomers:
+        - restrictedCustomers
+        - restrictedCustomers
+        key: key
+        slug: slug
+      properties:
+        id:
+          description: ID
+          type: string
+        key:
+          description: Key
+          type: string
+        name:
+          description: Name
+          type: string
+        description:
+          description: Description
+          type: string
+        slug:
+          description: Slug
+          type: string
+        children:
+          description: Child Categories
+          items:
+            $ref: "#/components/schemas/CategoryNavigationAggregation"
+          type: array
+        restricted:
+          description: Restricted Flag
+          type: boolean
+        restrictedCustomers:
+          description: Restricted Customer ID list
+          items:
+            description: Restricted Customer ID list
+            type: string
+          type: array
+        metaData:
+          $ref: "#/components/schemas/MetaDataAggregation"
+        image:
+          $ref: "#/components/schemas/ImageAggregation"
+        assets:
+          items:
+            $ref: "#/components/schemas/AssetAggregation"
+          type: array
+        custom:
+          $ref: "#/components/schemas/CustomAggregation"
+      type: object
+    PageableOfCatalogAggregation:
+      example:
+        searchRequest:
+          filter:
+          - attribute: attribute
+            value: value
+          - attribute: attribute
+            value: value
+          displayType: DETAIL
+          offset: 0
+          limit: 115
+          includeCount: true
+          sorts:
+          - attribute: attribute
+            direction: direction
+          - attribute: attribute
+            direction: direction
+        total: 1
+        offset: 0
+        limit: 6
+        totalPages: 5
+        count: 5
+        results:
+        - metaData:
+            keywords: keywords
+            description: description
+            title: title
+            slug: slug
+          image:
+            width: 7
+            label: label
+            url: url
+            height: 9
+          assets:
+          - sources:
+            - width: 4
+              contentType: contentType
+              uri: uri
+              key: key
+              height: 2
+            - width: 4
+              contentType: contentType
+              uri: uri
+              key: key
+              height: 2
+            custom:
+              name: name
+              description: description
+              attributes:
+                key:
+                  metaData:
+                    unitType: unitType
+                    unitOfMeasure: unitOfMeasure
+                    name: name
+                    unitSystem: unitSystem
+                    group: group
+                  name: name
+                  label: label
+                  type: type
+                  value: "{}"
+                  elementType:
+                    collectionType: true
+                    values:
+                      key: "{}"
+                    referenceTypeId: referenceTypeId
+                    name: name
+              type:
+                typeId: typeId
+                id: id
+                key: key
+            name: name
+            description: description
+            id: id
+            key: key
+            tags:
+            - tags
+            - tags
+          - sources:
+            - width: 4
+              contentType: contentType
+              uri: uri
+              key: key
+              height: 2
+            - width: 4
+              contentType: contentType
+              uri: uri
+              key: key
+              height: 2
+            custom:
+              name: name
+              description: description
+              attributes:
+                key:
+                  metaData:
+                    unitType: unitType
+                    unitOfMeasure: unitOfMeasure
+                    name: name
+                    unitSystem: unitSystem
+                    group: group
+                  name: name
+                  label: label
+                  type: type
+                  value: "{}"
+                  elementType:
+                    collectionType: true
+                    values:
+                      key: "{}"
+                    referenceTypeId: referenceTypeId
+                    name: name
+              type:
+                typeId: typeId
+                id: id
+                key: key
+            name: name
+            description: description
+            id: id
+            key: key
+            tags:
+            - tags
+            - tags
+          children:
+          - image:
+              width: 7
+              label: label
+              url: url
+              height: 9
+            catalog: true
+            custom:
+              name: name
+              description: description
+              attributes:
+                key:
+                  metaData:
+                    unitType: unitType
+                    unitOfMeasure: unitOfMeasure
+                    name: name
+                    unitSystem: unitSystem
+                    group: group
+                  name: name
+                  label: label
+                  type: type
+                  value: "{}"
+                  elementType:
+                    collectionType: true
+                    values:
+                      key: "{}"
+                    referenceTypeId: referenceTypeId
+                    name: name
+              type:
+                typeId: typeId
+                id: id
+                key: key
+            description: description
+            type: type
+            restrictedCustomers:
+            - restrictedCustomers
+            - restrictedCustomers
+            children:
+            - null
+            - null
+            restricted: true
+            name: name
+            id: id
+            ancestors:
+            - null
+            - null
+            productsCount: 2
+            key: key
+            slug: slug
+          - image:
+              width: 7
+              label: label
+              url: url
+              height: 9
+            catalog: true
+            custom:
+              name: name
+              description: description
+              attributes:
+                key:
+                  metaData:
+                    unitType: unitType
+                    unitOfMeasure: unitOfMeasure
+                    name: name
+                    unitSystem: unitSystem
+                    group: group
+                  name: name
+                  label: label
+                  type: type
+                  value: "{}"
+                  elementType:
+                    collectionType: true
+                    values:
+                      key: "{}"
+                    referenceTypeId: referenceTypeId
+                    name: name
+              type:
+                typeId: typeId
+                id: id
+                key: key
+            description: description
+            type: type
+            restrictedCustomers:
+            - restrictedCustomers
+            - restrictedCustomers
+            children:
+            - null
+            - null
+            restricted: true
+            name: name
+            id: id
+            ancestors:
+            - null
+            - null
+            productsCount: 2
+            key: key
+            slug: slug
+          restricted: true
+          custom:
+            name: name
+            description: description
+            attributes:
+              key:
+                metaData:
+                  unitType: unitType
+                  unitOfMeasure: unitOfMeasure
+                  name: name
+                  unitSystem: unitSystem
+                  group: group
+                name: name
+                label: label
+                type: type
+                value: "{}"
+                elementType:
+                  collectionType: true
+                  values:
+                    key: "{}"
+                  referenceTypeId: referenceTypeId
+                  name: name
+            type:
+              typeId: typeId
+              id: id
+              key: key
+          name: name
+          description: description
+          id: id
+          restrictedCustomers:
+          - restrictedCustomers
+          - restrictedCustomers
+          key: key
+          slug: slug
+        - metaData:
+            keywords: keywords
+            description: description
+            title: title
+            slug: slug
+          image:
+            width: 7
+            label: label
+            url: url
+            height: 9
+          assets:
+          - sources:
+            - width: 4
+              contentType: contentType
+              uri: uri
+              key: key
+              height: 2
+            - width: 4
+              contentType: contentType
+              uri: uri
+              key: key
+              height: 2
+            custom:
+              name: name
+              description: description
+              attributes:
+                key:
+                  metaData:
+                    unitType: unitType
+                    unitOfMeasure: unitOfMeasure
+                    name: name
+                    unitSystem: unitSystem
+                    group: group
+                  name: name
+                  label: label
+                  type: type
+                  value: "{}"
+                  elementType:
+                    collectionType: true
+                    values:
+                      key: "{}"
+                    referenceTypeId: referenceTypeId
+                    name: name
+              type:
+                typeId: typeId
+                id: id
+                key: key
+            name: name
+            description: description
+            id: id
+            key: key
+            tags:
+            - tags
+            - tags
+          - sources:
+            - width: 4
+              contentType: contentType
+              uri: uri
+              key: key
+              height: 2
+            - width: 4
+              contentType: contentType
+              uri: uri
+              key: key
+              height: 2
+            custom:
+              name: name
+              description: description
+              attributes:
+                key:
+                  metaData:
+                    unitType: unitType
+                    unitOfMeasure: unitOfMeasure
+                    name: name
+                    unitSystem: unitSystem
+                    group: group
+                  name: name
+                  label: label
+                  type: type
+                  value: "{}"
+                  elementType:
+                    collectionType: true
+                    values:
+                      key: "{}"
+                    referenceTypeId: referenceTypeId
+                    name: name
+              type:
+                typeId: typeId
+                id: id
+                key: key
+            name: name
+            description: description
+            id: id
+            key: key
+            tags:
+            - tags
+            - tags
+          children:
+          - image:
+              width: 7
+              label: label
+              url: url
+              height: 9
+            catalog: true
+            custom:
+              name: name
+              description: description
+              attributes:
+                key:
+                  metaData:
+                    unitType: unitType
+                    unitOfMeasure: unitOfMeasure
+                    name: name
+                    unitSystem: unitSystem
+                    group: group
+                  name: name
+                  label: label
+                  type: type
+                  value: "{}"
+                  elementType:
+                    collectionType: true
+                    values:
+                      key: "{}"
+                    referenceTypeId: referenceTypeId
+                    name: name
+              type:
+                typeId: typeId
+                id: id
+                key: key
+            description: description
+            type: type
+            restrictedCustomers:
+            - restrictedCustomers
+            - restrictedCustomers
+            children:
+            - null
+            - null
+            restricted: true
+            name: name
+            id: id
+            ancestors:
+            - null
+            - null
+            productsCount: 2
+            key: key
+            slug: slug
+          - image:
+              width: 7
+              label: label
+              url: url
+              height: 9
+            catalog: true
+            custom:
+              name: name
+              description: description
+              attributes:
+                key:
+                  metaData:
+                    unitType: unitType
+                    unitOfMeasure: unitOfMeasure
+                    name: name
+                    unitSystem: unitSystem
+                    group: group
+                  name: name
+                  label: label
+                  type: type
+                  value: "{}"
+                  elementType:
+                    collectionType: true
+                    values:
+                      key: "{}"
+                    referenceTypeId: referenceTypeId
+                    name: name
+              type:
+                typeId: typeId
+                id: id
+                key: key
+            description: description
+            type: type
+            restrictedCustomers:
+            - restrictedCustomers
+            - restrictedCustomers
+            children:
+            - null
+            - null
+            restricted: true
+            name: name
+            id: id
+            ancestors:
+            - null
+            - null
+            productsCount: 2
+            key: key
+            slug: slug
+          restricted: true
+          custom:
+            name: name
+            description: description
+            attributes:
+              key:
+                metaData:
+                  unitType: unitType
+                  unitOfMeasure: unitOfMeasure
+                  name: name
+                  unitSystem: unitSystem
+                  group: group
+                name: name
+                label: label
+                type: type
+                value: "{}"
+                elementType:
+                  collectionType: true
+                  values:
+                    key: "{}"
+                  referenceTypeId: referenceTypeId
+                  name: name
+            type:
+              typeId: typeId
+              id: id
+              key: key
+          name: name
+          description: description
+          id: id
+          restrictedCustomers:
+          - restrictedCustomers
+          - restrictedCustomers
+          key: key
+          slug: slug
+      properties:
+        offset:
+          format: int64
+          type: integer
+        limit:
+          format: int64
+          type: integer
+        total:
+          format: int64
+          type: integer
+        totalPages:
+          format: int64
+          type: integer
+        count:
+          format: int64
+          type: integer
+        results:
+          items:
+            $ref: "#/components/schemas/CatalogAggregation"
+          type: array
+        searchRequest:
+          $ref: "#/components/schemas/PageableSearchRequest"
+      type: object
+    PageableOfAttributeMetaData:
+      example:
+        searchRequest:
+          filter:
+          - attribute: attribute
+            value: value
+          - attribute: attribute
+            value: value
+          displayType: DETAIL
+          offset: 0
+          limit: 115
+          includeCount: true
+          sorts:
+          - attribute: attribute
+            direction: direction
+          - attribute: attribute
+            direction: direction
+        total: 1
+        offset: 0
+        limit: 6
+        totalPages: 5
+        count: 5
+        results:
+        - unitType: unitType
+          unitOfMeasure: unitOfMeasure
+          name: name
+          unitSystem: unitSystem
+          group: group
+        - unitType: unitType
+          unitOfMeasure: unitOfMeasure
+          name: name
+          unitSystem: unitSystem
+          group: group
+      properties:
+        offset:
+          format: int64
+          type: integer
+        limit:
+          format: int64
+          type: integer
+        total:
+          format: int64
+          type: integer
+        totalPages:
+          format: int64
+          type: integer
+        count:
+          format: int64
+          type: integer
+        results:
+          items:
+            $ref: "#/components/schemas/AttributeMetaData"
+          type: array
+        searchRequest:
+          $ref: "#/components/schemas/PageableSearchRequest"
+      type: object
+    AttributeGroupAggregation:
+      example:
+        name: name
+        description: description
+        attributes:
+        - attributes
+        - attributes
+        id: id
+        key: key
+      properties:
+        id:
+          description: AttributeGroup ID
+          type: string
+        key:
+          description: AttributeGroup Key
+          type: string
+        name:
+          description: AttributeGroup Name
+          type: string
+        description:
+          description: AttributeGroup Description
+          type: string
+        attributes:
+          description: Assigned Attributes
+          items:
+            description: Assigned Attributes
+            type: string
+          type: array
+      type: object
+    PageableOfAttributeGroupAggregation:
+      example:
+        searchRequest:
+          filter:
+          - attribute: attribute
+            value: value
+          - attribute: attribute
+            value: value
+          displayType: DETAIL
+          offset: 0
+          limit: 115
+          includeCount: true
+          sorts:
+          - attribute: attribute
+            direction: direction
+          - attribute: attribute
+            direction: direction
+        total: 1
+        offset: 0
+        limit: 6
+        totalPages: 5
+        count: 5
+        results:
+        - name: name
+          description: description
+          attributes:
+          - attributes
+          - attributes
+          id: id
+          key: key
+        - name: name
+          description: description
+          attributes:
+          - attributes
+          - attributes
+          id: id
+          key: key
+      properties:
+        offset:
+          format: int64
+          type: integer
+        limit:
+          format: int64
+          type: integer
+        total:
+          format: int64
+          type: integer
+        totalPages:
+          format: int64
+          type: integer
+        count:
+          format: int64
+          type: integer
+        results:
+          items:
+            $ref: "#/components/schemas/AttributeGroupAggregation"
+          type: array
+        searchRequest:
+          $ref: "#/components/schemas/PageableSearchRequest"
+      type: object
+    MapOfAttributeGroupAggregation:
+      additionalProperties:
+        $ref: "#/components/schemas/AttributeGroupAggregation"
+      example:
+        empty: true
+      properties:
+        empty:
+          type: boolean
+      type: object

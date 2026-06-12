@@ -1,0 +1,17 @@
+---
+server:
+  port: 2357
+  servlet:
+    session:
+      timeout: 1500
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+b2x:
+  cloud: azure
+app:
+  packages: com.mindcurv
+springdoc:
+  swagger-ui:
+    disable-swagger-default-url: true

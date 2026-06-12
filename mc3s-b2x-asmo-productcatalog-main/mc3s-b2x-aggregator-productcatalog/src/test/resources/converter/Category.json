@@ -1,0 +1,248 @@
+{
+  "id": "9000a478-ad04-41a0-92c7-4a727a91c6ad",
+  "version": 2,
+  "lastMessageSequenceNumber": 1,
+  "createdAt": "2021-01-06T10:45:49.137Z",
+  "lastModifiedAt": "2021-01-06T10:45:50.829Z",
+  "lastModifiedBy": {
+    "clientId": "sample-client-id",
+    "isPlatformClient": false
+  },
+  "createdBy": {
+    "clientId": "sample-client-id",
+    "isPlatformClient": false
+  },
+  "key": "FSX-09-01",
+  "name": {
+    "de": "Beers & Wine",
+    "en": "Beers & Wine"
+  },
+  "slug": {
+    "de": "FSX-09-01_de",
+    "en": "FSX-09-01_en"
+  },
+  "description": {
+    "de": "Description for Beers & Wine",
+    "en": "Description for Beers & Wine"
+  },
+  "ancestors": [
+    {
+      "typeId": "category",
+      "id": "271111f9-f4da-4ec5-bd7e-c525bd792f74"
+    },
+    {
+      "typeId": "category",
+      "id": "30dc258f-6dd0-4319-aad1-7459e09857ac"
+    }
+  ],
+  "parent": {
+    "typeId": "category",
+    "id": "30dc258f-6dd0-4319-aad1-7459e09857ac"
+  },
+  "orderHint": "2.42E-8",
+  "externalId": "fsx://09-01",
+  "metaTitle": {
+    "de": "meta_title_en",
+    "en": "meta_title_en"
+  },
+  "metaKeywords": {
+    "de": "meta_keywords_en",
+    "en": "meta_keywords_en"
+  },
+  "metaDescription": {
+    "de": "meta_desc_en",
+    "en": "meta_desc_en"
+  },
+  "custom": {
+    "type": {
+      "typeId": "type",
+      "id": "ae0db8c8-008d-47a3-a1c1-d6eac500010a"
+    },
+    "fields": {
+      "restrictedTo": [
+        {
+          "typeId": "customer",
+          "id": "9174c899-2b9b-49bb-9567-f94259173c96"
+        }
+      ]
+    }
+  },
+  "assets": [
+    {
+      "id": "13b55b06-8c54-4f60-9070-7e823ff8752b",
+      "sources": [
+        {
+          "uri": "https://static.vitra.com/media/asset/449898/storage/master/download/Lounge_Chair_2D_dxf.zip",
+          "key": "Asset_eames_cad1/1",
+          "dimensions": {
+            "w": 0,
+            "h": 0
+          },
+          "contentType": "application/zip"
+        }
+      ],
+      "name": {
+        "de": "Lounge Chair 2D DXF",
+        "en": "Lounge Chair 2D DXF"
+      },
+      "key": "Asset_eames_cad1",
+      "description": {
+        "de": "2D DXF, 55 kB",
+        "en": "2D DXF, 55 kB"
+      },
+      "tags": [
+        "cad1"
+      ]
+    },
+    {
+      "id": "4a79aa7e-41d7-4cd8-8386-da74fda63f49",
+      "sources": [
+        {
+          "uri": "https://static.vitra.com/media/asset/449898/storage/master/download/Lounge_Chair_2D_dxf.zip",
+          "key": "Asset_eames_cad2/1",
+          "dimensions": {
+            "w": 0,
+            "h": 0
+          }
+        }
+      ],
+      "name": {
+        "de": "Lounge Chair 2D DWG",
+        "en": "Lounge Chair 2D DWG"
+      },
+      "key": "Asset_eames_cad2",
+      "description": {
+        "de": "2D DWG, 49.1 kB",
+        "en": "2D DWG, 49.1 kB"
+      },
+      "tags": [
+        "cad2"
+      ]
+    },
+    {
+      "id": "adfc0e24-d094-4c7d-8bdb-70504f029688",
+      "sources": [
+        {
+          "uri": "https://static.vitra.com/media/asset/449654/storage/master/download/Lounge_Chair_2D_dwg.zip",
+          "key": "Asset_eames_cad3/1",
+          "dimensions": {
+            "w": 0,
+            "h": 0
+          }
+        }
+      ],
+      "name": {
+        "de": "Eames Lounge Chair, classic rfa/IFC",
+        "en": "Eames Lounge Chair, classic rfa/IFC"
+      },
+      "key": "Asset_eames_cad3",
+      "description": {
+        "de": "Revit/BIM, 5.96 MB",
+        "en": "Revit/BIM, 5.96 MB"
+      },
+      "tags": [
+        "cad3"
+      ]
+    },
+    {
+      "id": "52f3727c-e433-4c62-9213-9b96c9ea5d86",
+      "sources": [
+        {
+          "uri": "https://static.vitra.com/media/asset/2712385/storage/master/download/Eames%2520Lounge%2520Chair,%2520classic.zip",
+          "key": "Asset_eames_cad4/1",
+          "dimensions": {
+            "w": 0,
+            "h": 0
+          }
+        }
+      ],
+      "name": {
+        "de": "Eames Lounge Chair, new rfa/IFC",
+        "en": "Eames Lounge Chair, new rfa/IFC"
+      },
+      "key": "Asset_eames_cad4",
+      "description": {
+        "de": "Revit/BIM, 6.08 MB",
+        "en": "Revit/BIM, 6.08 MB"
+      },
+      "tags": [
+        "cad4"
+      ]
+    },
+    {
+      "id": "c62e4462-c032-44f8-9425-8fe19f592950",
+      "sources": [
+        {
+          "uri": "https://static.vitra.com/media/asset/2712386/storage/master/download/Eames%2520Lounge%2520Chair,%2520new.zip",
+          "key": "Asset_eames_cad5/1",
+          "dimensions": {
+            "w": 0,
+            "h": 0
+          }
+        }
+      ],
+      "name": {
+        "de": "Eames Lounge Chair, ottoman rfa/IFC",
+        "en": "Eames Lounge Chair, ottoman rfa/IFC"
+      },
+      "key": "Asset_eames_cad5",
+      "description": {
+        "de": "Revit/BIM, 5.37 MB",
+        "en": "Revit/BIM, 5.37 MB"
+      },
+      "tags": [
+        "cad5"
+      ]
+    },
+    {
+      "id": "00403259-a36d-4806-b565-a6074fb261c9",
+      "sources": [
+        {
+          "uri": "https://static.vitra.com/media/asset/2712387/storage/master/download/Eames%2520Lounge%2520Chair,%2520ottoman.zip",
+          "key": "Asset_eames_cad6/1",
+          "dimensions": {
+            "w": 0,
+            "h": 0
+          }
+        }
+      ],
+      "name": {
+        "de": "Lounge Chair 3D DXF",
+        "en": "Lounge Chair 3D DXF"
+      },
+      "key": "Asset_eames_cad6",
+      "description": {
+        "de": "3D DXF, 5.04 MB",
+        "en": "3D DXF, 5.04 MB"
+      },
+      "tags": [
+        "cad6"
+      ]
+    },
+    {
+      "id": "3ca65a7e-30f1-427e-98e2-dc654ef0c871",
+      "sources": [
+        {
+          "uri": "https://static.vitra.com/media/asset/450630/storage/master/download/Lounge_Chair_3D_dxf.zip",
+          "key": "Asset_eames_cad7/1",
+          "dimensions": {
+            "w": 0,
+            "h": 0
+          }
+        }
+      ],
+      "name": {
+        "de": "Lounge Chair 3D 3DS",
+        "en": "Lounge Chair 3D 3DS"
+      },
+      "key": "Asset_eames_cad7",
+      "description": {
+        "de": "3D 3DS, 3 MB",
+        "en": "3D 3DS, 3 MB"
+      },
+      "tags": [
+        "cad7"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+---
+server:
+  port: 9101
+  servlet:
+    session:
+      timeout: 1500
+spring:
+  application:
+    name: mc3s-b2x-productcatalog
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  cloud:
+    azure:
+      compatibility-verifier:
+        enabled: false
+app:
+  packages: com.mindcurv
+springdoc:
+  swagger-ui:
+    disable-swagger-default-url: true

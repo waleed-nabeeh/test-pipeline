@@ -1,0 +1,628 @@
+{
+  "product": {
+    "id": "1a42e994-c5c4-442e-a3f9-8dfef22f7be1",
+    "key": "TestProductB2BProduct1",
+    "productType": {
+      "key": "B2BProduct",
+      "name": "B2B Product"
+    },
+    "state": null,
+    "taxCategory": {
+      "key": "no_tax",
+      "id": "c0a0f460-8dfb-4016-a021-a8823081ee55"
+    },
+    "masterData": {
+      "current": {
+        "nameAllLocales": [
+          {
+            "locale": "de",
+            "value": "MACH1"
+          },
+          {
+            "locale": "en",
+            "value": "MACH1"
+          }
+        ],
+        "descriptionAllLocales": [
+          {
+            "locale": "de",
+            "value": "Die Innovation Bar ist zur�ck in diesem Jahr und es gibt noch mehr Handel Innovation auf dem Display als je zuvor. Schnappen Sie sich eine Stelle, lassen Sie unsere Roboter Sie einen Drink servieren, und lernen, wie man Handel �ber jeden Kanal zu erm�glichen.\n\ncommerce Partner Mindcurv wird zeigen, wie sie einkaufen F�higkeit Iot Ger�ten wie dem �Panda� hinzuf�gen und Alexa Amazon.\n\nNehmen Sie einfach Ihr kostenloses Getr�nk durch den Auftrag Knopf dr�cken."
+          },
+          {
+            "locale": "en",
+            "value": "The Innovation Bar is back this year and there�s more commerce innovation on display than ever. Grab a spot, let our robot serve you a drink, and learn how to enable commerce across any channel.\n\ncommercetools partner Mindcurv will demonstrate how they are adding shopping capability to Iot devices like the �Panda� and Amazon�s Alexa.\n\nJust get your free drink by hit the order button."
+          }
+        ],
+        "slugAllLocales": [
+          {
+            "locale": "de",
+            "value": "slug_1"
+          },
+          {
+            "locale": "en",
+            "value": "slug_1"
+          }
+        ],
+        "metaTitleAllLocales": [
+          {
+            "locale": "de",
+            "value": "meta_1"
+          },
+          {
+            "locale": "en",
+            "value": "meta_1"
+          }
+        ],
+        "metaKeywordsAllLocales": [
+          {
+            "locale": "de",
+            "value": "metakey_1"
+          },
+          {
+            "locale": "en",
+            "value": "metakey_1"
+          }
+        ],
+        "metaDescriptionAllLocales": [
+          {
+            "locale": "de",
+            "value": "metadesc_1"
+          },
+          {
+            "locale": "en",
+            "value": "metadesc_1"
+          }
+        ],
+        "allVariants": [
+          {
+            "id": 36,
+            "key": "TestProductB2BProduct1_1",
+            "sku": "MasterProductB2BProduct11",
+            "prices": [
+              {
+                "id": "aeed77da-8764-4f99-a230-db9c444c1ce6",
+                "value": {
+                  "currencyCode": "EUR",
+                  "centAmount": 124
+                },
+                "channelRef": null,
+                "customerGroupRef": null
+              },
+              {
+                "id": "16898246-adba-4f48-97e8-a9a38e3957c1",
+                "value": {
+                  "currencyCode": "EUR",
+                  "centAmount": 125
+                },
+                "channelRef": null,
+                "customerGroupRef": {
+                  "id": "5b39dd6d-9bff-440f-8c46-0fc9f083356f"
+                }
+              },
+              {
+                "id": "bad729e9-86ef-4d73-ad60-45ee24c446a4",
+                "value": {
+                  "currencyCode": "EUR",
+                  "centAmount": 226
+                },
+                "channelRef": {
+                  "id": "4e812900-ac0d-4fbd-8e94-cad9974dd53b"
+                },
+                "customerGroupRef": null
+              },
+              {
+                "id": "a4d4ce7b-6678-45f6-b9e6-813ebcb1363c",
+                "value": {
+                  "currencyCode": "INR",
+                  "centAmount": 127
+                },
+                "channelRef": null,
+                "customerGroupRef": null
+              },
+              {
+                "id": "a90350a6-f8b0-442e-a068-beac86a7671f",
+                "value": {
+                  "currencyCode": "EUR",
+                  "centAmount": 10000
+                },
+                "channelRef": null,
+                "customerGroupRef": null
+              },
+              {
+                "id": "4f493e1f-a6bd-4a34-85ac-a9bf70d0520f",
+                "value": {
+                  "currencyCode": "EUR",
+                  "centAmount": 101
+                },
+                "channelRef": null,
+                "customerGroupRef": {
+                  "id": "9303d1b6-b48a-45b4-a8e2-73f4c0219e14"
+                }
+              }
+            ],
+            "assets": [],
+            "images": [
+              {
+                "url": "https://s3.eu-central-1.amazonaws.com/pandapublicimages/Products/MC_Can1.png",
+                "label": "Image detect",
+                "dimensions": {
+                  "width": 200,
+                  "height": 200
+                }
+              },
+              {
+                "url": "https://s3.eu-central-1.amazonaws.com/pandapublicimages/Products/Lolly.png",
+                "label": "Parameter detect",
+                "dimensions": {
+                  "width": 200,
+                  "height": 200
+                }
+              }
+            ],
+            "availability": {
+              "noChannel": {
+                "isOnStock": true,
+                "availableQuantity": 9998,
+                "restockableInDays": 21
+              },
+              "channels": {
+                "results": [
+                  {
+                    "availability": {
+                      "isOnStock": true,
+                      "availableQuantity": 1244,
+                      "restockableInDays": null
+                    }
+                  },
+                  {
+                    "availability": {
+                      "isOnStock": true,
+                      "availableQuantity": 10001,
+                      "restockableInDays": 22
+                    }
+                  }
+                ]
+              }
+            },
+            "attributesRaw": [
+              {
+                "name": "color",
+                "value": "Red",
+                "attributeDefinition": {
+                  "type": {
+                    "name": "text"
+                  },
+                  "labelAllLocales": [
+                    {
+                      "locale": "de",
+                      "value": "Farbe"
+                    },
+                    {
+                      "locale": "en",
+                      "value": "Color"
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "material",
+                "value": "material32",
+                "attributeDefinition": {
+                  "type": {
+                    "name": "text"
+                  },
+                  "labelAllLocales": [
+                    {
+                      "locale": "de",
+                      "value": "Material"
+                    },
+                    {
+                      "locale": "en",
+                      "value": "Material"
+                    }
+                  ]
+                }
+              },
+              {
+                "name": "size",
+                "value": "S",
+                "attributeDefinition": {
+                  "type": {
+                    "name": "text"
+                  },
+                  "labelAllLocales": [
+                    {
+                      "locale": "de",
+                      "value": "Größe"
+                    },
+                    {
+                      "locale": "en",
+                      "value": "Size"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": 37,
+            "key": "dose",
+            "sku": "dose",
+            "prices": [],
+            "assets": [],
+            "images": [],
+            "availability": {
+              "noChannel": null,
+              "channels": {
+                "results": []
+              }
+            },
+            "attributesRaw": [
+              {
+                "name": "lineitemDescription",
+                "value": {
+                  "de": "dose"
+                },
+                "attributeDefinition": {
+                  "type": {
+                    "name": "ltext"
+                  },
+                  "labelAllLocales": [
+                    {
+                      "locale": "de",
+                      "value": "LineItem Beschreibung"
+                    },
+                    {
+                      "locale": "en",
+                      "value": "Lineitem Description"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "category": {
+    "id": "aec1c24d-8dca-47b3-b9ea-0da944d52fa2",
+    "key": "FSX-09-03-02",
+    "nameAllLocales": [
+      {
+        "locale": "de",
+        "value": "Sports Drinks"
+      },
+      {
+        "locale": "en",
+        "value": "Sports Drinks"
+      }
+    ],
+    "slugAllLocales": [
+      {
+        "locale": "de",
+        "value": "FSX-09-03-02_de"
+      },
+      {
+        "locale": "en",
+        "value": "FSX-09-03-02_en"
+      }
+    ],
+    "custom": {
+      "type": {
+        "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+        "key": "B2BClassificationCategory"
+      },
+      "customFieldsRaw": []
+    },
+    "ancestors": [
+      {
+        "id": "271111f9-f4da-4ec5-bd7e-c525bd792f74",
+        "key": "FSX",
+        "nameAllLocales": [
+          {
+            "locale": "de",
+            "value": "FSX"
+          },
+          {
+            "locale": "en",
+            "value": "FSX"
+          }
+        ],
+        "slugAllLocales": [
+          {
+            "locale": "de",
+            "value": "FSX_de"
+          },
+          {
+            "locale": "en",
+            "value": "FSX_en"
+          }
+        ],
+        "custom": {
+          "type": {
+            "id": "ae0db8c8-008d-47a3-a1c1-d6eac500010a",
+            "key": "CatalogCategory"
+          },
+          "customFieldsRaw": []
+        }
+      },
+      {
+        "id": "30dc258f-6dd0-4319-aad1-7459e09857ac",
+        "key": "FSX-09",
+        "nameAllLocales": [
+          {
+            "locale": "de",
+            "value": "Beverages"
+          },
+          {
+            "locale": "en",
+            "value": "Beverages"
+          }
+        ],
+        "slugAllLocales": [
+          {
+            "locale": "de",
+            "value": "FSX-09_de"
+          },
+          {
+            "locale": "en",
+            "value": "FSX-09_en"
+          }
+        ],
+        "custom": {
+          "type": {
+            "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+            "key": "B2BClassificationCategory"
+          },
+          "customFieldsRaw": []
+        }
+      },
+      {
+        "id": "30549c81-d6e7-4888-8af9-5fb2b0d0b575",
+        "key": "FSX-09-03",
+        "nameAllLocales": [
+          {
+            "locale": "de",
+            "value": "Health & Energy Drinks"
+          },
+          {
+            "locale": "en",
+            "value": "Health & Energy Drinks"
+          }
+        ],
+        "slugAllLocales": [
+          {
+            "locale": "de",
+            "value": "FSX-09-03_de"
+          },
+          {
+            "locale": "en",
+            "value": "FSX-09-03_en"
+          }
+        ],
+        "custom": {
+          "type": {
+            "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+            "key": "B2BClassificationCategory"
+          },
+          "customFieldsRaw": []
+        }
+      }
+    ]
+  },
+  "customObject": {
+    "id": "6ac489b3-4604-4c88-b5e1-74709a0d09c7",
+    "value": {
+      "accessories": {
+        "displayGroup": "REFERENCES"
+      },
+      "color": {
+        "displayGroup": "TECHNICAL"
+      },
+      "dummy": {
+        "displayGroup": "GLOBAL"
+      },
+      "imageAnalysisResults": {
+        "displayGroup": "GLOBAL"
+      },
+      "material": {
+        "displayGroup": "DEFAULT"
+      },
+      "merchant": {
+        "displayGroup": "GLOBAL"
+      },
+      "size": {
+        "displayGroup": "TECHNICAL"
+      },
+      "subscriptionsAllowed": {
+        "displayGroup": "NONE"
+      }
+    }
+  },
+  "productType": {
+    "key": "B2BProduct",
+    "id": "5ac81958-3137-496d-bab3-5dfbaccf7b2c",
+    "name": "B2B Product",
+    "attributeDefinitions": {
+      "results": [
+        {
+          "type": {
+            "name": "ltext"
+          },
+          "name": "lineitemDescription",
+          "labelAllLocales": [
+            {
+              "locale": "de",
+              "value": "LineItem Beschreibung"
+            },
+            {
+              "locale": "en",
+              "value": "Lineitem Description"
+            }
+          ]
+        },
+        {
+          "type": {
+            "name": "text"
+          },
+          "name": "size",
+          "labelAllLocales": [
+            {
+              "locale": "de",
+              "value": "Größe"
+            },
+            {
+              "locale": "en",
+              "value": "Size"
+            }
+          ]
+        },
+        {
+          "type": {
+            "name": "text"
+          },
+          "name": "color",
+          "labelAllLocales": [
+            {
+              "locale": "de",
+              "value": "Farbe"
+            },
+            {
+              "locale": "en",
+              "value": "Color"
+            }
+          ]
+        },
+        {
+          "type": {
+            "name": "text"
+          },
+          "name": "material",
+          "labelAllLocales": [
+            {
+              "locale": "de",
+              "value": "Material"
+            },
+            {
+              "locale": "en",
+              "value": "Material"
+            }
+          ]
+        },
+        {
+          "type": {
+            "name": "set"
+          },
+          "name": "imageAnalysisResults",
+          "labelAllLocales": [
+            {
+              "locale": "de",
+              "value": "imageAnalysisResults (Machine Learning)"
+            },
+            {
+              "locale": "en",
+              "value": "imageAnalysisResults (Machine Learning)"
+            }
+          ]
+        },
+        {
+          "type": {
+            "name": "set"
+          },
+          "name": "merchant",
+          "labelAllLocales": [
+            {
+              "locale": "de",
+              "value": "merchant"
+            },
+            {
+              "locale": "en",
+              "value": "merchant"
+            }
+          ]
+        },
+        {
+          "type": {
+            "name": "set"
+          },
+          "name": "replacement",
+          "labelAllLocales": [
+            {
+              "locale": "de",
+              "value": "replacement"
+            },
+            {
+              "locale": "en",
+              "value": "replacement"
+            }
+          ]
+        },
+        {
+          "type": {
+            "name": "set"
+          },
+          "name": "similar",
+          "labelAllLocales": [
+            {
+              "locale": "de",
+              "value": "similar"
+            },
+            {
+              "locale": "en",
+              "value": "similar"
+            }
+          ]
+        },
+        {
+          "type": {
+            "name": "set"
+          },
+          "name": "upselling",
+          "labelAllLocales": [
+            {
+              "locale": "de",
+              "value": "upselling"
+            },
+            {
+              "locale": "en",
+              "value": "upselling"
+            }
+          ]
+        },
+        {
+          "type": {
+            "name": "set"
+          },
+          "name": "accessories",
+          "labelAllLocales": [
+            {
+              "locale": "de",
+              "value": "accessories"
+            },
+            {
+              "locale": "en",
+              "value": "accessories"
+            }
+          ]
+        },
+        {
+          "type": {
+            "name": "boolean"
+          },
+          "name": "subscriptionsAllowed",
+          "labelAllLocales": [
+            {
+              "locale": "de",
+              "value": "subscriptionsAllowed"
+            },
+            {
+              "locale": "en",
+              "value": "subscriptionsAllowed"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

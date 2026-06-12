@@ -1,0 +1,14 @@
+kind: Kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+
+resources:
+- service.yaml
+- deployment.yaml
+- ingress.yaml
+- secretstore.yaml
+- external-secrets.yaml
+- hpa.yaml
+
+commonLabels:
+  project: B2BX
+  app: mc3s-b2x-aggregator-productcatalog

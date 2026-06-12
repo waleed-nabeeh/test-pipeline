@@ -1,0 +1,70 @@
+package {{package}};
+// model.mustache
+
+import org.springframework.lang.*;
+import org.springframework.web.context.request.*;
+import org.springframework.http.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.*;
+import jakarta.annotation.Generated;
+import java.util.*;
+import io.swagger.v3.oas.annotations.media.*;
+import com.fasterxml.jackson.annotation.*;
+
+{{#useReflectionEqualsHashCode}}
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+{{/useReflectionEqualsHashCode}}
+{{#imports}}
+import {{import}};
+{{/imports}}
+{{#serializableModel}}
+import java.io.Serializable;
+{{/serializableModel}}
+{{#jackson}}
+{{#withXml}}
+import com.fasterxml.jackson.dataformat.xml.annotation.*;
+{{/withXml}}
+{{/jackson}}
+{{#withXml}}
+import {{javaxPackage}}.xml.bind.annotation.*;
+import {{javaxPackage}}.xml.bind.annotation.adapters.*;
+import io.github.threetenjaxb.core.*;
+{{/withXml}}
+{{#jsonb}}
+import java.lang.reflect.Type;
+import {{javaxPackage}}.json.bind.annotation.JsonbTypeDeserializer;
+import {{javaxPackage}}.json.bind.annotation.JsonbTypeSerializer;
+import {{javaxPackage}}.json.bind.serializer.DeserializationContext;
+import {{javaxPackage}}.json.bind.serializer.JsonbDeserializer;
+import {{javaxPackage}}.json.bind.serializer.JsonbSerializer;
+import {{javaxPackage}}.json.bind.serializer.SerializationContext;
+import {{javaxPackage}}.json.stream.JsonGenerator;
+import {{javaxPackage}}.json.stream.JsonParser;
+import {{javaxPackage}}.json.bind.annotation.JsonbProperty;
+{{#vendorExtensions.x-has-readonly-properties}}
+import {{javaxPackage}}.json.bind.annotation.JsonbCreator;
+{{/vendorExtensions.x-has-readonly-properties}}
+{{/jsonb}}
+{{#parcelableModel}}
+import android.os.Parcelable;
+import android.os.Parcel;
+{{/parcelableModel}}
+{{#useBeanValidation}}
+import {{javaxPackage}}.validation.constraints.*;
+import {{javaxPackage}}.validation.Valid;
+{{/useBeanValidation}}
+{{#performBeanValidation}}
+import org.hibernate.validator.constraints.*;
+{{/performBeanValidation}}
+{{#supportUrlQuery}}
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.StringJoiner;
+{{/supportUrlQuery}}
+
+{{#models}}
+{{#model}}
+{{#isEnum}}{{>modelEnum}}{{/isEnum}}{{^isEnum}}{{#vendorExtensions.x-is-one-of-interface}}{{>oneof_interface}}{{/vendorExtensions.x-is-one-of-interface}}{{^vendorExtensions.x-is-one-of-interface}}{{>pojo}}{{/vendorExtensions.x-is-one-of-interface}}{{/isEnum}}
+{{/model}}
+{{/models}}

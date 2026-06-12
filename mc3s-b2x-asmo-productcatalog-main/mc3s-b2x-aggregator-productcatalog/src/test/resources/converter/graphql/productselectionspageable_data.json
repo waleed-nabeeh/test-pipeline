@@ -1,0 +1,80 @@
+{
+  "productSelections": {
+    "total": 5,
+    "results": [
+      {
+        "key": "selection-food",
+        "id": "2ea6127e-bb2f-44cc-bf32-6af4651d59ed",
+        "custom": {
+          "customFieldsRaw": [
+            {
+              "name": "catalogKeys",
+              "value": [
+                "openfood"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "key": "selection-chemistry",
+        "id": "28e9c917-4d73-4a3a-b5bd-d01af12b9024",
+        "custom": {
+          "customFieldsRaw": [
+            {
+              "name": "catalogKeys",
+              "value": [
+                "chemistry"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "key": "selection-automotive",
+        "id": "8644db1b-1b93-431b-92e0-e11800dff20b",
+        "custom": {
+          "customFieldsRaw": [
+            {
+              "name": "catalogKeys",
+              "value": [
+                "automotive"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "key": "selection-furniture",
+        "id": "131ad40d-52f4-4b1b-ae3c-6b9870a2255c",
+        "custom": {
+          "customFieldsRaw": [
+            {
+              "name": "catalogKeys",
+              "value": [
+                "furniture"
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "key": "selection-marketplace",
+        "id": "e380c06c-eb0f-4b96-b446-69227f49b2b3",
+        "custom": {
+          "customFieldsRaw": [
+            {
+              "name": "catalogKeys",
+              "value": [
+                "openfood",
+                "automotive",
+                "furniture",
+                "chemistry"
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

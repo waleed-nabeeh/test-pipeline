@@ -1,0 +1,3227 @@
+[
+  {
+    "id": "5ac81958-3137-496d-bab3-5dfbaccf7b2c",
+    "version": 37,
+    "createdAt": "2021-01-06T09:56:53.217Z",
+    "lastModifiedAt": "2021-02-09T08:39:57.899Z",
+    "lastModifiedBy": {
+      "clientId": "sample-client-id",
+      "isPlatformClient": false
+    },
+    "createdBy": {
+      "clientId": "sample-client-id",
+      "isPlatformClient": false
+    },
+    "name": "B2B Product",
+    "description": "B2B Product",
+    "classifier": "Complex",
+    "attributes": [
+      {
+        "name": "lineitemDescription",
+        "label": {
+          "de": "LineItem Beschreibung",
+          "en": "Lineitem Description"
+        },
+        "inputTip": {
+          "de": "Beschreibung, wird im Cart und Order als Beschreibung für das Line item verwendet",
+          "en": "Description, used in cart and order for line item description."
+        },
+        "isRequired": false,
+        "type": {
+          "name": "ltext"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "MultiLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "size",
+        "label": {
+          "de": "Größe",
+          "en": "Size"
+        },
+        "inputTip": {
+          "de": "Größe (size)",
+          "en": "Size (size)"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "text"
+        },
+        "attributeConstraint": "CombinationUnique",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "color",
+        "label": {
+          "de": "Farbe",
+          "en": "Color"
+        },
+        "inputTip": {
+          "de": "Farbe (color)",
+          "en": "Color (color)"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "text"
+        },
+        "attributeConstraint": "CombinationUnique",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "material",
+        "label": {
+          "de": "Material",
+          "en": "Material"
+        },
+        "inputTip": {
+          "de": "Material (material)",
+          "en": "Material (material)"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "text"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "imageAnalysisResults",
+        "label": {
+          "de": "imageAnalysisResults (Machine Learning)",
+          "en": "imageAnalysisResults (Machine Learning)"
+        },
+        "inputTip": {
+          "de": "imageAnalysisResults",
+          "en": "imageAnalysisResults"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "set",
+          "elementType": {
+            "name": "text"
+          }
+        },
+        "attributeConstraint": "SameForAll",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "merchant",
+        "label": {
+          "de": "merchant",
+          "en": "merchant"
+        },
+        "inputTip": {
+          "de": "merchant",
+          "en": "merchant"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "set",
+          "elementType": {
+            "name": "reference",
+            "referenceTypeId": "channel"
+          }
+        },
+        "attributeConstraint": "SameForAll",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "replacement",
+        "label": {
+          "de": "replacement",
+          "en": "replacement"
+        },
+        "inputTip": {
+          "de": "replacement",
+          "en": "replacement"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "set",
+          "elementType": {
+            "name": "reference",
+            "referenceTypeId": "product"
+          }
+        },
+        "attributeConstraint": "SameForAll",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "similar",
+        "label": {
+          "de": "similar",
+          "en": "similar"
+        },
+        "inputTip": {
+          "de": "similar",
+          "en": "similar"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "set",
+          "elementType": {
+            "name": "reference",
+            "referenceTypeId": "product"
+          }
+        },
+        "attributeConstraint": "SameForAll",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "upselling",
+        "label": {
+          "de": "upselling",
+          "en": "upselling"
+        },
+        "inputTip": {
+          "de": "upselling",
+          "en": "upselling"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "set",
+          "elementType": {
+            "name": "reference",
+            "referenceTypeId": "product"
+          }
+        },
+        "attributeConstraint": "SameForAll",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "accessories",
+        "label": {
+          "de": "accessories",
+          "en": "accessories"
+        },
+        "inputTip": {
+          "de": "accessories",
+          "en": "accessories"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "set",
+          "elementType": {
+            "name": "reference",
+            "referenceTypeId": "product"
+          }
+        },
+        "attributeConstraint": "SameForAll",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "subscriptionsAllowed",
+        "label": {
+          "de": "subscriptionsAllowed",
+          "en": "subscriptionsAllowed"
+        },
+        "inputTip": {
+          "de": "subscriptionsAllowed",
+          "en": "subscriptionsAllowed"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "boolean"
+        },
+        "attributeConstraint": "SameForAll",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      }
+    ],
+    "key": "B2BProduct"
+  },
+  {
+    "id": "9d03b14f-3de5-4c51-8aeb-f101645a22d5",
+    "version": 78,
+    "createdAt": "2021-01-07T09:44:27.853Z",
+    "lastModifiedAt": "2021-01-07T09:46:02.178Z",
+    "lastModifiedBy": {
+      "clientId": "sample-client-id",
+      "isPlatformClient": false
+    },
+    "createdBy": {
+      "clientId": "sample-client-id",
+      "isPlatformClient": false
+    },
+    "name": "Webcams Name",
+    "description": "Webcams Desc",
+    "classifier": "Complex",
+    "attributes": [
+      {
+        "name": "sku_webcams",
+        "label": {
+          "de": "SKU (sku-de)",
+          "en": "SKU (sku-en)"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"remove\",\"inputTip\":\"SKU (sku-de)\"}",
+          "en": "{\"displayGroup\":\"remove\",\"inputTip\":\"SKU (sku-en)\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "text"
+        },
+        "attributeConstraint": "Unique",
+        "isSearchable": true,
+        "inputHint": "MultiLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "name_webcams",
+        "label": {
+          "de": "Name",
+          "en": "Name"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"marketing\",\"inputTip\":\"Name\"}",
+          "en": "{\"displayGroup\":\"marketing\",\"inputTip\":\"Name\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "text"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "description_webcams",
+        "label": {
+          "de": "Beschreibung",
+          "en": "Description"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"marketing\",\"inputTip\":\"Beschreibung\"}",
+          "en": "{\"displayGroup\":\"marketing\",\"inputTip\":\"Description\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "ltext"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "response_time_webcams",
+        "label": {
+          "de": "Auslösezeit",
+          "en": "Response time (ms)"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"marketing\",\"unit\":\"ms\",\"unitGroup\":\"time\",\"inputTip\":\"Auslösezeit\"}",
+          "en": "{\"displayGroup\":\"marketing\",\"unit\":\"ms\",\"unitGroup\":\"time\",\"inputTip\":\"Response time (ms)\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "number"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "release_date_webcams",
+        "label": {
+          "de": "Erscheinungstermin",
+          "en": "Release date"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"marketing\",\"inputTip\":\"Erscheinungstermin\"}",
+          "en": "{\"displayGroup\":\"marketing\",\"inputTip\":\"Release date\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "date"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "price_webcams",
+        "label": {
+          "de": "Preis",
+          "en": "Price (price)"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"remove\",\"inputTip\":\"Preis\"}",
+          "en": "{\"displayGroup\":\"remove\",\"inputTip\":\"Price (price)\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "number"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "weight_webcams",
+        "label": {
+          "de": "Gewicht",
+          "en": "Weight"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"unit\":\"kg\",\"unitGroup\":\"weight\",\"inputTip\":\"Gewicht\"}",
+          "en": "{\"displayGroup\":\"technical\",\"unit\":\"kg\",\"unitGroup\":\"weight\",\"inputTip\":\"Weight\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "number"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "maximum_scan_size_webcams",
+        "label": {
+          "de": "Maximale Scan-Abmessung",
+          "en": "Maximum scan size"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"unit\":\"mm\",\"unitGroup\":\"length\",\"inputTip\":\"Maximale Scan-Abmessung\"}",
+          "en": "{\"displayGroup\":\"technical\",\"unit\":\"mm\",\"unitGroup\":\"length\",\"inputTip\":\"Maximum scan size\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "number"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "color_scanning_webcams",
+        "label": {
+          "de": "Farbscannen",
+          "en": "Color scanning"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"inputTip\":\"Farbscannen\"}",
+          "en": "{\"displayGroup\":\"technical\",\"inputTip\":\"Color scanning\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "boolean"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "power_requirements_webcams",
+        "label": {
+          "de": "Energiebedarf",
+          "en": "Power requirements"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"inputTip\":\"Energiebedarf\"}",
+          "en": "{\"displayGroup\":\"technical\",\"inputTip\":\"Power requirements\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "text"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "maximum_print_size_webcams",
+        "label": {
+          "de": "Maximale Druckgröße",
+          "en": "Maximum print size"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"inputTip\":\"Maximale Druckgröße\"}",
+          "en": "{\"displayGroup\":\"technical\",\"inputTip\":\"Maximum print size\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "enum",
+          "values": [
+            {
+              "key": "enumValues",
+              "label": "enumValues"
+            }
+          ]
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "sensor_type_webcams",
+        "label": {
+          "de": "CCD-Bildsensor",
+          "en": "Sensor type"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"inputTip\":\"CCD-Bildsensor\"}",
+          "en": "{\"displayGroup\":\"technical\",\"inputTip\":\"Sensor type\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "enum",
+          "values": [
+            {
+              "key": "enumValues",
+              "label": "enumValues"
+            }
+          ]
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "total_megapixels_webcams",
+        "label": {
+          "de": "Total megapixels",
+          "en": "Total megapixels"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"inputTip\":\"Total megapixels\"}",
+          "en": "{\"displayGroup\":\"technical\",\"inputTip\":\"Total megapixels\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "text"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "optical_zoom_webcams",
+        "label": {
+          "de": "Optischer Zoom",
+          "en": "Optical zoom"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"inputTip\":\"Optischer Zoom\"}",
+          "en": "{\"displayGroup\":\"technical\",\"inputTip\":\"Optical zoom\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "number"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "image_stabilizer_webcams",
+        "label": {
+          "de": "Bildstabilisator",
+          "en": "Image stabilizer"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"inputTip\":\"Bildstabilisator\"}",
+          "en": "{\"displayGroup\":\"technical\",\"inputTip\":\"Image stabilizer\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "boolean"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "camera_type_webcams",
+        "label": {
+          "de": "Kamera-Typ",
+          "en": "Camera type"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"inputTip\":\"Kamera-Typ\"}",
+          "en": "{\"displayGroup\":\"technical\",\"inputTip\":\"Camera type\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "enum",
+          "values": [
+            {
+              "key": "enumValues",
+              "label": "enumValues"
+            }
+          ]
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "thd_webcams",
+        "label": {
+          "de": "THD, totalklirren",
+          "en": "Total Harmonic Distortion (THD)"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"inputTip\":\"THD, totalklirren\"}",
+          "en": "{\"displayGroup\":\"technical\",\"inputTip\":\"Total Harmonic Distortion (THD)\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "number"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "snr_webcams",
+        "label": {
+          "de": "Signal-zu-Geräusche Verhältnis (SNR)",
+          "en": "Signal-to-Noise Ratio (SNR)"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"inputTip\":\"Signal-zu-Geräusche Verhältnis (SNR)\"}",
+          "en": "{\"displayGroup\":\"technical\",\"inputTip\":\"Signal-to-Noise Ratio (SNR)\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "number"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "headphone_connectivity_webcams",
+        "label": {
+          "de": "Kopfhörerausgang",
+          "en": "Headphone connectivity"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"inputTip\":\"Kopfhörerausgang\"}",
+          "en": "{\"displayGroup\":\"technical\",\"inputTip\":\"Headphone connectivity\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "enum",
+          "values": [
+            {
+              "key": "enumValues",
+              "label": "enumValues"
+            }
+          ]
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "maximum_video_resolution_webcams",
+        "label": {
+          "de": "Maximale Video-Auflösung",
+          "en": "Maximum video resolution"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"inputTip\":\"Maximale Video-Auflösung\"}",
+          "en": "{\"displayGroup\":\"technical\",\"inputTip\":\"Maximum video resolution\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "enum",
+          "values": [
+            {
+              "key": "enumValues",
+              "label": "enumValues"
+            }
+          ]
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "maximum_frame_rate_webcams",
+        "label": {
+          "de": "Maximale Bildfrequenz",
+          "en": "Maximum frame rate"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"inputTip\":\"Maximale Bildfrequenz\"}",
+          "en": "{\"displayGroup\":\"technical\",\"inputTip\":\"Maximum frame rate\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "number"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "multifunctional_functions_webcams",
+        "label": {
+          "de": "Functies all-in-one",
+          "en": "All-in-one functions"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"inputTip\":\"Functies all-in-one\"}",
+          "en": "{\"displayGroup\":\"technical\",\"inputTip\":\"All-in-one functions\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "set",
+          "elementType": {
+            "name": "enum",
+            "values": [
+              {
+                "key": "enumValues",
+                "label": "enumValues"
+              }
+            ]
+          }
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "display_srgb_webcams",
+        "label": {
+          "de": "sRGB",
+          "en": "Display sRGB"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"inputTip\":\"sRGB\"}",
+          "en": "{\"displayGroup\":\"technical\",\"inputTip\":\"Display sRGB\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "boolean"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "display_color_webcams",
+        "label": {
+          "de": "Display Color",
+          "en": "Display Color"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"inputTip\":\"Display Color\"}",
+          "en": "{\"displayGroup\":\"technical\",\"inputTip\":\"Display Color\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "boolean"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "display_diagonal_webcams",
+        "label": {
+          "de": "Bildschirmdiagonale",
+          "en": "Display diagonal"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"unit\":\"inch\",\"unitGroup\":\"length\",\"inputTip\":\"Bildschirmdiagonale\"}",
+          "en": "{\"displayGroup\":\"technical\",\"unit\":\"inch\",\"unitGroup\":\"length\",\"inputTip\":\"Display diagonal\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "number"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "viewing_area_webcams",
+        "label": {
+          "de": "Effektive Bildfläche",
+          "en": "Effective viewing area"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"unit\":\"mm\",\"unitGroup\":\"length\",\"inputTip\":\"Effektive Bildfläche\"}",
+          "en": "{\"displayGroup\":\"technical\",\"unit\":\"mm\",\"unitGroup\":\"length\",\"inputTip\":\"Effective viewing area\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "number"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "camera_brand_webcams",
+        "label": {
+          "de": "Hersteller",
+          "en": "Brand"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"inputTip\":\"Hersteller\"}",
+          "en": "{\"displayGroup\":\"technical\",\"inputTip\":\"Brand\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "enum",
+          "values": [
+            {
+              "key": "enumValues",
+              "label": "enumValues"
+            }
+          ]
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "camera_model_name_webcams",
+        "label": {
+          "de": "Modelname",
+          "en": "Model name"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"inputTip\":\"Modelname\"}",
+          "en": "{\"displayGroup\":\"technical\",\"inputTip\":\"Model name\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "text"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "short_description_webcams",
+        "label": {
+          "de": "Kurze Beschreibung",
+          "en": "Short description"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"inputTip\":\"Kurze Beschreibung\"}",
+          "en": "{\"displayGroup\":\"technical\",\"inputTip\":\"Short description\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "text"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "max_image_resolution_webcams",
+        "label": {
+          "de": "Maximale Bildauflösung",
+          "en": "Maximum image resolution"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"inputTip\":\"Maximale Bildauflösung\"}",
+          "en": "{\"displayGroup\":\"technical\",\"inputTip\":\"Maximum image resolution\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "text"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "image_resolutions_webcams",
+        "label": {
+          "de": "Festbild Auflösung(en)",
+          "en": "Still image resolution(s)"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"inputTip\":\"Festbild Auflösung(en)\"}",
+          "en": "{\"displayGroup\":\"technical\",\"inputTip\":\"Still image resolution(s)\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "text"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "supported_aspect_ratios_webcams",
+        "label": {
+          "de": "Unterstützte Seitenverhältnisse",
+          "en": "Supported aspect ratios"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"inputTip\":\"Unterstützte Seitenverhältnisse\"}",
+          "en": "{\"displayGroup\":\"technical\",\"inputTip\":\"Supported aspect ratios\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "text"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "supported_image_format_webcams",
+        "label": {
+          "de": "Unterstützte Bildformate",
+          "en": "Supported image format"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"inputTip\":\"Unterstützte Bildformate\"}",
+          "en": "{\"displayGroup\":\"technical\",\"inputTip\":\"Supported image format\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "text"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "lens_mount_interface_webcams",
+        "label": {
+          "de": "Linsen Montageanschluss",
+          "en": "Lens mount interface"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"inputTip\":\"Linsen Montageanschluss\"}",
+          "en": "{\"displayGroup\":\"technical\",\"inputTip\":\"Lens mount interface\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "text"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "focus_webcams",
+        "label": {
+          "de": "Fokus",
+          "en": "Focus"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"inputTip\":\"Fokus\"}",
+          "en": "{\"displayGroup\":\"technical\",\"inputTip\":\"Focus\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "text"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "focus_adjustement_webcams",
+        "label": {
+          "de": "Fokus-Apassung",
+          "en": "Focus adjustment"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"inputTip\":\"Fokus-Apassung\"}",
+          "en": "{\"displayGroup\":\"technical\",\"inputTip\":\"Focus adjustment\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "ltext"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "auto_focus_modes_webcams",
+        "label": {
+          "de": "Auto focus modes",
+          "en": "Auto focus modes"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"inputTip\":\"Auto focus modes\"}",
+          "en": "{\"displayGroup\":\"technical\",\"inputTip\":\"Auto focus modes\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "ltext"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "auto_focus_points_webcams",
+        "label": {
+          "de": "Auto focus points",
+          "en": "Auto focus points"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"inputTip\":\"Auto focus points\"}",
+          "en": "{\"displayGroup\":\"technical\",\"inputTip\":\"Auto focus points\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "number"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "auto_focus_lock_webcams",
+        "label": {
+          "de": "Auto focus lock",
+          "en": "Auto focus lock"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"inputTip\":\"Auto focus lock\"}",
+          "en": "{\"displayGroup\":\"technical\",\"inputTip\":\"Auto focus lock\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "boolean"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "auto_focus_assist_beam_webcams",
+        "label": {
+          "de": "Auto focus beam",
+          "en": "Auto focus beam"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"inputTip\":\"Auto focus beam\"}",
+          "en": "{\"displayGroup\":\"technical\",\"inputTip\":\"Auto focus beam\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "boolean"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "iso_sensitivity_webcams",
+        "label": {
+          "de": "Iso sensitivity",
+          "en": "Iso sensitivity"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"inputTip\":\"Iso sensitivity\"}",
+          "en": "{\"displayGroup\":\"technical\",\"inputTip\":\"Iso sensitivity\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "text"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "light_exposure_modes_webcams",
+        "label": {
+          "de": "Light exposure modes",
+          "en": "Light exposure modes"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"inputTip\":\"Light exposure modes\"}",
+          "en": "{\"displayGroup\":\"technical\",\"inputTip\":\"Light exposure modes\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "ltext"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "light_exposure_corrections_webcams",
+        "label": {
+          "de": "Light exposure corrections",
+          "en": "Light exposure corrections"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"inputTip\":\"Light exposure corrections\"}",
+          "en": "{\"displayGroup\":\"technical\",\"inputTip\":\"Light exposure corrections\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "text"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "light_metering_webcams",
+        "label": {
+          "de": "Light metering",
+          "en": "Light metering"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"inputTip\":\"Light metering\"}",
+          "en": "{\"displayGroup\":\"technical\",\"inputTip\":\"Light metering\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "ltext"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "auto_exposure_webcams",
+        "label": {
+          "de": "Auto exposure",
+          "en": "Auto exposure"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"inputTip\":\"Auto exposure\"}",
+          "en": "{\"displayGroup\":\"technical\",\"inputTip\":\"Auto exposure\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "boolean"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "iso_sensitivity_max_webcams",
+        "label": {
+          "de": "ISO sensitivity (max)",
+          "en": "ISO sensitivity (max)"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"inputTip\":\"ISO sensitivity (max)\"}",
+          "en": "{\"displayGroup\":\"technical\",\"inputTip\":\"ISO sensitivity (max)\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "number"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "iso_sensitivity_min_webcams",
+        "label": {
+          "de": "ISO sensitivity (min)",
+          "en": "ISO sensitivity (min)"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"technical\",\"inputTip\":\"ISO sensitivity (min)\"}",
+          "en": "{\"displayGroup\":\"technical\",\"inputTip\":\"ISO sensitivity (min)\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "number"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "picture_webcams",
+        "label": {
+          "de": "Photography",
+          "en": "Picture (image)"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"remove\",\"inputTip\":\"Photography\"}",
+          "en": "{\"displayGroup\":\"remove\",\"inputTip\":\"Picture (image)\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "text"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "pdf_description_webcams",
+        "label": {
+          "de": "PDF Bezeichnung",
+          "en": "PDF description (asset)"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"remove\",\"inputTip\":\"PDF Bezeichnung\"}",
+          "en": "{\"displayGroup\":\"remove\",\"inputTip\":\"PDF description (asset)\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "text"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "container_material_webcams",
+        "label": {
+          "de": "Behältermaterial",
+          "en": "Container material"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"manufacturing\",\"inputTip\":\"Behältermaterial\"}",
+          "en": "{\"displayGroup\":\"manufacturing\",\"inputTip\":\"Container material\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "enum",
+          "values": [
+            {
+              "key": "enumValues",
+              "label": "enumValues"
+            }
+          ]
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "tshirt_materials_webcams",
+        "label": {
+          "de": "T-Shirt gewebe",
+          "en": "T-Shirt material"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"manufacturing\",\"inputTip\":\"T-Shirt gewebe\"}",
+          "en": "{\"displayGroup\":\"manufacturing\",\"inputTip\":\"T-Shirt material\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "enum",
+          "values": [
+            {
+              "key": "enumValues",
+              "label": "enumValues"
+            }
+          ]
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "main_color_webcams",
+        "label": {
+          "de": "Hauptfarbe",
+          "en": "Main color"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"color\",\"inputTip\":\"Hauptfarbe\"}",
+          "en": "{\"displayGroup\":\"color\",\"inputTip\":\"Main color\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "enum",
+          "values": [
+            {
+              "key": "enumValues",
+              "label": "enumValues"
+            }
+          ]
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "secondary_color_webcams",
+        "label": {
+          "de": "Sekundärfarbe",
+          "en": "Secondary color"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"color\",\"inputTip\":\"Sekundärfarbe\"}",
+          "en": "{\"displayGroup\":\"color\",\"inputTip\":\"Secondary color\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "enum",
+          "values": [
+            {
+              "key": "enumValues",
+              "label": "enumValues"
+            }
+          ]
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "clothing_size_webcams",
+        "label": {
+          "de": "Größe Kleidung",
+          "en": "Clothing size"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"size\",\"inputTip\":\"Größe Kleidung\"}",
+          "en": "{\"displayGroup\":\"size\",\"inputTip\":\"Clothing size\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "enum",
+          "values": [
+            {
+              "key": "enumValues",
+              "label": "enumValues"
+            }
+          ]
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "tshirt_style_webcams",
+        "label": {
+          "de": "T-Shirt stil",
+          "en": "T-Shirt style"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"design\",\"inputTip\":\"T-Shirt stil\"}",
+          "en": "{\"displayGroup\":\"design\",\"inputTip\":\"T-Shirt style\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "set",
+          "elementType": {
+            "name": "enum",
+            "values": [
+              {
+                "key": "enumValues",
+                "label": "enumValues"
+              }
+            ]
+          }
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "erp_name_webcams",
+        "label": {
+          "de": "ERP-Produktname",
+          "en": "ERP name"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"erp\",\"inputTip\":\"ERP-Produktname\"}",
+          "en": "{\"displayGroup\":\"erp\",\"inputTip\":\"ERP name\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "ltext"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "meta_title_webcams",
+        "label": {
+          "de": "Meta title",
+          "en": "Meta title"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"ecommerce\",\"inputTip\":\"Meta title\"}",
+          "en": "{\"displayGroup\":\"ecommerce\",\"inputTip\":\"Meta title\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "ltext"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "meta_description_webcams",
+        "label": {
+          "de": "Meta description",
+          "en": "Meta description"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"ecommerce\",\"inputTip\":\"Meta description\"}",
+          "en": "{\"displayGroup\":\"ecommerce\",\"inputTip\":\"Meta description\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "ltext"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "keywords_webcams",
+        "label": {
+          "de": "Keywords",
+          "en": "Keywords"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"ecommerce\",\"inputTip\":\"Keywords\"}",
+          "en": "{\"displayGroup\":\"ecommerce\",\"inputTip\":\"Keywords\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "ltext"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "image_webcams",
+        "label": {
+          "de": "Model bild",
+          "en": "Model picture (image)"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"remove\",\"inputTip\":\"Model bild\"}",
+          "en": "{\"displayGroup\":\"remove\",\"inputTip\":\"Model picture (image)\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "text"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "notice_webcams",
+        "label": {
+          "de": "Notice",
+          "en": "Notice (image)"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"remove\",\"inputTip\":\"Notice\"}",
+          "en": "{\"displayGroup\":\"remove\",\"inputTip\":\"Notice (image)\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "text"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "variation_name_webcams",
+        "label": {
+          "de": "Variant Name",
+          "en": "Variant Name"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"marketing\",\"inputTip\":\"Variant Name\"}",
+          "en": "{\"displayGroup\":\"marketing\",\"inputTip\":\"Variant Name\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "ltext"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "variation_description_webcams",
+        "label": {
+          "de": "Variant beschreibung",
+          "en": "Variant description"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"marketing\",\"inputTip\":\"Variant beschreibung\"}",
+          "en": "{\"displayGroup\":\"marketing\",\"inputTip\":\"Variant description\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "ltext"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "variation_image_webcams",
+        "label": {
+          "de": "Variant bild",
+          "en": "Variant picture (image)"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"remove\",\"inputTip\":\"Variant bild\"}",
+          "en": "{\"displayGroup\":\"remove\",\"inputTip\":\"Variant picture (image)\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "text"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "collection_webcams",
+        "label": {
+          "de": "Collection",
+          "en": "Collection"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"marketing\",\"inputTip\":\"Collection\"}",
+          "en": "{\"displayGroup\":\"marketing\",\"inputTip\":\"Collection\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "set",
+          "elementType": {
+            "name": "enum",
+            "values": [
+              {
+                "key": "enumValues",
+                "label": "enumValues"
+              }
+            ]
+          }
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "composition_webcams",
+        "label": {
+          "de": "Composition",
+          "en": "Composition"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"product\",\"inputTip\":\"Composition\"}",
+          "en": "{\"displayGroup\":\"product\",\"inputTip\":\"Composition\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "text"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "wash_temperature_webcams",
+        "label": {
+          "de": "Wash temperature",
+          "en": "Wash temperature"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"product\",\"inputTip\":\"Wash temperature\"}",
+          "en": "{\"displayGroup\":\"product\",\"inputTip\":\"Wash temperature\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "enum",
+          "values": [
+            {
+              "key": "enumValues",
+              "label": "enumValues"
+            }
+          ]
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "care_instructions_webcams",
+        "label": {
+          "de": "Care instructions",
+          "en": "Care instructions"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"product\",\"inputTip\":\"Care instructions\"}",
+          "en": "{\"displayGroup\":\"product\",\"inputTip\":\"Care instructions\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "text"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "color_webcams",
+        "label": {
+          "de": "Color",
+          "en": "Color"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"product\",\"inputTip\":\"Color\"}",
+          "en": "{\"displayGroup\":\"product\",\"inputTip\":\"Color\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "enum",
+          "values": [
+            {
+              "key": "enumValues",
+              "label": "enumValues"
+            }
+          ]
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "size_webcams",
+        "label": {
+          "de": "Size",
+          "en": "Size"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"product\",\"inputTip\":\"Size\"}",
+          "en": "{\"displayGroup\":\"product\",\"inputTip\":\"Size\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "enum",
+          "values": [
+            {
+              "key": "enumValues",
+              "label": "enumValues"
+            }
+          ]
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "eu_shoes_size_webcams",
+        "label": {
+          "de": "EU Shoes Size",
+          "en": "EU Shoes Size"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"product\",\"inputTip\":\"EU Shoes Size\"}",
+          "en": "{\"displayGroup\":\"product\",\"inputTip\":\"EU Shoes Size\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "enum",
+          "values": [
+            {
+              "key": "enumValues",
+              "label": "enumValues"
+            }
+          ]
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "sole_composition_webcams",
+        "label": {
+          "de": "Sole composition",
+          "en": "Sole composition"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"product\",\"inputTip\":\"Sole composition\"}",
+          "en": "{\"displayGroup\":\"product\",\"inputTip\":\"Sole composition\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "text"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "top_composition_webcams",
+        "label": {
+          "de": "Top composition",
+          "en": "Top composition"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"product\",\"inputTip\":\"Top composition\"}",
+          "en": "{\"displayGroup\":\"product\",\"inputTip\":\"Top composition\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "text"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "brand_webcams",
+        "label": {
+          "de": "Brand",
+          "en": "Brand"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"marketing\",\"inputTip\":\"Brand\"}",
+          "en": "{\"displayGroup\":\"marketing\",\"inputTip\":\"Brand\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "enum",
+          "values": [
+            {
+              "key": "enumValues",
+              "label": "enumValues"
+            }
+          ]
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "ean_webcams",
+        "label": {
+          "de": "EAN",
+          "en": "EAN"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"erp\",\"inputTip\":\"EAN\"}",
+          "en": "{\"displayGroup\":\"erp\",\"inputTip\":\"EAN\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "text"
+        },
+        "attributeConstraint": "Unique",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "supplier_webcams",
+        "label": {
+          "de": "Lieferant",
+          "en": "Supplier"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"erp\",\"inputTip\":\"Lieferant\"}",
+          "en": "{\"displayGroup\":\"erp\",\"inputTip\":\"Supplier\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "enum",
+          "values": [
+            {
+              "key": "enumValues",
+              "label": "enumValues"
+            }
+          ]
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "material_webcams",
+        "label": {
+          "de": "Material",
+          "en": "Material"
+        },
+        "inputTip": {
+          "de": "{\"displayGroup\":\"product\",\"inputTip\":\"Material\"}",
+          "en": "{\"displayGroup\":\"product\",\"inputTip\":\"Material\"}"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "enum",
+          "values": [
+            {
+              "key": "enumValues",
+              "label": "enumValues"
+            }
+          ]
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      }
+    ],
+    "key": "webcams"
+  },
+  {
+    "id": "ccb4f28a-03bd-4a75-9503-7bc269670fce",
+    "version": 15,
+    "createdAt": "2021-01-20T07:49:51.393Z",
+    "lastModifiedAt": "2021-02-08T12:42:31.422Z",
+    "lastModifiedBy": {
+      "clientId": "sample-client-id",
+      "isPlatformClient": false
+    },
+    "createdBy": {
+      "clientId": "sample-client-id",
+      "isPlatformClient": false
+    },
+    "name": "TestProduct",
+    "description": "TestProduct for data load tests. It will provide all attribute types.",
+    "classifier": "Complex",
+    "attributes": [
+      {
+        "name": "testBOOLEAN",
+        "label": {
+          "de": "testBOOLEAN",
+          "en": "testBOOLEAN"
+        },
+        "inputTip": {
+          "de": "testBOOLEAN",
+          "en": "testBOOLEAN"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "boolean"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "testTEXT",
+        "label": {
+          "de": "testTEXT",
+          "en": "testTEXT"
+        },
+        "inputTip": {
+          "de": "testTEXT",
+          "en": "testTEXT"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "text"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "testLTEXT",
+        "label": {
+          "de": "testLTEXT",
+          "en": "testLTEXT"
+        },
+        "inputTip": {
+          "de": "testLTEXT",
+          "en": "testLTEXT"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "ltext"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "testNUMBER",
+        "label": {
+          "de": "testNUMBER",
+          "en": "testNUMBER"
+        },
+        "inputTip": {
+          "de": "testNUMBER",
+          "en": "testNUMBER"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "number"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "testMONEY",
+        "label": {
+          "de": "testMONEY",
+          "en": "testMONEY"
+        },
+        "inputTip": {
+          "de": "testMONEY",
+          "en": "testMONEY"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "money"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "testDATE",
+        "label": {
+          "de": "testDATE",
+          "en": "testDATE"
+        },
+        "inputTip": {
+          "de": "testDATE",
+          "en": "testDATE"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "date"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "testREFERENCE",
+        "label": {
+          "de": "testREFERENCE",
+          "en": "testREFERENCE"
+        },
+        "inputTip": {
+          "de": "testREFERENCE",
+          "en": "testREFERENCE"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "reference",
+          "referenceTypeId": "channel"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "testENUM",
+        "label": {
+          "de": "testENUM",
+          "en": "testENUM"
+        },
+        "inputTip": {
+          "de": "testENUM",
+          "en": "testENUM"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "enum",
+          "values": [
+            {
+              "key": "testENUM2",
+              "label": "testENUM 2"
+            },
+            {
+              "key": "testENUM3",
+              "label": "testENUM 3"
+            },
+            {
+              "key": "testENUM4",
+              "label": "testENUM 4"
+            },
+            {
+              "key": "testENUM1",
+              "label": "testENUM 1"
+            }
+          ]
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "testLENUM",
+        "label": {
+          "de": "testLENUM",
+          "en": "testLENUM"
+        },
+        "inputTip": {
+          "de": "testLENUM",
+          "en": "testLENUM"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "lenum",
+          "values": [
+            {
+              "key": "testLENUM1",
+              "label": {
+                "de": "testLENUM1-de",
+                "en": "testLENUM1-en"
+              }
+            },
+            {
+              "key": "testLENUM2",
+              "label": {
+                "de": "testLENUM2-de",
+                "en": "testLENUM2-en"
+              }
+            }
+          ]
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "testBOOLEAN-SET",
+        "label": {
+          "de": "testBOOLEAN-SET",
+          "en": "testBOOLEAN-SET"
+        },
+        "inputTip": {
+          "de": "testBOOLEAN-SET",
+          "en": "testBOOLEAN-SET"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "set",
+          "elementType": {
+            "name": "boolean"
+          }
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "testTEXT-SET",
+        "label": {
+          "de": "testTEXT-SET",
+          "en": "testTEXT-SET"
+        },
+        "inputTip": {
+          "de": "testTEXT-SET",
+          "en": "testTEXT-SET"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "set",
+          "elementType": {
+            "name": "text"
+          }
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "testLTEXT-SET",
+        "label": {
+          "de": "testLTEXT-SET",
+          "en": "testLTEXT-SET"
+        },
+        "inputTip": {
+          "de": "testLTEXT-SET",
+          "en": "testLTEXT-SET"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "set",
+          "elementType": {
+            "name": "ltext"
+          }
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "testNUMBER-SET",
+        "label": {
+          "de": "testNUMBER-SET",
+          "en": "testNUMBER-SET"
+        },
+        "inputTip": {
+          "de": "testNUMBER-SET",
+          "en": "testNUMBER-SET"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "set",
+          "elementType": {
+            "name": "number"
+          }
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "testMONEY-SET",
+        "label": {
+          "de": "testMONEY-SET",
+          "en": "testMONEY-SET"
+        },
+        "inputTip": {
+          "de": "testMONEY-SET",
+          "en": "testMONEY-SET"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "set",
+          "elementType": {
+            "name": "money"
+          }
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "testDATE-SET",
+        "label": {
+          "de": "testDATE-SET",
+          "en": "testDATE-SET"
+        },
+        "inputTip": {
+          "de": "testDATE-SET",
+          "en": "testDATE-SET"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "set",
+          "elementType": {
+            "name": "date"
+          }
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "testREFERENCE-SET",
+        "label": {
+          "de": "testREFERENCE-SET",
+          "en": "testREFERENCE-SET"
+        },
+        "inputTip": {
+          "de": "testREFERENCE-SET",
+          "en": "testREFERENCE-SET"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "set",
+          "elementType": {
+            "name": "reference",
+            "referenceTypeId": "channel"
+          }
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "testENUM-SET",
+        "label": {
+          "de": "testENUM-SET",
+          "en": "testENUM-SET"
+        },
+        "inputTip": {
+          "de": "testENUM-SET",
+          "en": "testENUM-SET"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "set",
+          "elementType": {
+            "name": "enum",
+            "values": [
+              {
+                "key": "testENUM-SET1",
+                "label": "testENUMSet 1"
+              },
+              {
+                "key": "testENUM-SET2",
+                "label": "testENUMSet 2"
+              },
+              {
+                "key": "testENUM-SET4",
+                "label": "testENUMSet 4"
+              },
+              {
+                "key": "testENUM-SET3",
+                "label": "testENUMSet 3"
+              },
+              {
+                "key": "testENUMSet3",
+                "label": "testENUMSet 3"
+              },
+              {
+                "key": "testENUMSet4",
+                "label": "testENUMSet 4"
+              },
+              {
+                "key": "testENUMSet1",
+                "label": "testENUMSet 1"
+              },
+              {
+                "key": "testENUMSet2",
+                "label": "testENUMSet 2"
+              }
+            ]
+          }
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "testLENUM-SET",
+        "label": {
+          "de": "testLENUM-SET",
+          "en": "testLENUM-SET"
+        },
+        "inputTip": {
+          "de": "testLENUM-SET",
+          "en": "testLENUM-SET"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "set",
+          "elementType": {
+            "name": "lenum",
+            "values": [
+              {
+                "key": "testLENUM-SET1",
+                "label": {
+                  "de": "lenum1set-de",
+                  "en": "lenum1set-en"
+                }
+              },
+              {
+                "key": "testLENUM-SET2",
+                "label": {
+                  "de": "lenum2set-de",
+                  "en": "lenum2set-en"
+                }
+              }
+            ]
+          }
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "bundleProducts",
+        "label": {
+          "de": "bundleProducts",
+          "en": "bundleProducts"
+        },
+        "inputTip": {
+          "de": "bundleProducts",
+          "en": "bundleProducts"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "set",
+          "elementType": {
+            "name": "reference",
+            "referenceTypeId": "product"
+          }
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      }
+    ],
+    "key": "TestProduct"
+  },
+  {
+    "id": "7c941f8d-16e9-462c-a115-d813e33e6234",
+    "version": 4,
+    "createdAt": "2021-01-21T05:03:11.478Z",
+    "lastModifiedAt": "2021-01-27T06:40:01.157Z",
+    "lastModifiedBy": {
+      "isPlatformClient": true,
+      "user": {
+        "typeId": "user",
+        "id": "5a1c9172-7d52-4647-b542-9d14831ad1bb"
+      }
+    },
+    "createdBy": {
+      "clientId": "sample-client-id",
+      "isPlatformClient": false
+    },
+    "name": "Book",
+    "description": "Book product type.",
+    "classifier": "Complex",
+    "attributes": [
+      {
+        "name": "authors",
+        "label": {
+          "en": "book authors en",
+          "de": "book authors de"
+        },
+        "inputTip": {
+          "en": "enter book authors"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "set",
+          "elementType": {
+            "name": "text"
+          }
+        },
+        "attributeConstraint": "SameForAll",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "title",
+        "label": {
+          "en": "book title en",
+          "de": "book title de"
+        },
+        "inputTip": {
+          "en": "enter book title"
+        },
+        "isRequired": true,
+        "type": {
+          "name": "ltext"
+        },
+        "attributeConstraint": "SameForAll",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "isbn-INT",
+        "label": {
+          "de": "",
+          "en": "isbn-INT",
+          "fr": "",
+          "nl": ""
+        },
+        "inputTip": {
+          "de": "",
+          "en": "",
+          "fr": "",
+          "nl": ""
+        },
+        "isRequired": true,
+        "type": {
+          "name": "number"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      }
+    ]
+  },
+  {
+    "id": "2d694b10-8dfb-4e4e-841f-cfa921e63892",
+    "version": 164,
+    "createdAt": "2021-02-03T06:42:19.110Z",
+    "lastModifiedAt": "2021-02-22T10:03:56.927Z",
+    "lastModifiedBy": {
+      "clientId": "sample-client-id",
+      "isPlatformClient": false
+    },
+    "createdBy": {
+      "clientId": "sample-client-id",
+      "isPlatformClient": false
+    },
+    "name": "Configurable Product",
+    "description": "Configurable Product",
+    "classifier": "Complex",
+    "attributes": [
+      {
+        "name": "accessories",
+        "label": {
+          "de": "Accessories",
+          "en": "Accessories"
+        },
+        "inputTip": {
+          "de": "accessories",
+          "en": "accessories"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "set",
+          "elementType": {
+            "name": "reference",
+            "referenceTypeId": "product"
+          }
+        },
+        "attributeConstraint": "SameForAll",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "designer",
+        "label": {
+          "de": "Designer",
+          "en": "Designer"
+        },
+        "inputTip": {
+          "de": "designer",
+          "en": "designer"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "text"
+        },
+        "attributeConstraint": "SameForAll",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "designeryear",
+        "label": {
+          "de": "Jahr",
+          "en": "Year"
+        },
+        "inputTip": {
+          "de": "designeryear",
+          "en": "designeryear"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "text"
+        },
+        "attributeConstraint": "SameForAll",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "configurator_leather",
+        "label": {
+          "de": "Leder",
+          "en": "Leather"
+        },
+        "inputTip": {
+          "de": "configurator_leather",
+          "en": "configurator_leather"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "set",
+          "elementType": {
+            "name": "lenum",
+            "values": [
+              {
+                "key": "Leather_Natural_Caramel_01",
+                "label": {
+                  "de": "01 caramel",
+                  "en": "01 caramel"
+                }
+              },
+              {
+                "key": "Leather_Natural_Dark_Sand_78",
+                "label": {
+                  "de": "78 dark sand",
+                  "en": "78 dark sand"
+                }
+              },
+              {
+                "key": "leather_premium_snow_72",
+                "label": {
+                  "de": "72 snow",
+                  "en": "72 snow"
+                }
+              },
+              {
+                "key": "leather_premium_sand_71",
+                "label": {
+                  "de": "71 sand",
+                  "en": "71 sand"
+                }
+              },
+              {
+                "key": "umbra_grey_61",
+                "label": {
+                  "de": "61 umbragrau",
+                  "en": "61 umbra grey"
+                }
+              },
+              {
+                "key": "Leather_Premium_khaki_58",
+                "label": {
+                  "de": "58 khaki",
+                  "en": "58 khaki"
+                }
+              },
+              {
+                "key": "leather_premium_brown_77",
+                "label": {
+                  "de": "77 braun",
+                  "en": "77 brown"
+                }
+              },
+              {
+                "key": "leather_premium_chocolate_68",
+                "label": {
+                  "de": "68 chocolate",
+                  "en": "68 chocolate"
+                }
+              },
+              {
+                "key": "leather_premium_nero_66",
+                "label": {
+                  "de": "66 nero",
+                  "en": "66 nero"
+                }
+              }
+            ]
+          }
+        },
+        "attributeConstraint": "SameForAll",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "configurator_wood",
+        "label": {
+          "de": "Holz",
+          "en": "Wood"
+        },
+        "inputTip": {
+          "de": "configurator_wood",
+          "en": "configurator_wood"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "set",
+          "elementType": {
+            "name": "lenum",
+            "values": [
+              {
+                "key": "Wood_Veneer_american_cherry_24",
+                "label": {
+                  "de": "24 Amerikanischer Kirschbaum",
+                  "en": "24 American cherry"
+                }
+              },
+              {
+                "key": "Wood_Veneer_santos_palisander_05",
+                "label": {
+                  "de": "05 Santos Palisander",
+                  "en": "05 Santos palisander"
+                }
+              },
+              {
+                "key": "Veneer_black_pigmented_walnut_45",
+                "label": {
+                  "de": "45 Nussbaum schwarz pigmentiert",
+                  "en": "45 black pigmented walnut"
+                }
+              },
+              {
+                "key": "Veneer_white_pigmented_walnut_49",
+                "label": {
+                  "de": "49 Nussbaum weiss pigmentiert",
+                  "en": "49 white pigmented walnut"
+                }
+              },
+              {
+                "key": "Veneer_black_ash_68",
+                "label": {
+                  "de": "68 Esche schwarz",
+                  "en": "68 black ash"
+                }
+              }
+            ]
+          }
+        },
+        "attributeConstraint": "SameForAll",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "configurator_base",
+        "label": {
+          "de": "Basis",
+          "en": "Base"
+        },
+        "inputTip": {
+          "de": "configurator_base",
+          "en": "configurator_base"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "set",
+          "elementType": {
+            "name": "lenum",
+            "values": [
+              {
+                "key": "polished",
+                "label": {
+                  "de": "poliert",
+                  "en": "polished"
+                }
+              },
+              {
+                "key": "polished_sidesblack",
+                "label": {
+                  "de": "poliert, Seiten schwarz",
+                  "en": "polished / sides black"
+                }
+              }
+            ]
+          }
+        },
+        "attributeConstraint": "SameForAll",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "configurator_covermaterial",
+        "label": {
+          "de": "Obermaterial",
+          "en": "Cover material"
+        },
+        "inputTip": {
+          "de": "configurator_covermaterial",
+          "en": "configurator_covermaterial"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "set",
+          "elementType": {
+            "name": "lenum",
+            "values": [
+              {
+                "key": "leather_premium",
+                "label": {
+                  "de": "Leder Premium",
+                  "en": "Leather Premium"
+                }
+              },
+              {
+                "key": "leather_natural",
+                "label": {
+                  "de": "Leder Natur",
+                  "en": "Leather Natural"
+                }
+              },
+              {
+                "key": "leather_premium_f",
+                "label": {
+                  "de": "Leder Premium F",
+                  "en": "Leather Premium F"
+                }
+              }
+            ]
+          }
+        },
+        "attributeConstraint": "SameForAll",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "configurator_version",
+        "label": {
+          "de": "Version",
+          "en": "Version"
+        },
+        "inputTip": {
+          "de": "Version",
+          "en": "Version"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "set",
+          "elementType": {
+            "name": "lenum",
+            "values": [
+              {
+                "key": "new",
+                "label": {
+                  "de": "Neue Abmessungen",
+                  "en": "new dimensions"
+                }
+              },
+              {
+                "key": "classic",
+                "label": {
+                  "de": "Klassische Abmessungen",
+                  "en": "classic dimensions"
+                }
+              }
+            ]
+          }
+        },
+        "attributeConstraint": "SameForAll",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "configurator_base_on",
+        "label": {
+          "de": "Base on",
+          "en": "Base on"
+        },
+        "inputTip": {
+          "de": "Base on",
+          "en": "Base on"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "set",
+          "elementType": {
+            "name": "lenum",
+            "values": [
+              {
+                "key": "felt",
+                "label": {
+                  "de": "felt glides for hard floor",
+                  "en": "felt glides for hard floor"
+                }
+              },
+              {
+                "key": "carpet",
+                "label": {
+                  "de": "glides for carpet",
+                  "en": "glides for carpet"
+                }
+              }
+            ]
+          }
+        },
+        "attributeConstraint": "SameForAll",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      }
+    ],
+    "key": "ConfigurableProduct"
+  },
+  {
+    "id": "e4b71467-2b3f-4e49-9822-71bf1c577ecc",
+    "version": 73,
+    "createdAt": "2021-02-03T06:43:24.561Z",
+    "lastModifiedAt": "2021-02-22T10:03:56.927Z",
+    "lastModifiedBy": {
+      "clientId": "sample-client-id",
+      "isPlatformClient": false
+    },
+    "createdBy": {
+      "clientId": "sample-client-id",
+      "isPlatformClient": false
+    },
+    "name": "Furniture Product",
+    "description": "Furniture Product",
+    "classifier": "Complex",
+    "attributes": [
+      {
+        "name": "lineitemDescription",
+        "label": {
+          "de": "LineItem Beschreibung",
+          "en": "Lineitem Description"
+        },
+        "inputTip": {
+          "de": "Beschreibung, wird im Cart und Order als Beschreibung für das Line item verwendet",
+          "en": "Description, used in cart and order for line item description."
+        },
+        "isRequired": false,
+        "type": {
+          "name": "ltext"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "MultiLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "accessories",
+        "label": {
+          "de": "Accessories",
+          "en": "Accessories"
+        },
+        "inputTip": {
+          "de": "accessories",
+          "en": "accessories"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "set",
+          "elementType": {
+            "name": "reference",
+            "referenceTypeId": "product"
+          }
+        },
+        "attributeConstraint": "SameForAll",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "designer",
+        "label": {
+          "de": "designer",
+          "en": "designer"
+        },
+        "inputTip": {
+          "de": "Designer",
+          "en": "Designer"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "text"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "designeryear",
+        "label": {
+          "de": "Jahr",
+          "en": "Year"
+        },
+        "inputTip": {
+          "de": "designeryear",
+          "en": "designeryear"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "text"
+        },
+        "attributeConstraint": "None",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "furniture_leather",
+        "label": {
+          "de": "Leder",
+          "en": "Leather"
+        },
+        "inputTip": {
+          "de": "Leder",
+          "en": "Leather"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "lenum",
+          "values": [
+            {
+              "key": "leather_premium_snow_72",
+              "label": {
+                "de": "72 snow",
+                "en": "72 snow"
+              }
+            },
+            {
+              "key": "leather_premium_sand_71",
+              "label": {
+                "de": "71 sand",
+                "en": "71 sand"
+              }
+            },
+            {
+              "key": "umbra_grey_61",
+              "label": {
+                "de": "61 umbragrau",
+                "en": "61 umbra grey"
+              }
+            },
+            {
+              "key": "Leather_Premium_khaki_58",
+              "label": {
+                "de": "58 khaki",
+                "en": "58 khaki"
+              }
+            },
+            {
+              "key": "leather_premium_brown_77",
+              "label": {
+                "de": "77 braun",
+                "en": "77 brown"
+              }
+            },
+            {
+              "key": "leather_premium_chocolate_68",
+              "label": {
+                "de": "68 chocolate",
+                "en": "68 chocolate"
+              }
+            },
+            {
+              "key": "leather_premium_nero_66",
+              "label": {
+                "de": "66 nero",
+                "en": "66 nero"
+              }
+            },
+            {
+              "key": "Leather_Natural_Caramel_01",
+              "label": {
+                "de": "01 caramel",
+                "en": "01 caramel"
+              }
+            },
+            {
+              "key": "Leather_Natural_Dark_Sand_78",
+              "label": {
+                "de": "78 dark sand",
+                "en": "78 dark sand"
+              }
+            }
+          ]
+        },
+        "attributeConstraint": "CombinationUnique",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "furniture_wood",
+        "label": {
+          "de": "Holz",
+          "en": "Wood"
+        },
+        "inputTip": {
+          "de": "furniture_wood",
+          "en": "furniture_wood"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "lenum",
+          "values": [
+            {
+              "key": "Wood_Veneer_american_cherry_24",
+              "label": {
+                "de": "24 Amerikanischer Kirschbaum",
+                "en": "24 American cherry"
+              }
+            },
+            {
+              "key": "Wood_Veneer_santos_palisander_05",
+              "label": {
+                "de": "05 Santos Palisander",
+                "en": "05 Santos palisander"
+              }
+            },
+            {
+              "key": "Veneer_black_pigmented_walnut_45",
+              "label": {
+                "de": "45 Nussbaum schwarz pigmentiert",
+                "en": "45 black pigmented walnut"
+              }
+            },
+            {
+              "key": "Veneer_white_pigmented_walnut_49",
+              "label": {
+                "de": "49 Nussbaum weiss pigmentiert",
+                "en": "49 white pigmented walnut"
+              }
+            },
+            {
+              "key": "Veneer_black_ash_68",
+              "label": {
+                "de": "68 Esche schwarz",
+                "en": "68 black ash"
+              }
+            }
+          ]
+        },
+        "attributeConstraint": "CombinationUnique",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "furniture_base",
+        "label": {
+          "de": "Basis",
+          "en": "Base"
+        },
+        "inputTip": {
+          "de": "furniture_base",
+          "en": "furniture_base"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "lenum",
+          "values": [
+            {
+              "key": "polished",
+              "label": {
+                "de": "poliert",
+                "en": "polished"
+              }
+            },
+            {
+              "key": "polished_sidesblack",
+              "label": {
+                "de": "poliert, Seiten schwarz",
+                "en": "polished / sides black"
+              }
+            }
+          ]
+        },
+        "attributeConstraint": "CombinationUnique",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "furniture_covermaterial",
+        "label": {
+          "de": "Obermaterial",
+          "en": "Cover material"
+        },
+        "inputTip": {
+          "de": "furniture_covermaterial",
+          "en": "furniture_covermaterial"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "lenum",
+          "values": [
+            {
+              "key": "leather_premium",
+              "label": {
+                "de": "Leder Premium",
+                "en": "Leather Premium"
+              }
+            },
+            {
+              "key": "leather_natural",
+              "label": {
+                "de": "Leder Natur",
+                "en": "Leather Natural"
+              }
+            },
+            {
+              "key": "leather_premium_f",
+              "label": {
+                "de": "Leder Premium F",
+                "en": "Leather Premium F"
+              }
+            }
+          ]
+        },
+        "attributeConstraint": "CombinationUnique",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "furniture_version",
+        "label": {
+          "de": "Version",
+          "en": "Version"
+        },
+        "inputTip": {
+          "de": "furniture_version",
+          "en": "furniture_version"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "lenum",
+          "values": [
+            {
+              "key": "new",
+              "label": {
+                "de": "Neue Abmessungen",
+                "en": "new dimensions"
+              }
+            },
+            {
+              "key": "classic",
+              "label": {
+                "de": "Klassische Abmessungen",
+                "en": "classic dimensions"
+              }
+            }
+          ]
+        },
+        "attributeConstraint": "CombinationUnique",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      },
+      {
+        "name": "furniture_base_on",
+        "label": {
+          "de": "Basis auf",
+          "en": "Base on"
+        },
+        "inputTip": {
+          "de": "furniture_base_on",
+          "en": "furniture_base_on"
+        },
+        "isRequired": false,
+        "type": {
+          "name": "lenum",
+          "values": [
+            {
+              "key": "felt",
+              "label": {
+                "de": "Filzgleiter für harte Böden",
+                "en": "felt glides for hard floor"
+              }
+            },
+            {
+              "key": "carpet",
+              "label": {
+                "de": "Teppich-Gleiter",
+                "en": "glides for carpet"
+              }
+            }
+          ]
+        },
+        "attributeConstraint": "CombinationUnique",
+        "isSearchable": true,
+        "inputHint": "SingleLine",
+        "displayGroup": "Other"
+      }
+    ],
+    "key": "FurnitureProduct"
+  }
+]

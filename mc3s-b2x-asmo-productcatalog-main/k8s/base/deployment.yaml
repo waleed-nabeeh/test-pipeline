@@ -1,0 +1,68 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: "mc3s-b2x-aggregator-productcatalog"
+spec:
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  selector:
+    matchLabels:
+      name: "mc3s-b2x-aggregator-productcatalog"
+  template:
+    metadata:
+      name: "mc3s-b2x-aggregator-productcatalog"
+      labels:
+        name: "mc3s-b2x-aggregator-productcatalog"
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 101
+      terminationGracePeriodSeconds: 5
+      serviceAccountName: mc3s-b2x-aggregator
+      containers:
+        - name: mc3s-b2x-aggregator-productcatalog
+          image: "custom_image:base-tag"
+          imagePullPolicy: Always
+          envFrom:
+            - secretRef:
+                name: ct-secret
+            - configMapRef:
+                name: aggregator-config
+          ports:
+            - name: web
+              containerPort: 2357
+              protocol: TCP
+          startupProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: web
+            failureThreshold: 30
+            periodSeconds: 10
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /actuator/health
+              port: web
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 2
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /actuator/health
+              port: web
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "2300Mi"
+            limits:
+              cpu: "350m"
+              memory: "2300Mi"

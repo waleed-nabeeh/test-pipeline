@@ -1,0 +1,30 @@
+#!/bin/sh
+# requires https://bitbucket.org/blog/cloning-another-bitbucket-repository-in-bitbucket-pipelines
+# shellcheck disable=SC2016
+REPO_SLUG="mc3s-b2x-perf-testing"
+BB_AUTH_STRING="${BITBUCKET_USER}:${API_CLIENT_GENERATION_APP_PWD}"
+curl -X POST -is -u "${BB_AUTH_STRING}" \
+  -H 'Content-Type: application/json' \
+  https://api.bitbucket.org/2.0/repositories/mindcurv/${REPO_SLUG}/pipelines/ \
+  -d '
+  {
+    "target": {
+      "ref_type": "branch",
+      "type": "pipeline_ref_target",
+      "ref_name": "master",
+      "selector": {
+        "type": "custom",
+        "pattern": "update-karate-feature-files"
+      }
+    },
+    "variables": [
+          {
+            "key": "SERVICE",
+            "value": "productcatalog"
+          },
+          {
+            "key":"BRANCH_NAME",
+            "value": "'"${BITBUCKET_BRANCH}"'"
+          }
+      ]
+  }'

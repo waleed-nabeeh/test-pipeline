@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<licenseSummary>
+    <license code="undefined - to verify with Daniel / Paddy">
+        <names>
+            <name>Go License</name>
+            <name>Unlicense</name>
+            <name>WTFPL</name>
+            <name>Mozilla Public License Version 2.0</name>
+            <name>Mozilla Public License, Version 2.0</name>
+        </names>
+    </license>
+    <license code="Apache">
+        <names>
+            <name>Apache License</name>
+        </names>
+    </license>
+    <license code="Apache-2.0">
+        <names>
+            <name>Apache 2 License</name>
+            <name>Apache 2.0 License</name>
+            <name>Apache 2.0</name>
+            <name>Apache 2</name>
+            <name>Apache License 2.0</name>
+            <name>Apache License Version 2.0</name>
+            <name>Apache License, Version 2.0</name>
+            <name>Apache License, version 2.0</name>
+            <name>Apache Software License - Version 2.0</name>
+            <name>Apache Software License, Version 2.0</name>
+            <name>Apache-2.0</name>
+            <name>The Apache License, Version 2.0</name>
+            <name>The Apache Software License, Version 2.0</name>
+            <name>The Apache Software License, version 2.0</name>
+            <name>Apache Software License, version 2.0</name>
+            <name>Apache Public License 2.0</name>
+        </names>
+    </license>
+    <license code="BSD-2-Clause">
+        <names>
+            <name>BSD 2-Clause License</name>
+            <name>2-Clause BSD License</name>
+            <name>BSD-2-Clause</name>
+            <name>The BSD 2-Clause License</name>
+        </names>
+    </license>
+    <license code="BSD-3-Clause">
+        <names>
+            <name>BSD 3-Clause License</name>
+            <name>The BSD 3-Clause License (BSD3</name>
+            <name>3-Clause BSD License</name>
+            <name>EDL 1.0</name>
+            <name>BSD License 3</name>
+            <name>BSD-3-Clause</name>
+            <name>BSD 3-clause</name>
+            <name>BSD 3-Clause</name>
+            <name>The BSD 3-Clause License (BSD3)</name>
+        </names>
+    </license>
+    <license code="BSD-4-Clause">
+        <names>
+            <name>BSD</name>
+            <name>BSD License</name>
+            <name>The BSD License</name>
+            <name>BSD License</name>
+            <name>BSD licence</name>
+            <name>The (New) BSD License</name>
+            <name>BSD New license</name>
+            <name>The New BSD License</name>
+
+        </names>
+    </license>
+    <license code="CDDL-1.0">
+        <names>
+            <name>CDDL</name>
+            <name>COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0</name>
+            <name>Common Development and Distribution License (CDDL) v1.0</name>
+        </names>
+    </license>
+    <license code="CDDL-1.1">
+        <names>
+            <name>CDDL 1.1</name>
+            <name>COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.1</name>
+            <name>Dual license consisting of the CDDL v1.1 and GPL v2</name>
+            <name>CDDL/GPLv2+CE</name>
+            <name>CDDL or GPL version 2 plus the Classpath Exception</name>
+            <name>CDDL + GPLv2 with classpath exception</name>
+        </names>
+    </license>
+    <license code="EPL-1.0">
+        <names>
+            <name>EPL 1.0</name>
+            <name>Eclipse Distribution License - v 1.0</name>
+            <name>Eclipse Public License - Version 1.0</name>
+            <name>Eclipse Public License - v 1.0</name>
+            <name>Eclipse Public License 1.0</name>
+            <name>Eclipse Public License, Version 1.0</name>
+        </names>
+    </license>
+    <license code="EPL-2.0">
+        <names>
+            <name>EPL 2.0</name>
+            <name>EPL-2.0</name>
+            <name>Eclipse Public License - Version 2.0</name>
+            <name>Eclipse Public License - v 2.0</name>
+            <name>Eclipse Public License 2.0</name>
+            <name>Eclipse Public License v. 2.0</name>
+            <name>Eclipse Public License v2.0</name>
+        </names>
+    </license>
+    <license code="GPL-2.0-with-classpath-exception">
+        <names>
+            <name>GPLv2+CE</name>
+            <name>GPL2 w/ CPE</name>
+        </names>
+    </license>
+    <license code="LGPL-2.1">
+        <names>
+            <name>GNU Lesser General Public License Version 2.1</name>
+            <name>GNU LESSER GENERAL PUBLIC LICENSE, Version 2.1</name>
+            <name>GNU Lesser General Public License</name>
+            <name>GNU Lesser General Public License (LGPL), Version 2.1</name>
+            <name>GNU Lesser Public License</name>
+            <name>LGPL-2.1-or-later</name>
+            <name>LGPL 2.1</name>
+        </names>
+    </license>
+    <license code="GNU-GPL">
+        <names>
+            <name>GNU General Public License, version 2 with the GNU Classpath Exception</name>
+        </names>
+    </license>
+    <license code="LGPL-3.0">
+        <names>
+            <name>GNU Library or Lesser General Public License</name>
+            <name>GNU Library or Lesser General Public License Version 3.0</name>
+            <name>Lesser General Public License Version 3.0</name>
+            <name>Lesser General Public License Version 3.0</name>
+            <name>Lesser General Public License, version 3 or greater</name>
+        </names>
+    </license>
+    <license code="Unicode-DFS-2016">
+        <names>
+            <name>Unicode/ICU License</name>
+        </names>
+    </license>
+    <license code="Bouncy Castle">
+        <names>
+            <name>Bouncy Castle License</name>
+            <name>Bouncy Castle Licence</name>
+        </names>
+    </license>
+    <license code="MIT">
+        <names>
+            <name>MIT License</name>
+            <name>MIT license</name>
+            <name>The MIT License</name>
+            <name>The MIT License (MIT)</name>
+            <name>MIT</name>
+            <name>MIT-0</name>
+        </names>
+    </license>
+    <license code="UPL-1.0">
+        <names>
+            <name>Public Domain, per Creative Commons CC0</name>
+            <name>Public Domain</name>
+        </names>
+    </license>
+    <license code="CC0-1.0">
+        <names>
+            <name>Universal Permissive License, Version 1.0</name>
+        </names>
+    </license>
+    <license code="MPL-2.0">
+        <names>
+            <name>MPL 1.1</name>
+        </names>
+    </license>
+</licenseSummary>

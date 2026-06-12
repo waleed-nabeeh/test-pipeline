@@ -1,0 +1,134 @@
+default:
+  tags:
+    - asmo
+  image: maven:3.9.12-eclipse-temurin-21
+  before_script:
+    - export HOME="$CI_PROJECT_DIR"
+    - export MAVEN_USER_HOME="$CI_PROJECT_DIR/.m2"
+    - mkdir -p "$MAVEN_USER_HOME/repository"
+    - chmod +x mvnw
+    - |
+      if [ -n "$NEXUS_MAVEN_URL" ]; then
+        cat > settings.xml <<SETTINGS
+      <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0">
+        <mirrors>
+          <mirror>
+            <id>nexus</id>
+            <mirrorOf>external:*</mirrorOf>
+            <url>${NEXUS_MAVEN_URL}</url>
+          </mirror>
+        </mirrors>
+        <servers>
+          <server>
+            <id>nexus</id>
+            <username>${NEXUS_USERNAME}</username>
+            <password>${NEXUS_PASSWORD}</password>
+          </server>
+        </servers>
+      </settings>
+      SETTINGS
+      else
+        cat > settings.xml <<SETTINGS
+      <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"/>
+      SETTINGS
+      fi
+
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH == "main"'
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+    - when: never
+
+variables:
+  GIT_STRATEGY: clone
+  GIT_DEPTH: "20"
+  HOME: "$CI_PROJECT_DIR"
+  MAVEN_USER_HOME: "$CI_PROJECT_DIR/.m2"
+  MAVEN_OPTS: >-
+    -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository
+    -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
+  MAVEN_CLI_OPTS: >-
+    --batch-mode
+    --errors
+    --fail-at-end
+    --show-version
+    --settings settings.xml
+    -Dstyle.color=always
+  APP_MODULE: "mc3s-app-aggregator-productcatalog"
+  IMAGE_TAG: "$CI_COMMIT_SHORT_SHA"
+  IMAGE_NAME: "$CI_REGISTRY_IMAGE"
+  JIB_FROM_IMAGE: "gcr.io/distroless/java21:latest"
+
+stages:
+  - git_clone
+  - pre_build
+  - package
+  - image
+
+cache:
+  key: "$CI_COMMIT_REF_SLUG"
+  paths:
+    - .m2/repository/
+    - .m2/wrapper/
+
+git_clone:
+  stage: git_clone
+  image: alpine:3.20
+  before_script:
+    - apk add --no-cache git
+  script:
+    - pwd
+    - git status
+    - test -f pom.xml
+
+unit_test:
+  stage: pre_build
+  script:
+    - ./mvnw $MAVEN_CLI_OPTS test
+  artifacts:
+    when: always
+    reports:
+      junit:
+        - "**/target/surefire-reports/TEST-*.xml"
+  allow_failure: true
+
+build_maven:
+  stage: package
+  script:
+    - ./mvnw $MAVEN_CLI_OPTS clean package -DskipTests
+  artifacts:
+    name: "$CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG"
+    expire_in: 1 week
+    paths:
+      - "$APP_MODULE/target/*.jar"
+
+build_image:
+  stage: image
+  needs:
+    - build_maven
+  rules:
+    - if: '$CI_REGISTRY_IMAGE && $CI_REGISTRY_USER && $CI_REGISTRY_PASSWORD'
+    - if: '$NEXUS_DOCKER_IMAGE && $NEXUS_USERNAME && $NEXUS_PASSWORD'
+    - when: manual
+      allow_failure: true
+  script:
+    - |
+      if [ -n "$NEXUS_DOCKER_IMAGE" ]; then
+        export IMAGE_NAME="$NEXUS_DOCKER_IMAGE"
+        export REGISTRY_USERNAME="$NEXUS_USERNAME"
+        export REGISTRY_PASSWORD="$NEXUS_PASSWORD"
+      else
+        export REGISTRY_USERNAME="$CI_REGISTRY_USER"
+        export REGISTRY_PASSWORD="$CI_REGISTRY_PASSWORD"
+      fi
+    - >
+      ./mvnw $MAVEN_CLI_OPTS
+      -pl "$APP_MODULE" -am
+      compile jib:build
+      -DskipTests
+      -Djib.from.image="$JIB_FROM_IMAGE"
+      -Djib.to.image="$IMAGE_NAME:$IMAGE_TAG"
+      -Djib.to.auth.username="$REGISTRY_USERNAME"
+      -Djib.to.auth.password="$REGISTRY_PASSWORD"
+      -Djib.allowInsecureRegistries=true

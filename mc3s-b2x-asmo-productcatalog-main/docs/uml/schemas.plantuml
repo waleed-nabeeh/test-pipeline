@@ -1,0 +1,383 @@
+@startuml
+
+title API - mc3s-b2x-productcatalog Schemas Diagram
+
+entity AssetAggregation {
+    custom: CustomAggregation
+    id: String
+    key: String
+    name: String
+    description: String
+    sources: List<AssetSourceAggregation>
+    tags: List<String>
+}
+
+entity AssetSourceAggregation {
+    contentType: String
+    height: Integer
+    key: String
+    uri: String
+    width: Integer
+}
+
+entity AttributeAggregation {
+    name: String
+    label: String
+    value: Object
+    type: String
+    metaData: AttributeMetaData
+    elementType: AttributeElementType
+}
+
+entity AttributeElementType {
+    name: String
+    collectionType: Boolean
+    values: Map
+    referenceTypeId: String
+}
+
+entity AttributeGroupAggregation {
+    id: String
+    key: String
+    name: String
+    description: String
+    attributes: List<String>
+}
+
+entity AttributeMetaData {
+    name: String
+    group: String
+    unitOfMeasure: String
+    unitType: String
+    unitSystem: String
+}
+
+entity CatalogAggregation {
+    id: String
+    key: String
+    name: String
+    description: String
+    slug: String
+    children: List<CategoryNavigationAggregation>
+    restricted: Boolean
+    restrictedCustomers: List<String>
+    metaData: MetaDataAggregation
+    image: ImageAggregation
+    assets: List<AssetAggregation>
+    custom: CustomAggregation
+}
+
+entity CategoryAggregation {
+    catalog: Boolean
+    productsCount: Integer
+    restricted: Boolean
+    restrictedCustomers: List<String>
+    metaData: MetaDataAggregation
+    type: String
+    parent: CategoryAggregation
+    ancestors: List<CategoryNavigationAggregation>
+    id: String
+    key: String
+    name: String
+    description: String
+    slug: String
+    children: List<CategoryNavigationAggregation>
+    image: ImageAggregation
+    assets: List<AssetAggregation>
+    custom: CustomAggregation
+}
+
+entity CategoryNavigationAggregation {
+    id: String
+    key: String
+    name: String
+    slug: String
+    description: String
+    catalog: Boolean
+    type: String
+    ancestors: List<CategoryNavigationAggregation>
+    children: List<CategoryNavigationAggregation>
+    productsCount: Integer
+    restricted: Boolean
+    restrictedCustomers: List<String>
+    image: ImageAggregation
+    custom: CustomAggregation
+}
+
+entity CustomAggregation {
+    type: Reference
+    name: String
+    description: String
+    attributes: Map
+}
+
+entity EnumValueAggregation {
+    key: String
+    label: String
+}
+
+entity ImageAggregation {
+    url: String
+    label: String
+    width: Integer
+    height: Integer
+}
+
+entity ListingAggregation {
+    store: String
+    reference: Reference
+    listed: Boolean
+    listings: List<ListingAggregationEntry>
+}
+
+entity ListingAggregationEntry {
+    id: String
+    key: String
+    mode: String
+    includedSkus: List<String>
+    excludedSkus: List<String>
+}
+
+entity MapOfAttributeGroupAggregation {
+    empty: Boolean
+}
+
+entity MetaDataAggregation {
+    description: String
+    keywords: String
+    slug: String
+    title: String
+}
+
+entity PageableFilterOption {
+    * attribute: String
+    * value: String
+}
+
+entity PageableOfAttributeGroupAggregation {
+    offset: Long
+    limit: Long
+    total: Long
+    totalPages: Long
+    count: Long
+    results: List<AttributeGroupAggregation>
+    searchRequest: PageableSearchRequest
+}
+
+entity PageableOfAttributeMetaData {
+    offset: Long
+    limit: Long
+    total: Long
+    totalPages: Long
+    count: Long
+    results: List<AttributeMetaData>
+    searchRequest: PageableSearchRequest
+}
+
+entity PageableOfCatalogAggregation {
+    offset: Long
+    limit: Long
+    total: Long
+    totalPages: Long
+    count: Long
+    results: List<CatalogAggregation>
+    searchRequest: PageableSearchRequest
+}
+
+entity PageableOfCategoryAggregation {
+    offset: Long
+    limit: Long
+    total: Long
+    totalPages: Long
+    count: Long
+    results: List<CategoryAggregation>
+    searchRequest: PageableSearchRequest
+}
+
+entity PageableOfCategoryNavigationAggregation {
+    offset: Long
+    limit: Long
+    total: Long
+    totalPages: Long
+    count: Long
+    results: List<CategoryNavigationAggregation>
+    searchRequest: PageableSearchRequest
+}
+
+entity PageableOfListingAggregation {
+    offset: Long
+    limit: Long
+    total: Long
+    totalPages: Long
+    count: Long
+    results: List<ListingAggregation>
+    searchRequest: PageableSearchRequest
+}
+
+entity PageableOfProductAggregation {
+    offset: Long
+    limit: Long
+    total: Long
+    totalPages: Long
+    count: Long
+    results: List<ProductAggregation>
+    searchRequest: PageableSearchRequest
+}
+
+entity PageableOfProductTypeAggregation {
+    offset: Long
+    limit: Long
+    total: Long
+    totalPages: Long
+    count: Long
+    results: List<ProductTypeAggregation>
+    searchRequest: PageableSearchRequest
+}
+
+entity PageableSearchRequest {
+    limit: Long
+    offset: Long
+    filter: List<PageableFilterOption>
+    sorts: List<PageableSortOption>
+    displayType: String
+    includeCount: Boolean
+}
+
+entity PageableSortOption {
+    attribute: String
+    direction: String
+}
+
+entity ProductAggregation {
+    id: String
+    key: String
+    name: String
+    description: String
+    categories: List<CategoryNavigationAggregation>
+    variants: List<ProductVariantAggregation>
+    metaData: MetaDataAggregation
+    status: StateAggregation
+    tax: TaxCategoryAggregation
+    type: ProductTypeAggregation
+}
+
+entity ProductAttributeAggregation {
+    name: String
+    label: String
+    inputTip: String
+    constraint: String
+    set: Boolean
+    type: String
+    enumValues: List<EnumValueAggregation>
+    metaData: AttributeMetaData
+}
+
+entity ProductTypeAggregation {
+    id: String
+    key: String
+    name: String
+    attributes: List<ProductAttributeAggregation>
+}
+
+entity ProductVariantAggregation {
+    id: Integer
+    key: String
+    sku: String
+    defaultVariant: Boolean
+    images: List<ImageAggregation>
+    assets: List<AssetAggregation>
+    attributes: List<AttributeAggregation>
+    custom: CustomAggregation
+}
+
+entity Reference {
+    id: String
+    key: String
+    typeId: String
+}
+
+entity StateAggregation {
+    id: String
+    key: String
+    name: String
+    description: String
+    transitions: List<StateAggregation>
+    type: String
+}
+
+entity TaxCategoryAggregation {
+    id: String
+    key: String
+    name: String
+    description: String
+    amount: BigDecimal
+    rates: List<TaxRateAggregation>
+}
+
+entity TaxRateAggregation {
+    id: String
+    name: String
+    amount: BigDecimal
+    includedInPrice: Boolean
+    country: String
+}
+
+
+AttributeAggregation -- AttributeMetaData : metaData
+AttributeAggregation -- AttributeElementType : elementType
+ProductAttributeAggregation -- "0..*" EnumValueAggregation : enumValues
+ProductAttributeAggregation -- AttributeMetaData : metaData
+AssetAggregation -- CustomAggregation : custom
+AssetAggregation -- "0..*" AssetSourceAggregation : sources
+PageableOfCatalogAggregation -- "0..*" CatalogAggregation : results
+PageableOfCatalogAggregation -- PageableSearchRequest : searchRequest
+PageableOfAttributeMetaData -- "0..*" AttributeMetaData : results
+PageableOfAttributeMetaData -- PageableSearchRequest : searchRequest
+CategoryAggregation -- MetaDataAggregation : metaData
+CategoryAggregation -- CategoryAggregation : parent
+CategoryAggregation -- "0..*" CategoryNavigationAggregation : ancestors
+CategoryAggregation -- "0..*" CategoryNavigationAggregation : children
+CategoryAggregation -- ImageAggregation : image
+CategoryAggregation -- "0..*" AssetAggregation : assets
+CategoryAggregation -- CustomAggregation : custom
+TaxCategoryAggregation -- "0..*" TaxRateAggregation : rates
+PageableSearchRequest -- "0..*" PageableFilterOption : filter
+PageableSearchRequest -- "0..*" PageableSortOption : sorts
+ProductAggregation -- "0..*" CategoryNavigationAggregation : categories
+ProductAggregation -- "0..*" ProductVariantAggregation : variants
+ProductAggregation -- MetaDataAggregation : metaData
+ProductAggregation -- StateAggregation : status
+ProductAggregation -- TaxCategoryAggregation : tax
+ProductAggregation -- ProductTypeAggregation : type
+CatalogAggregation -- "0..*" CategoryNavigationAggregation : children
+CatalogAggregation -- MetaDataAggregation : metaData
+CatalogAggregation -- ImageAggregation : image
+CatalogAggregation -- "0..*" AssetAggregation : assets
+CatalogAggregation -- CustomAggregation : custom
+PageableOfProductTypeAggregation -- "0..*" ProductTypeAggregation : results
+PageableOfProductTypeAggregation -- PageableSearchRequest : searchRequest
+ProductTypeAggregation -- "0..*" ProductAttributeAggregation : attributes
+ListingAggregation -- Reference : reference
+ListingAggregation -- "0..*" ListingAggregationEntry : listings
+PageableOfAttributeGroupAggregation -- "0..*" AttributeGroupAggregation : results
+PageableOfAttributeGroupAggregation -- PageableSearchRequest : searchRequest
+CustomAggregation -- Reference : type
+PageableOfCategoryAggregation -- "0..*" CategoryAggregation : results
+PageableOfCategoryAggregation -- PageableSearchRequest : searchRequest
+PageableOfListingAggregation -- "0..*" ListingAggregation : results
+PageableOfListingAggregation -- PageableSearchRequest : searchRequest
+PageableOfProductAggregation -- "0..*" ProductAggregation : results
+PageableOfProductAggregation -- PageableSearchRequest : searchRequest
+CategoryNavigationAggregation -- "0..*" CategoryNavigationAggregation : ancestors
+CategoryNavigationAggregation -- "0..*" CategoryNavigationAggregation : children
+CategoryNavigationAggregation -- ImageAggregation : image
+CategoryNavigationAggregation -- CustomAggregation : custom
+StateAggregation -- "0..*" StateAggregation : transitions
+ProductVariantAggregation -- "0..*" ImageAggregation : images
+ProductVariantAggregation -- "0..*" AssetAggregation : assets
+ProductVariantAggregation -- "0..*" AttributeAggregation : attributes
+ProductVariantAggregation -- CustomAggregation : custom
+PageableOfCategoryNavigationAggregation -- "0..*" CategoryNavigationAggregation : results
+PageableOfCategoryNavigationAggregation -- PageableSearchRequest : searchRequest
+
+@enduml

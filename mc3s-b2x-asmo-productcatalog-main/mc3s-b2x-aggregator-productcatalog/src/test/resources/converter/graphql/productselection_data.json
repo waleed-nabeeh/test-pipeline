@@ -1,0 +1,15 @@
+{
+  "key": "selection-key",
+  "id": "selection-id",
+  "custom": {
+    "customFieldsRaw": [
+      {
+        "name": "catalogKeys",
+        "value": [
+          "catalog1",
+          "catalog2"
+        ]
+      }
+    ]
+  }
+}

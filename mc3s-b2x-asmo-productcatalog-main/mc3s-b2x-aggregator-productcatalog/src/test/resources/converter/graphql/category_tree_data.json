@@ -1,0 +1,4513 @@
+{
+  "categories": {
+    "results": [
+      {
+        "id": "3d38f31b-dc96-4345-854f-bc29490844ce",
+        "key": "mc_classes_category",
+        "stagedProductCount": 7,
+        "nameAllLocales": [
+          {
+            "locale": "de",
+            "value": "Mindcurv Klassifizierung"
+          },
+          {
+            "locale": "en",
+            "value": "Mindcurv Classification"
+          }
+        ],
+        "slugAllLocales": [
+          {
+            "locale": "de",
+            "value": "mc_classes_category_de"
+          },
+          {
+            "locale": "en",
+            "value": "mc_classes_category_en"
+          }
+        ],
+        "custom": {
+          "type": {
+            "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+            "key": "B2BClassificationCategory"
+          },
+          "customFieldsRaw": []
+        },
+        "children": [
+          {
+            "id": "9002713e-fe79-4e6b-805c-e015bf54d1af",
+            "key": "mc_nonfood",
+            "stagedProductCount": 0,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Non-Food"
+              },
+              {
+                "locale": "en",
+                "value": "Non-Food"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "mc_nonfood_de"
+              },
+              {
+                "locale": "en",
+                "value": "mc_nonfood_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          },
+          {
+            "id": "eb7ab4a3-19fa-461f-af85-8e2c28fc2c01",
+            "key": "mc_food",
+            "stagedProductCount": 7,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Food"
+              },
+              {
+                "locale": "en",
+                "value": "Food"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "mc_food_de"
+              },
+              {
+                "locale": "en",
+                "value": "mc_food_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "3e0b4bce-5381-427a-9ef1-2af1faa7eddb",
+        "key": "mc_merchants",
+        "stagedProductCount": 0,
+        "nameAllLocales": [
+          {
+            "locale": "de",
+            "value": "Merchants"
+          },
+          {
+            "locale": "en",
+            "value": "Merchants"
+          }
+        ],
+        "slugAllLocales": [
+          {
+            "locale": "de",
+            "value": "mc_merchants_de"
+          },
+          {
+            "locale": "en",
+            "value": "mc_merchants_en"
+          }
+        ],
+        "custom": {
+          "type": {
+            "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+            "key": "B2BClassificationCategory"
+          },
+          "customFieldsRaw": []
+        },
+        "children": [
+          {
+            "id": "ce0cc347-44a9-4fe8-aeb1-2b2de6949312",
+            "key": "mc_merchant-006",
+            "stagedProductCount": 0,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Merchant 006"
+              },
+              {
+                "locale": "en",
+                "value": "Merchant 006"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "mc_merchant-006_de"
+              },
+              {
+                "locale": "en",
+                "value": "mc_merchant-006_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          },
+          {
+            "id": "8b1b5731-9fba-4e37-a045-97b232a3acc7",
+            "key": "mc_merchant-007",
+            "stagedProductCount": 0,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Merchant 007"
+              },
+              {
+                "locale": "en",
+                "value": "Merchant 007"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "mc_merchant-007_de"
+              },
+              {
+                "locale": "en",
+                "value": "mc_merchant-007_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          },
+          {
+            "id": "833bc256-72cc-4e97-82d6-1048922ff348",
+            "key": "mc_merchant-008",
+            "stagedProductCount": 0,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Merchant 008"
+              },
+              {
+                "locale": "en",
+                "value": "Merchant 008"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "mc_merchant-008_de"
+              },
+              {
+                "locale": "en",
+                "value": "mc_merchant-008_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          },
+          {
+            "id": "62ecaa16-880e-4d82-bd86-2b428287c898",
+            "key": "mc_merchant-009",
+            "stagedProductCount": 0,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Merchant 009"
+              },
+              {
+                "locale": "en",
+                "value": "Merchant 009"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "mc_merchant-009_de"
+              },
+              {
+                "locale": "en",
+                "value": "mc_merchant-009_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          },
+          {
+            "id": "84204da1-4e70-43df-aae3-2405bbb9aa55",
+            "key": "mc_merchant-004",
+            "stagedProductCount": 0,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Merchant 004"
+              },
+              {
+                "locale": "en",
+                "value": "Merchant 004"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "mc_merchant-004_de"
+              },
+              {
+                "locale": "en",
+                "value": "mc_merchant-004_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          },
+          {
+            "id": "ab93664e-a7ac-4371-b328-24be6ef738a4",
+            "key": "mc_merchant-003",
+            "stagedProductCount": 0,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Merchant 003"
+              },
+              {
+                "locale": "en",
+                "value": "Merchant 003"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "mc_merchant-003_de"
+              },
+              {
+                "locale": "en",
+                "value": "mc_merchant-003_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          },
+          {
+            "id": "1793f6c6-a296-4c12-919b-77851a50bc9d",
+            "key": "mc_merchant-001",
+            "stagedProductCount": 0,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Merchant 001"
+              },
+              {
+                "locale": "en",
+                "value": "Merchant 001"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "mc_merchant-001_de"
+              },
+              {
+                "locale": "en",
+                "value": "mc_merchant-001_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          },
+          {
+            "id": "8f93f257-9dc1-4665-be4c-30667821a57f",
+            "key": "mc_merchant-005",
+            "stagedProductCount": 0,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Merchant 005"
+              },
+              {
+                "locale": "en",
+                "value": "Merchant 005"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "mc_merchant-005_de"
+              },
+              {
+                "locale": "en",
+                "value": "mc_merchant-005_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          },
+          {
+            "id": "ce3dd45c-4a67-4026-ae28-7ebd149d1a6e",
+            "key": "mc_merchant-010",
+            "stagedProductCount": 0,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Merchant 010"
+              },
+              {
+                "locale": "en",
+                "value": "Merchant 010"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "mc_merchant-010_de"
+              },
+              {
+                "locale": "en",
+                "value": "mc_merchant-010_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          },
+          {
+            "id": "386ce603-1a8c-40b1-b6ea-9f3dadb2c449",
+            "key": "mc_merchant-002",
+            "stagedProductCount": 0,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Merchant 002"
+              },
+              {
+                "locale": "en",
+                "value": "Merchant 002"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "mc_merchant-002_de"
+              },
+              {
+                "locale": "en",
+                "value": "mc_merchant-002_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "271111f9-f4da-4ec5-bd7e-c525bd792f74",
+        "key": "FSX",
+        "stagedProductCount": 60,
+        "nameAllLocales": [
+          {
+            "locale": "de",
+            "value": "FSX"
+          },
+          {
+            "locale": "en",
+            "value": "FSX"
+          }
+        ],
+        "slugAllLocales": [
+          {
+            "locale": "de",
+            "value": "FSX_de"
+          },
+          {
+            "locale": "en",
+            "value": "FSX_en"
+          }
+        ],
+        "custom": {
+          "type": {
+            "id": "ae0db8c8-008d-47a3-a1c1-d6eac500010a",
+            "key": "CatalogCategory"
+          },
+          "customFieldsRaw": []
+        },
+        "children": [
+          {
+            "id": "2fb6b516-baee-4772-8d18-4a163ce0bdc8",
+            "key": "FSX-01",
+            "stagedProductCount": 1,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Fruits and Vegetables"
+              },
+              {
+                "locale": "en",
+                "value": "Fruits and Vegetables"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "FSX-01_de"
+              },
+              {
+                "locale": "en",
+                "value": "FSX-01_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": [
+              {
+                "id": "776179b2-cca4-409d-9fb0-bbbf3e88dd34",
+                "key": "FSX-01-01",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Vegetables"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Vegetables"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-01-01_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-01-01_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "b3708548-8d16-4283-ae06-4c3499145dae",
+                "key": "FSX-01-03",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Fresh Herbs"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Fresh Herbs"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-01-03_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-01-03_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "030d3187-a1ed-47f6-b849-eb18d4713f20",
+                "key": "FSX-01-05",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Dried Fruits & Vegetables"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Dried Fruits & Vegetables"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-01-05_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-01-05_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "07ea3709-eed8-48bc-af64-0c423fccdc35",
+                "key": "FSX-01-04",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Packaged Produce"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Packaged Produce"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-01-04_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-01-04_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "d8cae1cf-948f-4d40-ace8-d412d00cc910",
+                "key": "test-fruit",
+                "stagedProductCount": 1,
+                "nameAllLocales": [
+                  {
+                    "locale": "en",
+                    "value": "test-fruit-en"
+                  },
+                  {
+                    "locale": "de",
+                    "value": "test-fruit-de"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "en",
+                    "value": "test-fruit-en"
+                  },
+                  {
+                    "locale": "de",
+                    "value": "test-fruit-de"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "dc74c3cc-5796-446e-b3e2-c5c2ec478244",
+                    "key": "MyCategoryTest"
+                  },
+                  "customFieldsRaw": [
+                    {
+                      "name": "rank",
+                      "value": "500"
+                    },
+                    {
+                      "name": "spec",
+                      "value": "dummp spec"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "4777f815-e849-44b7-8b24-6c28eb3feed5",
+            "key": "FSX-03",
+            "stagedProductCount": 0,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Fish and Seafood"
+              },
+              {
+                "locale": "en",
+                "value": "Fish and Seafood"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "FSX-03_de"
+              },
+              {
+                "locale": "en",
+                "value": "FSX-03_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": [
+              {
+                "id": "0873cdf6-7557-4dd8-8a0f-9d8bf283d4c8",
+                "key": "FSX-03-02",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Seafood"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Seafood"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-03-02_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-03-02_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "89f60b61-3dfd-498f-b70b-b45f7e083139",
+                "key": "FSX-03-01",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Fish"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Fish"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-03-01_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-03-01_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              }
+            ]
+          },
+          {
+            "id": "962a35ff-0f65-4a26-9f39-ac05b4583e8e",
+            "key": "FSX-02",
+            "stagedProductCount": 0,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Meat, poultry and Sausage"
+              },
+              {
+                "locale": "en",
+                "value": "Meat, poultry and Sausage"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "FSX-02_de"
+              },
+              {
+                "locale": "en",
+                "value": "FSX-02_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": [
+              {
+                "id": "ac260501-3a93-490a-8a03-b041f2092476",
+                "key": "FSX-02-02",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Sausages"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Sausages"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-02-02_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-02-02_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "3805ae4e-8e12-4b34-aa83-1eb344129879",
+                "key": "FSX-02-02-04",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Poultry"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Poultry"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-02-02-04_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-02-02-04_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "b7ef7779-dc88-41fc-bf99-b533177d37f3",
+                "key": "FSX-02-01",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Meat"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Meat"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-02-01_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-02-01_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              }
+            ]
+          },
+          {
+            "id": "c304b9fe-6f67-4afe-b6e0-1e2006f1a15b",
+            "key": "FSX-05",
+            "stagedProductCount": 0,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Dairy and eggs"
+              },
+              {
+                "locale": "en",
+                "value": "Dairy and eggs"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "FSX-05_de"
+              },
+              {
+                "locale": "en",
+                "value": "FSX-05_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": [
+              {
+                "id": "937bd281-d2cd-4d94-9f7a-8b971a0866fa",
+                "key": "FSX-05-04",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Mousse & Bavarois"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Mousse & Bavarois"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-05-04_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-05-04_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "c68205f3-91a5-4d54-80da-1a518f5cfeb8",
+                "key": "FSX-05-01",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Milk"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Milk"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-05-01_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-05-01_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "7aed6101-2dc8-4c9d-8356-4515a2f6ecd5",
+                "key": "FSX-05-05",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Cream"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Cream"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-05-05_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-05-05_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "4c3ee610-1f04-4e1e-b3f1-190fb82f5490",
+                "key": "FSX-05-02",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Coffee milk and powders"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Coffee milk and powders"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-05-02_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-05-02_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "72d284b5-56f3-4d6e-9dfe-eff01820e11a",
+                "key": "FSX-05-03",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Desserts"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Desserts"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-05-03_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-05-03_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "eb0488b1-18e8-45f6-95e5-31db5ae9c376",
+                "key": "FSX-05-06",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Butter"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Butter"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-05-06_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-05-06_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              }
+            ]
+          },
+          {
+            "id": "d9705d5e-b46d-4f32-acea-ac61ac427cdc",
+            "key": "FSX-04",
+            "stagedProductCount": 0,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Breads and Banquet"
+              },
+              {
+                "locale": "en",
+                "value": "Breads and Banquet"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "FSX-04_de"
+              },
+              {
+                "locale": "en",
+                "value": "FSX-04_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": [
+              {
+                "id": "0912dd9f-b72b-4f18-a491-6383f30b4e4b",
+                "key": "FSX-04-02",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Cakes & Desserts"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Cakes & Desserts"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-04-02_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-04-02_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "5956cf8c-9631-472a-a2d9-4dbc6e27d517",
+                "key": "FSX-04-03",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Bakery"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Bakery"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-04-03_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-04-03_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "92594d99-0d79-47fd-8069-9a888c14d74d",
+                "key": "FSX-04-01",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Breads & Rolls"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Breads & Rolls"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-04-01_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-04-01_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "1a64b6bd-d351-4da9-9aed-478e390ad5e6",
+                "key": "FSX-04-04",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Celebration Cakes"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Celebration Cakes"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-04-04_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-04-04_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              }
+            ]
+          },
+          {
+            "id": "970f9844-31ed-4fcc-8c43-b227f1953070",
+            "key": "FSX-06",
+            "stagedProductCount": 0,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Food cupboard"
+              },
+              {
+                "locale": "en",
+                "value": "Food cupboard"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "FSX-06_de"
+              },
+              {
+                "locale": "en",
+                "value": "FSX-06_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": [
+              {
+                "id": "21068645-0bdc-415f-aea6-513f634f0996",
+                "key": "FSX-06-08",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Spices & Seasonings"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Spices & Seasonings"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-06-08_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-06-08_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "d4f7fd23-4e39-4a7b-9b80-b5c5920b9d9b",
+                "key": "FSX-06-01",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Ready Meals"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Ready Meals"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-06-01_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-06-01_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "9574b6f8-dfdc-4d62-9747-b9c72be010a8",
+                "key": "FSX-06-06",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Fruits, Jams & Spreads"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Fruits, Jams & Spreads"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-06-06_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-06-06_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "1a3bf131-86d3-4b05-83ec-88218caa7e6a",
+                "key": "FSX-06-02",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Breakfast"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Breakfast"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-06-02_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-06-02_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "7e840c4c-f4e8-472d-8eda-960562874113",
+                "key": "FSX-06-05",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Baking Ingredients"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Baking Ingredients"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-06-05_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-06-05_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "4a4eb01b-417e-46f9-a814-08f4f5e29958",
+                "key": "FSX-06-07",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Condiments, Sauces & Dressings"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Condiments, Sauces & Dressings"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-06-07_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-06-07_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "f821880d-e900-4108-854e-2fcc62cd304e",
+                "key": "FSX-06-04",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Chocolates, Biscuits & Sweets"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Chocolates, Biscuits & Sweets"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-06-04_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-06-04_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "188c179d-f591-4a90-b128-bc3303e0f34b",
+                "key": "FSX-06-03",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Snacks"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Snacks"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-06-03_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-06-03_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "d55db24b-7f6d-417e-bcc1-9ce3ea282707",
+                "key": "FSX-06-10",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Tins & Jars"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Tins & Jars"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-06-10_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-06-10_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "1e243c52-8f27-4a89-a378-136fb5f48563",
+                "key": "FSX-06-09",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Meals, Pasta & Rice"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Meals, Pasta & Rice"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-06-09_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-06-09_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              }
+            ]
+          },
+          {
+            "id": "208e5cdc-0afc-4537-8e5c-799f1a505418",
+            "key": "FSX-08",
+            "stagedProductCount": 0,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Frozen"
+              },
+              {
+                "locale": "en",
+                "value": "Frozen"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "FSX-08_de"
+              },
+              {
+                "locale": "en",
+                "value": "FSX-08_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": [
+              {
+                "id": "57e0bc3c-3b16-4107-b127-af6fdca27af6",
+                "key": "FSX-08-03",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Fruits, Vegetables and herbs"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Fruits, Vegetables and herbs"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-08-03_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-08-03_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "5d642235-3d54-4832-b71f-8ebc1c38b4ff",
+                "key": "FSX-08-02",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Fish, Meat and Poultry"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Fish, Meat and Poultry"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-08-02_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-08-02_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "22c616ce-ad1a-49b7-a3ce-1c5e47189176",
+                "key": "FSX-08-01",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Pizza and instant-meals"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Pizza and instant-meals"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-08-01_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-08-01_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "e43411c1-fbe3-4f27-9560-28d78971ebd3",
+                "key": "FSX-08-05",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Ice cream, Desserts and Cakes"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Ice cream, Desserts and Cakes"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-08-05_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-08-05_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "6166dc69-f72a-416b-bb08-38321651c147",
+                "key": "FSX-08-04",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Potatoes & Onion rings"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Potatoes & Onion rings"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-08-04_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-08-04_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              }
+            ]
+          },
+          {
+            "id": "47e36495-61dc-4497-823a-28173673606b",
+            "key": "FSX-07",
+            "stagedProductCount": 0,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Babies and children"
+              },
+              {
+                "locale": "en",
+                "value": "Babies and children"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "FSX-07_de"
+              },
+              {
+                "locale": "en",
+                "value": "FSX-07_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": [
+              {
+                "id": "48be779f-738f-4e8f-8132-54b7ed85a6e4",
+                "key": "FSX-07-01",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Milk and water"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Milk and water"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-07-01_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-07-01_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "5441658a-90c8-4c64-99f1-9cef000b2cf1",
+                "key": "FSX-07-04",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Desserts and Snacks"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Desserts and Snacks"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-07-04_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-07-04_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "fd984a52-d9c3-4de5-83d1-8b908c1d06ac",
+                "key": "FSX-07-02",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Jars and pots"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Jars and pots"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-07-02_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-07-02_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "b089192e-5ef4-47ce-b222-51234d38fdb7",
+                "key": "FSX-07-03",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Baby food"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Baby food"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-07-03_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-07-03_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "1bbe33f6-64b2-4ec7-b732-d4ed9bc9eb11",
+                "key": "FSX-07-05",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Other foods"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Other foods"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-07-05_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-07-05_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              }
+            ]
+          },
+          {
+            "id": "30dc258f-6dd0-4319-aad1-7459e09857ac",
+            "key": "FSX-09",
+            "stagedProductCount": 59,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Beverages"
+              },
+              {
+                "locale": "en",
+                "value": "Beverages"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "FSX-09_de"
+              },
+              {
+                "locale": "en",
+                "value": "FSX-09_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": [
+              {
+                "id": "30549c81-d6e7-4888-8af9-5fb2b0d0b575",
+                "key": "FSX-09-03",
+                "stagedProductCount": 15,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Health & Energy Drinks"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Health & Energy Drinks"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-09-03_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-09-03_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "8f1df165-0661-4ef3-94df-4a6f6eb6c42c",
+                "key": "FSX-09-05",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Soft Drinks & Juices"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Soft Drinks & Juices"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-09-05_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-09-05_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "9000a478-ad04-41a0-92c7-4a727a91c6ad",
+                "key": "FSX-09-01",
+                "stagedProductCount": 43,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Beers & Wine"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Beers & Wine"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-09-01_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-09-01_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "9354b2ae-e617-4610-8f61-65a00451b8a4",
+                "key": "FSX-09-04",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Spirits"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Spirits"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-09-04_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-09-04_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "0e289a49-a0c0-45a1-9b6d-f1802decee1e",
+                "key": "FSX-09-02",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Water, Coffee, Tea"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Water, Coffee, Tea"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "FSX-09-02_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "FSX-09-02_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "60b500d0-b34a-430d-b051-625e78cd84bf",
+        "key": "pim",
+        "stagedProductCount": 6,
+        "nameAllLocales": [
+          {
+            "locale": "de",
+            "value": "PIM root"
+          },
+          {
+            "locale": "en",
+            "value": "PIM root"
+          }
+        ],
+        "slugAllLocales": [
+          {
+            "locale": "de",
+            "value": "pim_de"
+          },
+          {
+            "locale": "en",
+            "value": "pim_en"
+          }
+        ],
+        "custom": {
+          "type": {
+            "id": "ae0db8c8-008d-47a3-a1c1-d6eac500010a",
+            "key": "CatalogCategory"
+          },
+          "customFieldsRaw": []
+        },
+        "children": [
+          {
+            "id": "fa2002af-e1e1-4dc5-88d7-b27403781271",
+            "key": "pim_003",
+            "stagedProductCount": 0,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "PIM 003"
+              },
+              {
+                "locale": "en",
+                "value": "PIM 003"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "pim_003_de"
+              },
+              {
+                "locale": "en",
+                "value": "pim_003_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          },
+          {
+            "id": "cb790396-40e1-4ce9-9a1e-a6b1980a89c4",
+            "key": "pim_007",
+            "stagedProductCount": 0,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "PIM 007"
+              },
+              {
+                "locale": "en",
+                "value": "PIM 007"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "pim_007_de"
+              },
+              {
+                "locale": "en",
+                "value": "pim_007_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          },
+          {
+            "id": "6c0cca9d-354e-4050-a712-9cdf6415a73f",
+            "key": "pim_002",
+            "stagedProductCount": 3,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "PIM 002"
+              },
+              {
+                "locale": "en",
+                "value": "PIM 002"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "pim_002_de"
+              },
+              {
+                "locale": "en",
+                "value": "pim_002_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          },
+          {
+            "id": "3e442c28-75a5-4a31-8074-9aedb97d279b",
+            "key": "pim_005",
+            "stagedProductCount": 0,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "PIM 005"
+              },
+              {
+                "locale": "en",
+                "value": "PIM 005"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "pim_005_de"
+              },
+              {
+                "locale": "en",
+                "value": "pim_005_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          },
+          {
+            "id": "96b5018a-051b-49b3-a964-aa77a7ca4643",
+            "key": "pim_006",
+            "stagedProductCount": 0,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "PIM 006"
+              },
+              {
+                "locale": "en",
+                "value": "PIM 006"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "pim_006_de"
+              },
+              {
+                "locale": "en",
+                "value": "pim_006_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          },
+          {
+            "id": "1fa38cb9-5954-48ae-9569-983727a46d27",
+            "key": "pim_001",
+            "stagedProductCount": 3,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "PIM 001"
+              },
+              {
+                "locale": "en",
+                "value": "PIM 001"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "pim_001_de"
+              },
+              {
+                "locale": "en",
+                "value": "pim_001_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          },
+          {
+            "id": "7ddcb7af-117f-4846-adb1-dd69ebe18349",
+            "key": "pim_004",
+            "stagedProductCount": 0,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "PIM 004"
+              },
+              {
+                "locale": "en",
+                "value": "PIM 004"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "pim_004_de"
+              },
+              {
+                "locale": "en",
+                "value": "pim_004_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "c16e8aa3-f408-4181-be80-451573648d15",
+        "key": "mc_brands_category",
+        "stagedProductCount": 7,
+        "nameAllLocales": [
+          {
+            "locale": "de",
+            "value": "Marken"
+          },
+          {
+            "locale": "en",
+            "value": "Brands"
+          }
+        ],
+        "slugAllLocales": [
+          {
+            "locale": "de",
+            "value": "mc_brands_category_de"
+          },
+          {
+            "locale": "en",
+            "value": "mc_brands_category_en"
+          }
+        ],
+        "custom": {
+          "type": {
+            "id": "993cfd00-8bd8-4767-9316-b1ef2b5fd160",
+            "key": "BrandCategory"
+          },
+          "customFieldsRaw": []
+        },
+        "children": [
+          {
+            "id": "60e876d6-898b-4661-adcf-af243d5c7179",
+            "key": "brand_cocacola",
+            "stagedProductCount": 0,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Coca Cola"
+              },
+              {
+                "locale": "en",
+                "value": "Coca Cola"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "brand_cocacola_de"
+              },
+              {
+                "locale": "en",
+                "value": "brand_cocacola_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "993cfd00-8bd8-4767-9316-b1ef2b5fd160",
+                "key": "BrandCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          },
+          {
+            "id": "a461f23d-27f4-47dc-8972-22f0508024dc",
+            "key": "brand_mindcurv",
+            "stagedProductCount": 0,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "mindcurv"
+              },
+              {
+                "locale": "en",
+                "value": "mindcurv"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "brand_mindcurv_de"
+              },
+              {
+                "locale": "en",
+                "value": "brand_mindcurv_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "993cfd00-8bd8-4767-9316-b1ef2b5fd160",
+                "key": "BrandCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          },
+          {
+            "id": "22d9ed7a-9e82-4949-a6ac-1d00a02e3279",
+            "key": "brand_neleman",
+            "stagedProductCount": 2,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Neleman"
+              },
+              {
+                "locale": "en",
+                "value": "Neleman"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "brand_neleman_de"
+              },
+              {
+                "locale": "en",
+                "value": "brand_neleman_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "993cfd00-8bd8-4767-9316-b1ef2b5fd160",
+                "key": "BrandCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          },
+          {
+            "id": "9432b9af-218c-422c-b4cb-e3c32d807b53",
+            "key": "brand_hrbs",
+            "stagedProductCount": 4,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "HRBS"
+              },
+              {
+                "locale": "en",
+                "value": "HRBS"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "brand_hrbs_de"
+              },
+              {
+                "locale": "en",
+                "value": "brand_hrbs_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "993cfd00-8bd8-4767-9316-b1ef2b5fd160",
+                "key": "BrandCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          },
+          {
+            "id": "531859bd-4513-431f-98c3-b06bc143cc18",
+            "key": "brand_vanderlinden",
+            "stagedProductCount": 1,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Van der Linden"
+              },
+              {
+                "locale": "en",
+                "value": "Van der Linden"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "brand_vanderlinden_de"
+              },
+              {
+                "locale": "en",
+                "value": "brand_vanderlinden_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "993cfd00-8bd8-4767-9316-b1ef2b5fd160",
+                "key": "BrandCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "0651b6bd-ae54-4b19-be4d-28da5e830bb9",
+        "key": "TEST",
+        "stagedProductCount": 13,
+        "nameAllLocales": [
+          {
+            "locale": "de",
+            "value": "TEST"
+          },
+          {
+            "locale": "en",
+            "value": "TEST"
+          }
+        ],
+        "slugAllLocales": [
+          {
+            "locale": "de",
+            "value": "TEST_de"
+          },
+          {
+            "locale": "en",
+            "value": "TEST_en"
+          }
+        ],
+        "custom": {
+          "type": {
+            "id": "ae0db8c8-008d-47a3-a1c1-d6eac500010a",
+            "key": "CatalogCategory"
+          },
+          "customFieldsRaw": []
+        },
+        "children": [
+          {
+            "id": "730ac1d0-6615-4065-be2f-334ad0031555",
+            "key": "TEST_09",
+            "stagedProductCount": 1,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Mens"
+              },
+              {
+                "locale": "en",
+                "value": "Mens"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "TEST_09_de"
+              },
+              {
+                "locale": "en",
+                "value": "TEST_09_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          },
+          {
+            "id": "3765532e-590a-473f-9a0d-80db3abdc86a",
+            "key": "TEST_06",
+            "stagedProductCount": 1,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Ornaments"
+              },
+              {
+                "locale": "en",
+                "value": "Ornaments"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "TEST_06_de"
+              },
+              {
+                "locale": "en",
+                "value": "TEST_06_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          },
+          {
+            "id": "101445d4-5d26-4bce-a557-057da0b8b100",
+            "key": "TEST_empty",
+            "stagedProductCount": 0,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "TEST empty"
+              },
+              {
+                "locale": "en",
+                "value": "TEST_empty"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "TEST_empty_de"
+              },
+              {
+                "locale": "en",
+                "value": "TEST_empty_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          },
+          {
+            "id": "f7ed8975-da12-4728-bd0c-9fa06273696d",
+            "key": "TEST_08",
+            "stagedProductCount": 1,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Sandals"
+              },
+              {
+                "locale": "en",
+                "value": "Sandals"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "TEST_08_de"
+              },
+              {
+                "locale": "en",
+                "value": "TEST_08_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          },
+          {
+            "id": "6f9f7f4c-5cc2-428e-a5d0-c71172de208d",
+            "key": "TEST_10",
+            "stagedProductCount": 1,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Women"
+              },
+              {
+                "locale": "en",
+                "value": "Women"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "TEST_10_de"
+              },
+              {
+                "locale": "en",
+                "value": "TEST_10_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          },
+          {
+            "id": "4eba9604-f23f-4e68-b775-c3503b11784d",
+            "key": "TEST_04",
+            "stagedProductCount": 1,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Watches"
+              },
+              {
+                "locale": "en",
+                "value": "Watches"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "TEST_04_de"
+              },
+              {
+                "locale": "en",
+                "value": "TEST_04_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          },
+          {
+            "id": "5d4f11b8-1318-4e20-a9c0-f95ff51b0bdf",
+            "key": "TEST_11",
+            "stagedProductCount": 1,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Kurtas"
+              },
+              {
+                "locale": "en",
+                "value": "Kurtas"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "TEST_11_de"
+              },
+              {
+                "locale": "en",
+                "value": "TEST_11_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          },
+          {
+            "id": "a467a07a-acd3-4852-b6c4-ad62b9d4db9d",
+            "key": "TEST_05",
+            "stagedProductCount": 1,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Bags"
+              },
+              {
+                "locale": "en",
+                "value": "Bags"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "TEST_05_de"
+              },
+              {
+                "locale": "en",
+                "value": "TEST_05_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          },
+          {
+            "id": "51ad1271-0bbd-48fe-8d4f-ec209853d0b1",
+            "key": "TEST_03",
+            "stagedProductCount": 2,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Fashion"
+              },
+              {
+                "locale": "en",
+                "value": "Fashion"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "TEST_03_de"
+              },
+              {
+                "locale": "en",
+                "value": "TEST_03_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          },
+          {
+            "id": "064893ff-5153-4ea5-b2f0-ce4a021fb2f5",
+            "key": "TEST_07",
+            "stagedProductCount": 1,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Kids"
+              },
+              {
+                "locale": "en",
+                "value": "Kids"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "TEST_07_de"
+              },
+              {
+                "locale": "en",
+                "value": "TEST_07_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          },
+          {
+            "id": "d6447c3c-8cae-49fa-bd4c-3f55fbd63722",
+            "key": "TEST_restricted",
+            "stagedProductCount": 3,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "TEST restricted"
+              },
+              {
+                "locale": "en",
+                "value": "TEST_restricted"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "TEST_restricted_de"
+              },
+              {
+                "locale": "en",
+                "value": "TEST_restricted_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": [
+                {
+                  "name": "restrictedTo",
+                  "value": [
+                    {
+                      "typeId": "customer",
+                      "id": "1c898122-10e2-4531-9a82-df0af7b77914"
+                    }
+                  ]
+                }
+              ]
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "b60489c0-e735-408d-b79c-f6fc112c9648",
+        "key": "Impex",
+        "stagedProductCount": 1,
+        "nameAllLocales": [
+          {
+            "locale": "de",
+            "value": "Impex root"
+          },
+          {
+            "locale": "en",
+            "value": "Impex root"
+          }
+        ],
+        "slugAllLocales": [
+          {
+            "locale": "de",
+            "value": "Impex_de"
+          },
+          {
+            "locale": "en",
+            "value": "Impex_en"
+          }
+        ],
+        "custom": {
+          "type": {
+            "id": "ae0db8c8-008d-47a3-a1c1-d6eac500010a",
+            "key": "CatalogCategory"
+          },
+          "customFieldsRaw": []
+        },
+        "children": [
+          {
+            "id": "5500266f-1b6c-4cbf-a8ef-835323d5761b",
+            "key": "Impex_001",
+            "stagedProductCount": 0,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Impex 001"
+              },
+              {
+                "locale": "en",
+                "value": "Impex 001"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "Impex_001_de"
+              },
+              {
+                "locale": "en",
+                "value": "Impex_001_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "9b41b50a-aeab-40d0-9b22-4ceacac0586a",
+                "key": "TestCategory"
+              },
+              "customFieldsRaw": [
+                {
+                  "name": "testDATE",
+                  "value": "2020-01-02"
+                },
+                {
+                  "name": "testREFERENCE",
+                  "value": {
+                    "typeId": "channel",
+                    "id": "4e812900-ac0d-4fbd-8e94-cad9974dd53b"
+                  }
+                },
+                {
+                  "name": "testDATETIME",
+                  "value": "2021-01-06T00:00:00.000Z"
+                },
+                {
+                  "name": "testDATETIME-SET",
+                  "value": [
+                    "2023-01-06T00:00:00.000Z"
+                  ]
+                },
+                {
+                  "name": "testNUMBER",
+                  "value": 1.23
+                },
+                {
+                  "name": "testMONEY",
+                  "value": {
+                    "type": "centPrecision",
+                    "currencyCode": "EUR",
+                    "centAmount": 1234,
+                    "fractionDigits": 2
+                  }
+                },
+                {
+                  "name": "testENUM-SET",
+                  "value": [
+                    "testENUM-SET1"
+                  ]
+                },
+                {
+                  "name": "testREFERENCE-SET",
+                  "value": [
+                    {
+                      "typeId": "channel",
+                      "id": "4e812900-ac0d-4fbd-8e94-cad9974dd53b"
+                    }
+                  ]
+                },
+                {
+                  "name": "testDATE-SET",
+                  "value": [
+                    "2021-02-03",
+                    "2020-01-02"
+                  ]
+                },
+                {
+                  "name": "testBOOLEAN",
+                  "value": true
+                },
+                {
+                  "name": "testTEXT-SET",
+                  "value": [
+                    "text1"
+                  ]
+                },
+                {
+                  "name": "testTEXT",
+                  "value": "Value1"
+                },
+                {
+                  "name": "testTIME",
+                  "value": "13:14"
+                },
+                {
+                  "name": "testTIME-SET",
+                  "value": [
+                    "16:17"
+                  ]
+                },
+                {
+                  "name": "testENUM",
+                  "value": "testENUM1"
+                },
+                {
+                  "name": "testLENUM-SET",
+                  "value": [
+                    "testLENUM-SET1"
+                  ]
+                },
+                {
+                  "name": "testNUMBER-SET",
+                  "value": [
+                    1.23
+                  ]
+                },
+                {
+                  "name": "testLTEXT-SET",
+                  "value": [
+                    {
+                      "de": "Value-de-1"
+                    },
+                    {
+                      "en": "Value-en-1"
+                    }
+                  ]
+                },
+                {
+                  "name": "testBOOLEAN-SET",
+                  "value": [
+                    true
+                  ]
+                },
+                {
+                  "name": "testMONEY-SET",
+                  "value": [
+                    {
+                      "type": "centPrecision",
+                      "currencyCode": "EUR",
+                      "centAmount": 123,
+                      "fractionDigits": 2
+                    }
+                  ]
+                },
+                {
+                  "name": "testLTEXT",
+                  "value": {
+                    "de": "Value-de-1",
+                    "en": "Value-en-1"
+                  }
+                },
+                {
+                  "name": "testLENUM",
+                  "value": "testLENUM1"
+                }
+              ]
+            },
+            "children": []
+          },
+          {
+            "id": "31d2fff8-902e-45be-94f3-29fbfb05e007",
+            "key": "Impex_002",
+            "stagedProductCount": 1,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Impex 002"
+              },
+              {
+                "locale": "en",
+                "value": "Impex 002"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "Impex_002_de"
+              },
+              {
+                "locale": "en",
+                "value": "Impex_002_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "9b41b50a-aeab-40d0-9b22-4ceacac0586a",
+                "key": "TestCategory"
+              },
+              "customFieldsRaw": [
+                {
+                  "name": "testDATE",
+                  "value": "2020-02-03"
+                },
+                {
+                  "name": "testREFERENCE",
+                  "value": {
+                    "typeId": "channel",
+                    "id": "4e812900-ac0d-4fbd-8e94-cad9974dd53b"
+                  }
+                },
+                {
+                  "name": "testDATETIME",
+                  "value": "2022-01-06T00:00:00.000Z"
+                },
+                {
+                  "name": "testDATETIME-SET",
+                  "value": [
+                    "2025-01-06T00:00:00.000Z",
+                    "2024-01-06T00:00:00.000Z"
+                  ]
+                },
+                {
+                  "name": "testNUMBER",
+                  "value": 2.34
+                },
+                {
+                  "name": "testMONEY",
+                  "value": {
+                    "type": "centPrecision",
+                    "currencyCode": "USD",
+                    "centAmount": 2345,
+                    "fractionDigits": 2
+                  }
+                },
+                {
+                  "name": "testENUM-SET",
+                  "value": [
+                    "testENUM-SET2",
+                    "testENUM-SET1"
+                  ]
+                },
+                {
+                  "name": "testREFERENCE-SET",
+                  "value": [
+                    {
+                      "typeId": "channel",
+                      "id": "4e812900-ac0d-4fbd-8e94-cad9974dd53b"
+                    },
+                    {
+                      "typeId": "channel",
+                      "id": "d4dce7da-a261-40b8-8074-08b9a0303ebf"
+                    }
+                  ]
+                },
+                {
+                  "name": "testDATE-SET",
+                  "value": [
+                    "2022-04-05",
+                    "2022-03-04"
+                  ]
+                },
+                {
+                  "name": "testBOOLEAN",
+                  "value": false
+                },
+                {
+                  "name": "testTEXT-SET",
+                  "value": [
+                    "text3",
+                    "text2"
+                  ]
+                },
+                {
+                  "name": "testTEXT",
+                  "value": "Value2"
+                },
+                {
+                  "name": "testTIME",
+                  "value": "14:15"
+                },
+                {
+                  "name": "testTIME-SET",
+                  "value": [
+                    "17:18"
+                  ]
+                },
+                {
+                  "name": "testENUM",
+                  "value": "testENUM2"
+                },
+                {
+                  "name": "testLENUM-SET",
+                  "value": [
+                    "testLENUM-SET2",
+                    "testLENUM-SET1"
+                  ]
+                },
+                {
+                  "name": "testNUMBER-SET",
+                  "value": [
+                    4.56,
+                    2.34
+                  ]
+                },
+                {
+                  "name": "testLTEXT-SET",
+                  "value": [
+                    {
+                      "en": "Value-en-4"
+                    },
+                    {
+                      "de": "Value-de-4"
+                    }
+                  ]
+                },
+                {
+                  "name": "testBOOLEAN-SET",
+                  "value": [
+                    true,
+                    false
+                  ]
+                },
+                {
+                  "name": "testMONEY-SET",
+                  "value": [
+                    {
+                      "type": "centPrecision",
+                      "currencyCode": "INR",
+                      "centAmount": 456,
+                      "fractionDigits": 2
+                    },
+                    {
+                      "type": "centPrecision",
+                      "currencyCode": "USD",
+                      "centAmount": 345,
+                      "fractionDigits": 2
+                    }
+                  ]
+                },
+                {
+                  "name": "testLTEXT",
+                  "value": {
+                    "de": "Value-de-2",
+                    "en": "Value-en-3"
+                  }
+                },
+                {
+                  "name": "testLENUM",
+                  "value": "testLENUM2"
+                }
+              ]
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "30a86da3-dd90-4ace-abd8-73e3ffbff8c8",
+        "key": "TEST_Automation",
+        "stagedProductCount": 1,
+        "nameAllLocales": [
+          {
+            "locale": "de",
+            "value": "TEST_Automation"
+          },
+          {
+            "locale": "en",
+            "value": "TEST_Automation"
+          }
+        ],
+        "slugAllLocales": [
+          {
+            "locale": "de",
+            "value": "TEST_Automation_de"
+          },
+          {
+            "locale": "en",
+            "value": "TEST_Automation_en"
+          }
+        ],
+        "custom": {
+          "type": {
+            "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+            "key": "B2BClassificationCategory"
+          },
+          "customFieldsRaw": []
+        },
+        "children": [
+          {
+            "id": "c0287146-95e3-44a3-8749-90c9815bbc0d",
+            "key": "TEST_Automation_01",
+            "stagedProductCount": 1,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Utensils"
+              },
+              {
+                "locale": "en",
+                "value": "Utensils"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "TEST_Automation_01_de"
+              },
+              {
+                "locale": "en",
+                "value": "TEST_Automation_01_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "58ad14ac-8ea6-4e6f-ba90-0c1dce17b99e",
+        "key": "furniture",
+        "stagedProductCount": 46,
+        "nameAllLocales": [
+          {
+            "locale": "de",
+            "value": "Furniture"
+          },
+          {
+            "locale": "en",
+            "value": "Furniture"
+          }
+        ],
+        "slugAllLocales": [
+          {
+            "locale": "de",
+            "value": "furniture_de"
+          },
+          {
+            "locale": "en",
+            "value": "furniture_en"
+          }
+        ],
+        "custom": {
+          "type": {
+            "id": "ae0db8c8-008d-47a3-a1c1-d6eac500010a",
+            "key": "CatalogCategory"
+          },
+          "customFieldsRaw": [
+            {
+              "name": "stores",
+              "value": [
+                {
+                  "typeId": "channel",
+                  "id": "4e812900-ac0d-4fbd-8e94-cad9974dd53b"
+                }
+              ]
+            }
+          ]
+        },
+        "children": [
+          {
+            "id": "7dff8438-472e-4f93-be93-fb55770ce5b3",
+            "key": "furniture_color_materials",
+            "stagedProductCount": 0,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Farben & Materialien"
+              },
+              {
+                "locale": "en",
+                "value": "Colour & Material"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "furniture_color_materials_de"
+              },
+              {
+                "locale": "en",
+                "value": "furniture_color_materials_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          },
+          {
+            "id": "846cb536-91af-4e48-890d-3a62dc1d2b78",
+            "key": "furniture_homestories",
+            "stagedProductCount": 0,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Home Stories"
+              },
+              {
+                "locale": "en",
+                "value": "Home stories"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "furniture_homestories_de"
+              },
+              {
+                "locale": "en",
+                "value": "furniture_homestories_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          },
+          {
+            "id": "0905bb02-6f66-4431-8fb6-fa341b706260",
+            "key": "furniture_products",
+            "stagedProductCount": 46,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Produkte"
+              },
+              {
+                "locale": "en",
+                "value": "Products"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "furniture_products_de"
+              },
+              {
+                "locale": "en",
+                "value": "furniture_products_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": [
+              {
+                "id": "338f7652-2922-407c-b8e8-68b7cabe7cb7",
+                "key": "furniture_spatial",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Raumorgaisation"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Spatial Organisation"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "furniture_spatial_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "furniture_spatial_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "733b108e-dce9-4202-8aef-1297dd4df1df",
+                "key": "furniture_seating",
+                "stagedProductCount": 46,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Sitzmöbel"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Seating"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "furniture_seating_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "furniture_seating_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "ae4b5519-8a39-4a7f-9754-64dfeae69f0a",
+                "key": "furniture_tables",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Tische"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Tables"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "furniture_tables_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "furniture_tables_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "cb6ac6b0-e2fc-4aa4-b50e-2498aa8f6776",
+                "key": "furniture_accessories",
+                "stagedProductCount": 0,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Accessoires"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Accessories"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "furniture_accessories_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "furniture_accessories_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              }
+            ]
+          },
+          {
+            "id": "3d425c20-bb5b-411b-a5eb-94a5711174dd",
+            "key": "furniture_news",
+            "stagedProductCount": 0,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "News"
+              },
+              {
+                "locale": "en",
+                "value": "News"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "furniture_news_de"
+              },
+              {
+                "locale": "en",
+                "value": "furniture_news_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          },
+          {
+            "id": "976ac06e-cd55-4a5f-8e22-a5a7b4d7cd27",
+            "key": "furniture_designers",
+            "stagedProductCount": 0,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Designer"
+              },
+              {
+                "locale": "en",
+                "value": "Designers"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "furniture_designers_de"
+              },
+              {
+                "locale": "en",
+                "value": "furniture_designers_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          }
+        ]
+      },
+      {
+        "id": "3ce7a5b6-b317-42a4-bbbb-c4b8960bbfd2",
+        "key": "food",
+        "stagedProductCount": 14,
+        "nameAllLocales": [
+          {
+            "locale": "de",
+            "value": "Food Produkte"
+          },
+          {
+            "locale": "en",
+            "value": "Food products"
+          }
+        ],
+        "slugAllLocales": [
+          {
+            "locale": "de",
+            "value": "food"
+          },
+          {
+            "locale": "en",
+            "value": "food"
+          }
+        ],
+        "custom": {
+          "type": {
+            "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+            "key": "B2BClassificationCategory"
+          },
+          "customFieldsRaw": []
+        },
+        "children": [
+          {
+            "id": "60560b18-bf5c-4d23-b0e7-dbdaaef81294",
+            "key": "rund",
+            "stagedProductCount": 0,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Vis"
+              },
+              {
+                "locale": "en",
+                "value": "Fish"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "vis"
+              },
+              {
+                "locale": "en",
+                "value": "Fish"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          },
+          {
+            "id": "98969b3c-18bd-43d8-83ad-6ddc26f4c209",
+            "key": "Non-food",
+            "stagedProductCount": 0,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Non-food"
+              },
+              {
+                "locale": "en",
+                "value": "Non food"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "non-food"
+              },
+              {
+                "locale": "en",
+                "value": "non-food"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": []
+          },
+          {
+            "id": "c5f772f0-2603-4891-9c89-2a7f8f3daef0",
+            "key": "drinks",
+            "stagedProductCount": 13,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Dranken"
+              },
+              {
+                "locale": "en",
+                "value": "Drinks"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "dranken"
+              },
+              {
+                "locale": "en",
+                "value": "drinks"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": [
+              {
+                "id": "409ac275-9e5c-49c4-b3ab-b4a994193094",
+                "key": "beer",
+                "stagedProductCount": 13,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Bier"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Beer"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "bier"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "beer"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "63cafbd7-5817-40f7-916c-ee0644bc5f6f",
+        "key": "robotics",
+        "stagedProductCount": 208,
+        "nameAllLocales": [
+          {
+            "locale": "de",
+            "value": "Robotics"
+          },
+          {
+            "locale": "en",
+            "value": "Robotics"
+          }
+        ],
+        "slugAllLocales": [
+          {
+            "locale": "de",
+            "value": "robotics_de"
+          },
+          {
+            "locale": "en",
+            "value": "robotics_en"
+          }
+        ],
+        "custom": {
+          "type": {
+            "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+            "key": "B2BClassificationCategory"
+          },
+          "customFieldsRaw": []
+        },
+        "children": [
+          {
+            "id": "66f4dcbd-a12b-443e-afe0-f400e0aeed37",
+            "key": "robots_to_build_experiment",
+            "stagedProductCount": 64,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Robots to Build & Experiment"
+              },
+              {
+                "locale": "en",
+                "value": "Robots to Build & Experiment"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "robots_to_build_experiment_de"
+              },
+              {
+                "locale": "en",
+                "value": "robots_to_build_experiment_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": [
+              {
+                "id": "9c8a5358-4502-410e-a680-20b6dc0bc8c5",
+                "key": "robot_kits",
+                "stagedProductCount": 34,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Robot kits"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Robot kits"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "robot_kits_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "robot_kits_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "76bc44f4-d170-41ee-bbbe-ede6fed259da",
+                "key": "uav_and_drones",
+                "stagedProductCount": 12,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "UAVs and Drones"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "UAVs and Drones"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "uav_and_drones_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "uav_and_drones_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "52fe84ad-eeaf-4db8-955e-bf988ceff34f",
+                "key": "robot_parts",
+                "stagedProductCount": 18,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Robot Parts"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Robot Parts"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "robot_parts_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "robot_parts_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              }
+            ]
+          },
+          {
+            "id": "a9795e70-6ed4-4a55-882d-72ea8d779eb4",
+            "key": "tools_equipment",
+            "stagedProductCount": 61,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Tools & Equipment"
+              },
+              {
+                "locale": "en",
+                "value": "Tools & Equipment"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "tools_equipment_de"
+              },
+              {
+                "locale": "en",
+                "value": "tools_equipment_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": [
+              {
+                "id": "d4bcdf31-b77a-4e08-8f00-35f99d4c7147",
+                "key": "hand_tools_tool_kits_cases",
+                "stagedProductCount": 23,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Hand Tools, Tool Kits & Cases"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Hand Tools, Tool Kits & Cases"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "hand_tools_tool_kits_cases_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "hand_tools_tool_kits_cases_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "5c52bdfd-6ce1-4118-b08b-29c96bd79e0f",
+                "key": "3d_printer_parts_ac",
+                "stagedProductCount": 16,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "3D Printer Parts & Ac"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "3D Printer Parts & Ac"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "3d_printer_parts_ac_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "3d_printer_parts_ac_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "6feca8e0-2112-401c-adbe-ac55927fac7c",
+                "key": "3d_printer_filaments",
+                "stagedProductCount": 22,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "3D Printer Filaments"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "3D Printer Filaments"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "3d_printer_filaments_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "3d_printer_filaments_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              }
+            ]
+          },
+          {
+            "id": "681bff3c-e3d3-4cc6-8053-0e19a8f3f1a6",
+            "key": "robots_for_the_house_recreation",
+            "stagedProductCount": 83,
+            "nameAllLocales": [
+              {
+                "locale": "de",
+                "value": "Robots for the House & Recreation"
+              },
+              {
+                "locale": "en",
+                "value": "Robots for the House & Recreation"
+              }
+            ],
+            "slugAllLocales": [
+              {
+                "locale": "de",
+                "value": "robots_for_the_house_recreation_de"
+              },
+              {
+                "locale": "en",
+                "value": "robots_for_the_house_recreation_en"
+              }
+            ],
+            "custom": {
+              "type": {
+                "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                "key": "B2BClassificationCategory"
+              },
+              "customFieldsRaw": []
+            },
+            "children": [
+              {
+                "id": "0dd99601-72f1-4e65-b5ba-dc571dfef8d6",
+                "key": "personal_domestic_robots",
+                "stagedProductCount": 33,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Personal & Domestic Robots"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Personal & Domestic Robots"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "personal_domestic_robots_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "personal_domestic_robots_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "e8bae8db-5622-4f58-9d44-4374608fdc37",
+                "key": "domestic_robot_replacement_placement_parts",
+                "stagedProductCount": 24,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Domestic Robot Replacement placement parts"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Domestic Robot Replacement placement parts"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "domestic_robot_replacement_placement_parts_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "domestic_robot_replacement_placement_parts_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              },
+              {
+                "id": "c4cc1fbe-0689-4572-83af-43f061a17309",
+                "key": "robot_toys",
+                "stagedProductCount": 26,
+                "nameAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "Robot Toys"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "Robot Toys"
+                  }
+                ],
+                "slugAllLocales": [
+                  {
+                    "locale": "de",
+                    "value": "robot_toys_de"
+                  },
+                  {
+                    "locale": "en",
+                    "value": "robot_toys_en"
+                  }
+                ],
+                "custom": {
+                  "type": {
+                    "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+                    "key": "B2BClassificationCategory"
+                  },
+                  "customFieldsRaw": []
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <springProperty scope="context" name="springAppName" source="spring.application.name"/>
+    <property name="CONSOLE_LOG_PATTERN"
+        value="%d{yyyy-MM-dd HH:mm:ss.SSS} %5p %c [%X{X-B3-TraceId:-}] %m%n"/>
+    <springProfile name="local">
+        <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+        <logger name="commercetools" level="INFO" additivity="false">
+            <appender-ref ref="CONSOLE"/>
+        </logger>
+    </springProfile>
+    <springProfile name="!local">
+        <appender name="json" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+                <timestampPattern>[UNIX_TIMESTAMP_AS_NUMBER]</timestampPattern>
+            </encoder>
+        </appender>
+        <root level="INFO">
+            <appender-ref ref="json"/>
+        </root>
+        <logger name="commercetools" level="ERROR" additivity="false">
+            <appender-ref ref="json"/>
+        </logger>
+    </springProfile>
+</configuration>

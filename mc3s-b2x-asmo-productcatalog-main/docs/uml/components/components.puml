@@ -1,0 +1,35 @@
+@startuml
+'https://plantuml.com/component-diagram
+HTTP .down->Frontend
+
+node "Frontend" {
+}
+
+node "Aggregators" {
+  node "productcatalog" {
+    [mc3s-app-aggregator-productcatalog] #fad200
+    [mc3s-b2x-aggregator-productcatalog] #fad200
+    [mc3s-b2x-productcatalog-models] #fad200
+    [mc3s-b2x-api-client-productcatalog] #fad200
+
+    [mc3s-app-aggregator-productcatalog] .right->  [mc3s-b2x-api-client-productcatalog] : openapi
+    [mc3s-b2x-aggregator-productcatalog] -up-> [mc3s-app-aggregator-productcatalog]
+    [mc3s-b2x-productcatalog-models] -up-> [mc3s-b2x-aggregator-productcatalog]
+
+    note as N
+      Generated from openapi
+    end note
+
+    [mc3s-b2x-api-client-productcatalog] .. N
+
+  }
+
+}
+
+node "Foundation" {
+
+}
+Aggregators .down-> Foundation
+Frontend .down-> [Aggregators]
+
+@enduml

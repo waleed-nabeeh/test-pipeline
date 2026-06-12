@@ -1,0 +1,2691 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "API - mc3s-b2x-productcatalog",
+    "description": "mc3s-b2x-productcatalog REST API [build:2024-11-14T00:36:24.118Z]\n\n# Header\nThe application accepts header parameters to control context\n\n| Header             | Description     |\n| ------------------ | --------------- |\n| Content-Language   | Active language |\n| X-Store            | Active store    |\n| X-Organization     | Active Unit     |\n| X-Company          | Active Company  |\n| X-AnonymousId      | Anonymous Id    |\n\n\n---\n\n# Key Features 'mc3s-b2x-productcatalog'\n\n## Category\nAPIs to fetch getting category information \n- Get category tree for store\n- get category details \n- get category hierarchy \n\n## Product\nAPIs to fetch product data \n- Get product by ID\n- Get product by Key\n- Get product by Sku\n\n## ProductInStore\nAPIs to fetch product data for current store \n- Get product by ID\n- Get product by Key\n- Get product by Sku\n\n## Product Types\nAPIs to fetch Product Type data \n- Get Product Type by ID\n- Get Product Type by Key\n- Get Product Type Meta Data by ID\n- Get Product Type Meta Data by Key\n\n## Listing\nAPIs to fetch product listing information \n\n- Product Listing for store by ID\n- Product Listing for store by Key\n- Product Listing for store by SKU\n- Product Listing for store by cart\n- Product Listing for store by order\n- Product Listing for store by shoppinglist\n\n## AttributeGroup\nAPIs to fetch Attribute Groups \n\n- Get all Attribute Groups\n- Get Attribute Group by ID\n- Get Attribute Group by Key\n- Get Attribute Group for Product Type \n\n\n",
+    "contact": {
+      "name": "Mindcurv Group",
+      "url": "https://mindcurvgroup.com/en/services/digital-experiences-solutions/b2xaccelerator-for-composable-platforms-built-with-mach.html",
+      "email": "info@mindcurv.com"
+    },
+    "version": "4.11.2877"
+  },
+  "externalDocs": {
+    "description": "Capabilities",
+    "url": "https://mindcurv.atlassian.net/wiki/spaces/MC3S/pages/6912410041"
+  },
+  "servers": [
+    {
+      "url": "https://productcatalog.dev.b2x.b2bx.mindcurv.io",
+      "description": "Generated server url"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Category",
+      "description": "Category related APIs like fetching all or individual categories"
+    },
+    {
+      "name": "Product",
+      "description": "APIs to fetch product details. Products can be fetched using *sku id*, *product key* or  *product id*"
+    },
+    {
+      "name": "Product Types",
+      "description": "APIs to fetch product type information."
+    },
+    {
+      "name": "ProductInStore",
+      "description": "APIs to fetch product details in store"
+    },
+    {
+      "name": "AttributeGroup",
+      "description": "APIs to fetch product AttributeGroup information"
+    },
+    {
+      "name": "Catalog",
+      "description": "Catalog related APIs"
+    },
+    {
+      "name": "Listing",
+      "description": "APIs to fetch product listing information"
+    }
+  ],
+  "paths": {
+    "/aggregator/listing": {
+      "post": {
+        "tags": [
+          "Listing"
+        ],
+        "description": "Product Listings (scope: not required).",
+        "operationId": "listingsByReference",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Reference"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageableOfListingAggregation"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation failed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageableOfListingAggregation"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageableOfListingAggregation"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aggregator/producttypes": {
+      "get": {
+        "tags": [
+          "Product Types"
+        ],
+        "description": "All product types (scope: catalog).",
+        "operationId": "productTypes",
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageableOfProductTypeAggregation"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageableOfProductTypeAggregation"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "oauth": [
+              "catalog"
+            ]
+          }
+        ]
+      }
+    },
+    "/aggregator/producttypes/{id}": {
+      "get": {
+        "tags": [
+          "Product Types"
+        ],
+        "description": "Product Type by id (scope: catalog).",
+        "operationId": "productTypeById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Product Type ID",
+            "required": true,
+            "schema": {
+              "pattern": "^[/A-Za-z0-9_-]{2,255}$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductTypeAggregation"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductTypeAggregation"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductTypeAggregation"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "oauth": [
+              "catalog"
+            ]
+          }
+        ]
+      }
+    },
+    "/aggregator/producttypes/key={key}": {
+      "get": {
+        "tags": [
+          "Product Types"
+        ],
+        "description": "Product Type by key (scope: catalog).",
+        "operationId": "productTypeByKey",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "description": "Product Type key",
+            "required": true,
+            "schema": {
+              "pattern": "^[/A-Za-z0-9_-]+$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductTypeAggregation"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductTypeAggregation"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductTypeAggregation"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "oauth": [
+              "catalog"
+            ]
+          }
+        ]
+      }
+    },
+    "/aggregator/product": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "description": "All products (scope: not required).",
+        "operationId": "products",
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Page index",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "default": 0
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Items per page",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "default": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageableOfProductAggregation"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aggregator/product/{id}": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "description": "Product by id (scope: not required).",
+        "operationId": "productById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Product id",
+            "required": true,
+            "schema": {
+              "pattern": "^[/A-Za-z0-9_-]{2,255}$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductAggregation"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductAggregation"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aggregator/product/slug={slug}": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "description": "Product by slug (scope: not required).",
+        "operationId": "productBySlug",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "description": "Product slug",
+            "required": true,
+            "schema": {
+              "pattern": "^[/A-Za-z0-9_-]+$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductAggregation"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductAggregation"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aggregator/product/sku={sku}": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "description": "Product by sku (scope: not required).",
+        "operationId": "productBySku",
+        "parameters": [
+          {
+            "name": "sku",
+            "in": "path",
+            "description": "Sku id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductAggregation"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductAggregation"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aggregator/product/key={key}": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "description": "Product by key (scope: not required).",
+        "operationId": "productByKey",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "description": "Product key",
+            "required": true,
+            "schema": {
+              "pattern": "^[/A-Za-z0-9_-]+$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductAggregation"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductAggregation"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aggregator/product-store/{id}": {
+      "get": {
+        "tags": [
+          "ProductInStore"
+        ],
+        "description": "Product in store by id (scope: not required).",
+        "operationId": "productInStoreById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Product id",
+            "required": true,
+            "schema": {
+              "pattern": "^[/A-Za-z0-9_-]{2,255}$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductAggregation"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductAggregation"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aggregator/product-store/slug={slug}": {
+      "get": {
+        "tags": [
+          "ProductInStore"
+        ],
+        "description": "Product in store by slug (scope: not required).",
+        "operationId": "productInStoreBySlug",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "description": "slug",
+            "required": true,
+            "schema": {
+              "pattern": "^[/A-Za-z0-9_-]+$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductAggregation"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductAggregation"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aggregator/product-store/sku={sku}": {
+      "get": {
+        "tags": [
+          "ProductInStore"
+        ],
+        "description": "Product in store by sku (scope: not required).",
+        "operationId": "productInStoreBySku",
+        "parameters": [
+          {
+            "name": "sku",
+            "in": "path",
+            "description": "Sku",
+            "required": true,
+            "schema": {
+              "pattern": "^[/A-Za-z0-9_-]+$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductAggregation"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductAggregation"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aggregator/product-store/key={key}": {
+      "get": {
+        "tags": [
+          "ProductInStore"
+        ],
+        "description": "Product in store by key (scope: not required).",
+        "operationId": "productInStoreByKey",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "description": "Product key",
+            "required": true,
+            "schema": {
+              "pattern": "^[/A-Za-z0-9_-]+$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductAggregation"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductAggregation"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aggregator/listing/{id}": {
+      "get": {
+        "tags": [
+          "Listing"
+        ],
+        "description": "Product listing by id (scope: not required).",
+        "operationId": "listingById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Product id",
+            "required": true,
+            "schema": {
+              "pattern": "^[/A-Za-z0-9_-]{2,255}$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListingAggregation"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListingAggregation"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aggregator/listing/sku={sku}": {
+      "get": {
+        "tags": [
+          "Listing"
+        ],
+        "description": "Product listing by sku (scope: not required).",
+        "operationId": "listingBySku",
+        "parameters": [
+          {
+            "name": "sku",
+            "in": "path",
+            "description": "SKU",
+            "required": true,
+            "schema": {
+              "pattern": "^[/A-Za-z0-9_-]+$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListingAggregation"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListingAggregation"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListingAggregation"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aggregator/listing/shoppinglist/{id}": {
+      "get": {
+        "tags": [
+          "Listing"
+        ],
+        "description": "Product Listing by shoppinglist (scope: shoppinglist).",
+        "operationId": "listingByShoppinglist",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "shoppinglist id",
+            "required": true,
+            "schema": {
+              "pattern": "^[/A-Za-z0-9_-]{2,255}$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageableOfListingAggregation"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageableOfListingAggregation"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "oauth": [
+              "shoppinglist"
+            ]
+          }
+        ]
+      }
+    },
+    "/aggregator/listing/order/{id}": {
+      "get": {
+        "tags": [
+          "Listing"
+        ],
+        "description": "Product listing by order (scope: order).",
+        "operationId": "listingByOrder",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "order id",
+            "required": true,
+            "schema": {
+              "pattern": "^[/A-Za-z0-9_-]{2,255}$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageableOfListingAggregation"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageableOfListingAggregation"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "oauth": [
+              "order"
+            ]
+          }
+        ]
+      }
+    },
+    "/aggregator/listing/key={key}": {
+      "get": {
+        "tags": [
+          "Listing"
+        ],
+        "description": "Product listing by key (scope: not required).",
+        "operationId": "listingByKey",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "description": "Product key",
+            "required": true,
+            "schema": {
+              "pattern": "^[/A-Za-z0-9_-]+$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListingAggregation"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListingAggregation"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ListingAggregation"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aggregator/listing/cart": {
+      "get": {
+        "tags": [
+          "Listing"
+        ],
+        "description": "Product listing by cart (scope: cart).",
+        "operationId": "listingByCart",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "cart Id",
+            "required": false,
+            "schema": {
+              "pattern": "^[/A-Za-z0-9_-]{2,255}$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageableOfListingAggregation"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageableOfListingAggregation"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "oauth": [
+              "cart"
+            ]
+          }
+        ]
+      }
+    },
+    "/aggregator/category": {
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "description": "All categories (scope: not required).",
+        "operationId": "categories",
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Page index",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "default": 0
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Items per page",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "default": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageableOfCategoryAggregation"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aggregator/category/{id}": {
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "description": "Category by id (scope: not required).",
+        "operationId": "categoryById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Category id",
+            "required": true,
+            "schema": {
+              "pattern": "^[/A-Za-z0-9_-]{2,255}$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoryAggregation"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoryAggregation"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aggregator/category/tree": {
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "description": "Category tree for store (scope: not required). The level amount (default = 2) is configured on Store.navigationLevels.",
+        "operationId": "categoryTree",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageableOfCategoryNavigationAggregation"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aggregator/category/slug={slug}": {
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "description": "Category by slug (scope: not required).",
+        "operationId": "categoryBySlug",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "description": "Category slug",
+            "required": true,
+            "schema": {
+              "pattern": "^[/A-Za-z0-9_-]{2,255}$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoryAggregation"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoryAggregation"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aggregator/category/key={key}": {
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "description": "Category by key (scope: not required).",
+        "operationId": "categoryByKey",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "description": "Category key",
+            "required": true,
+            "schema": {
+              "pattern": "^[/A-Za-z0-9_-]+$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoryAggregation"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoryAggregation"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aggregator/catalog": {
+      "get": {
+        "tags": [
+          "Catalog"
+        ],
+        "description": "All catalogs for context (scope: not required).",
+        "operationId": "catalogs",
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Page index",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "default": 0
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Items per page",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "default": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageableOfCatalogAggregation"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aggregator/attributeMetaData/{id}": {
+      "get": {
+        "tags": [
+          "Product Types"
+        ],
+        "description": "ProductType Attribute MetaData by Id (scope: catalog).",
+        "operationId": "productAttributeMetaDataById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Product Type ID",
+            "required": true,
+            "schema": {
+              "pattern": "^[/A-Za-z0-9_-]{2,255}$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageableOfAttributeMetaData"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageableOfAttributeMetaData"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aggregator/attributeMetaData/key={key}": {
+      "get": {
+        "tags": [
+          "Product Types"
+        ],
+        "description": "ProductType Attribute MetaData by key (scope: not required).",
+        "operationId": "productAttributeMetaDataByKey",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "description": "Product Type Key",
+            "required": true,
+            "schema": {
+              "pattern": "^[/A-Za-z0-9_-]+$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageableOfAttributeMetaData"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageableOfAttributeMetaData"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aggregator/attribute-group": {
+      "get": {
+        "tags": [
+          "AttributeGroup"
+        ],
+        "description": "All AttributeGroups (scope: catalog).",
+        "operationId": "attributeGroups",
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Page index",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "default": 0
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Items per page",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "default": 20
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageableOfAttributeGroupAggregation"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageableOfAttributeGroupAggregation"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "oauth": [
+              "catalog"
+            ]
+          }
+        ]
+      }
+    },
+    "/aggregator/attribute-group/{id}": {
+      "get": {
+        "tags": [
+          "AttributeGroup"
+        ],
+        "description": "AttributeGroup by id (scope: catalog).",
+        "operationId": "attributeGroupById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "AttributeGroup id",
+            "required": true,
+            "schema": {
+              "pattern": "^[/A-Za-z0-9_-]{2,255}$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AttributeGroupAggregation"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AttributeGroupAggregation"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AttributeGroupAggregation"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "oauth": [
+              "catalog"
+            ]
+          }
+        ]
+      }
+    },
+    "/aggregator/attribute-group/type={key}": {
+      "get": {
+        "tags": [
+          "AttributeGroup"
+        ],
+        "description": "All AttributeGroups for Product Type (scope: catalog).",
+        "operationId": "attributeGroupsForType",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "description": "ProductType key",
+            "required": true,
+            "schema": {
+              "pattern": "^[/A-Za-z0-9_-]+$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MapOfAttributeGroupAggregation"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MapOfAttributeGroupAggregation"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "oauth": [
+              "catalog"
+            ]
+          }
+        ]
+      }
+    },
+    "/aggregator/attribute-group/key={key}": {
+      "get": {
+        "tags": [
+          "AttributeGroup"
+        ],
+        "description": "AttributeGroup using the key (scope: catalog).",
+        "operationId": "attributeGroupByKey",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "description": "AttributeGroup key",
+            "required": true,
+            "schema": {
+              "pattern": "^[/A-Za-z0-9_-]+$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AttributeGroupAggregation"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AttributeGroupAggregation"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AttributeGroupAggregation"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "oauth": [
+              "catalog"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ListingAggregation": {
+        "type": "object",
+        "properties": {
+          "store": {
+            "type": "string",
+            "description": "Store Key"
+          },
+          "reference": {
+            "$ref": "#/components/schemas/Reference"
+          },
+          "listed": {
+            "type": "boolean",
+            "description": "Listed Flag"
+          },
+          "listings": {
+            "type": "array",
+            "description": "Listings",
+            "items": {
+              "$ref": "#/components/schemas/ListingAggregationEntry"
+            }
+          }
+        }
+      },
+      "ListingAggregationEntry": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Product Listing ID"
+          },
+          "key": {
+            "type": "string",
+            "description": "Product Listing Key"
+          },
+          "mode": {
+            "type": "string",
+            "description": "Product Listing Mode"
+          },
+          "includedSkus": {
+            "type": "array",
+            "description": "Included SKUs",
+            "items": {
+              "type": "string",
+              "description": "Included SKUs"
+            }
+          },
+          "excludedSkus": {
+            "type": "array",
+            "description": "Excluded SKUs",
+            "items": {
+              "type": "string",
+              "description": "Excluded SKUs"
+            }
+          }
+        },
+        "description": "Listings"
+      },
+      "PageableFilterOption": {
+        "required": [
+          "attribute",
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "attribute": {
+            "type": "string",
+            "description": "filter attribute"
+          },
+          "value": {
+            "type": "string",
+            "description": "filter value"
+          }
+        }
+      },
+      "PageableOfListingAggregation": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "limit": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "total": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ListingAggregation"
+            }
+          },
+          "searchRequest": {
+            "$ref": "#/components/schemas/PageableSearchRequest"
+          }
+        }
+      },
+      "PageableSearchRequest": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "maximum": 500,
+            "minimum": 1,
+            "type": "integer",
+            "description": "Limit",
+            "format": "int64"
+          },
+          "offset": {
+            "minimum": 0,
+            "type": "integer",
+            "description": "Offset",
+            "format": "int64"
+          },
+          "filter": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PageableFilterOption"
+            }
+          },
+          "sorts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PageableSortOption"
+            }
+          },
+          "displayType": {
+            "type": "string",
+            "enum": [
+              "DETAIL",
+              "LIST",
+              "REVERSE"
+            ]
+          },
+          "includeCount": {
+            "type": "boolean"
+          }
+        }
+      },
+      "PageableSortOption": {
+        "type": "object",
+        "properties": {
+          "attribute": {
+            "type": "string",
+            "description": "sort attribute"
+          },
+          "direction": {
+            "type": "string",
+            "description": "sort direction"
+          }
+        }
+      },
+      "Reference": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "pattern": "^[/A-Za-z0-9_-]{2,255}$",
+            "type": "string",
+            "description": "Reference UUID"
+          },
+          "key": {
+            "pattern": "^[/A-Za-z0-9_-]{2,255}$",
+            "type": "string",
+            "description": "Reference Key"
+          },
+          "typeId": {
+            "pattern": "^[/A-Za-z0-9_-]{2,255}$",
+            "type": "string",
+            "description": "Reference Type identifier"
+          }
+        }
+      },
+      "AttributeMetaData": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Attribute Name"
+          },
+          "group": {
+            "type": "string",
+            "description": "Group Identifier"
+          },
+          "unitOfMeasure": {
+            "type": "string",
+            "description": "Unit of measure"
+          },
+          "unitType": {
+            "type": "string",
+            "description": "Unit type"
+          },
+          "unitSystem": {
+            "type": "string",
+            "description": "Unit System"
+          }
+        }
+      },
+      "EnumValueAggregation": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Key"
+          },
+          "label": {
+            "type": "string",
+            "description": "Label"
+          }
+        },
+        "description": "Attribute enumeration values"
+      },
+      "PageableOfProductTypeAggregation": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "limit": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "total": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductTypeAggregation"
+            }
+          },
+          "searchRequest": {
+            "$ref": "#/components/schemas/PageableSearchRequest"
+          }
+        }
+      },
+      "ProductAttributeAggregation": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Attribute name"
+          },
+          "label": {
+            "type": "string",
+            "description": "Attribute label"
+          },
+          "inputTip": {
+            "type": "string",
+            "description": "Attribute input tip"
+          },
+          "constraint": {
+            "type": "string",
+            "description": "Attribute constraint"
+          },
+          "set": {
+            "type": "boolean",
+            "description": "Is attribute of type set"
+          },
+          "type": {
+            "type": "string",
+            "description": "Attribute type"
+          },
+          "enumValues": {
+            "type": "array",
+            "description": "Attribute enumeration values",
+            "items": {
+              "$ref": "#/components/schemas/EnumValueAggregation"
+            }
+          },
+          "metaData": {
+            "$ref": "#/components/schemas/AttributeMetaData"
+          }
+        },
+        "description": "Attributes"
+      },
+      "ProductTypeAggregation": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "UUID"
+          },
+          "key": {
+            "type": "string",
+            "description": "Key"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name"
+          },
+          "attributes": {
+            "type": "array",
+            "description": "Attributes",
+            "items": {
+              "$ref": "#/components/schemas/ProductAttributeAggregation"
+            }
+          }
+        }
+      },
+      "AssetAggregation": {
+        "type": "object",
+        "properties": {
+          "custom": {
+            "$ref": "#/components/schemas/CustomAggregation"
+          },
+          "id": {
+            "type": "string",
+            "description": "Asset ID"
+          },
+          "key": {
+            "type": "string",
+            "description": "Asset Key"
+          },
+          "name": {
+            "type": "string",
+            "description": "Asset Name"
+          },
+          "description": {
+            "type": "string",
+            "description": "Asset Description"
+          },
+          "sources": {
+            "type": "array",
+            "description": "Assigned Asset Sources",
+            "items": {
+              "$ref": "#/components/schemas/AssetSourceAggregation"
+            }
+          },
+          "tags": {
+            "type": "array",
+            "description": "Tags",
+            "items": {
+              "type": "string",
+              "description": "Tags"
+            }
+          }
+        }
+      },
+      "AssetSourceAggregation": {
+        "type": "object",
+        "properties": {
+          "contentType": {
+            "type": "string",
+            "description": "Mime Type"
+          },
+          "height": {
+            "type": "integer",
+            "description": "Height",
+            "format": "int32"
+          },
+          "key": {
+            "type": "string",
+            "description": "Asset Source Key"
+          },
+          "uri": {
+            "type": "string",
+            "description": "Asset Source URI"
+          },
+          "width": {
+            "type": "integer",
+            "description": "Width",
+            "format": "int32"
+          }
+        },
+        "description": "Assigned Asset Sources"
+      },
+      "AttributeAggregation": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Localized Attribute name"
+          },
+          "label": {
+            "type": "string",
+            "description": "Localized Attribute label"
+          },
+          "value": {
+            "type": "object",
+            "description": "Attribute value"
+          },
+          "type": {
+            "type": "string",
+            "description": "Attribute type"
+          },
+          "metaData": {
+            "$ref": "#/components/schemas/AttributeMetaData"
+          },
+          "elementType": {
+            "$ref": "#/components/schemas/AttributeElementType"
+          }
+        },
+        "description": "Attribute Aggregation"
+      },
+      "AttributeElementType": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Attribute element name"
+          },
+          "collectionType": {
+            "type": "boolean",
+            "description": "Attribute is collection"
+          },
+          "values": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "description": "Attribute values"
+            },
+            "description": "Attribute values"
+          },
+          "referenceTypeId": {
+            "type": "string",
+            "description": "Attribute reference type"
+          }
+        }
+      },
+      "CategoryNavigationAggregation": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Category ID"
+          },
+          "key": {
+            "type": "string",
+            "description": "Category Key"
+          },
+          "name": {
+            "type": "string",
+            "description": "Category Name"
+          },
+          "slug": {
+            "type": "string",
+            "description": "Category Slug"
+          },
+          "description": {
+            "type": "string",
+            "description": "Category Description"
+          },
+          "catalog": {
+            "type": "boolean",
+            "description": "Catalog flag"
+          },
+          "type": {
+            "type": "string",
+            "description": "Category Type"
+          },
+          "ancestors": {
+            "type": "array",
+            "description": "Ancestor categories",
+            "items": {
+              "$ref": "#/components/schemas/CategoryNavigationAggregation"
+            }
+          },
+          "children": {
+            "type": "array",
+            "description": "Child categories",
+            "items": {
+              "$ref": "#/components/schemas/CategoryNavigationAggregation"
+            }
+          },
+          "productsCount": {
+            "type": "integer",
+            "description": "Products count",
+            "format": "int32"
+          },
+          "restricted": {
+            "type": "boolean",
+            "description": "Restricted Flag"
+          },
+          "restrictedCustomers": {
+            "type": "array",
+            "description": "Restricted customer ID list",
+            "items": {
+              "type": "string",
+              "description": "Restricted customer ID list"
+            }
+          },
+          "image": {
+            "$ref": "#/components/schemas/ImageAggregation"
+          },
+          "custom": {
+            "$ref": "#/components/schemas/CustomAggregation"
+          }
+        },
+        "description": "Child Categories"
+      },
+      "CustomAggregation": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/Reference"
+          },
+          "name": {
+            "type": "string",
+            "description": "Localized Type name"
+          },
+          "description": {
+            "type": "string",
+            "description": "Localized Type description"
+          },
+          "attributes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/AttributeAggregation"
+            },
+            "description": "Type attributes"
+          }
+        }
+      },
+      "ImageAggregation": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "Image URL"
+          },
+          "label": {
+            "type": "string",
+            "description": "label"
+          },
+          "width": {
+            "type": "integer",
+            "description": "width",
+            "format": "int32"
+          },
+          "height": {
+            "type": "integer",
+            "description": "height",
+            "format": "int32"
+          }
+        }
+      },
+      "MetaDataAggregation": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "description": "Meta Description"
+          },
+          "keywords": {
+            "type": "string",
+            "description": "Meta Keywords"
+          },
+          "slug": {
+            "type": "string",
+            "description": "Slug"
+          },
+          "title": {
+            "type": "string",
+            "description": "Meta Title"
+          }
+        }
+      },
+      "PageableOfProductAggregation": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "limit": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "total": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductAggregation"
+            }
+          },
+          "searchRequest": {
+            "$ref": "#/components/schemas/PageableSearchRequest"
+          }
+        }
+      },
+      "ProductAggregation": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Product Id"
+          },
+          "key": {
+            "type": "string",
+            "description": "Product Key"
+          },
+          "name": {
+            "type": "string",
+            "description": "Product Name"
+          },
+          "description": {
+            "type": "string",
+            "description": "Product Description"
+          },
+          "categories": {
+            "type": "array",
+            "description": "Product Categories",
+            "items": {
+              "$ref": "#/components/schemas/CategoryNavigationAggregation"
+            }
+          },
+          "variants": {
+            "type": "array",
+            "description": "Variants",
+            "items": {
+              "$ref": "#/components/schemas/ProductVariantAggregation"
+            }
+          },
+          "metaData": {
+            "$ref": "#/components/schemas/MetaDataAggregation"
+          },
+          "status": {
+            "$ref": "#/components/schemas/StateAggregation"
+          },
+          "tax": {
+            "$ref": "#/components/schemas/TaxCategoryAggregation"
+          },
+          "type": {
+            "$ref": "#/components/schemas/ProductTypeAggregation"
+          }
+        }
+      },
+      "ProductVariantAggregation": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Variant ID",
+            "format": "int32"
+          },
+          "key": {
+            "type": "string",
+            "description": "Variant Key"
+          },
+          "sku": {
+            "type": "string",
+            "description": "Sku"
+          },
+          "defaultVariant": {
+            "type": "boolean",
+            "description": "Default Flag"
+          },
+          "images": {
+            "type": "array",
+            "description": "Variant Images",
+            "items": {
+              "$ref": "#/components/schemas/ImageAggregation"
+            }
+          },
+          "assets": {
+            "type": "array",
+            "description": "Variant assets",
+            "items": {
+              "$ref": "#/components/schemas/AssetAggregation"
+            }
+          },
+          "attributes": {
+            "type": "array",
+            "description": "Variant Attributes",
+            "items": {
+              "$ref": "#/components/schemas/AttributeAggregation"
+            }
+          },
+          "custom": {
+            "$ref": "#/components/schemas/CustomAggregation"
+          }
+        },
+        "description": "Variants"
+      },
+      "StateAggregation": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "State ID"
+          },
+          "key": {
+            "type": "string",
+            "description": "State Key"
+          },
+          "name": {
+            "type": "string",
+            "description": "Localized Name"
+          },
+          "description": {
+            "type": "string",
+            "description": "Localized Description"
+          },
+          "transitions": {
+            "type": "array",
+            "description": "Allowed transitions",
+            "items": {
+              "$ref": "#/components/schemas/StateAggregation"
+            }
+          },
+          "type": {
+            "type": "string",
+            "description": "State type"
+          }
+        }
+      },
+      "TaxCategoryAggregation": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "ID"
+          },
+          "key": {
+            "type": "string",
+            "description": "Key"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Amount"
+          },
+          "rates": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TaxRateAggregation"
+            }
+          }
+        },
+        "description": "Tax Category Aggregation"
+      },
+      "TaxRateAggregation": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "ID"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name"
+          },
+          "amount": {
+            "type": "number",
+            "description": "Amount"
+          },
+          "includedInPrice": {
+            "type": "boolean",
+            "description": "Included In Price Flag (net/gross)"
+          },
+          "country": {
+            "type": "string",
+            "description": "Country ISO Code"
+          }
+        },
+        "description": "Tax Rate Aggregation"
+      },
+      "CategoryAggregation": {
+        "type": "object",
+        "properties": {
+          "catalog": {
+            "type": "boolean",
+            "description": "Catalog Flag"
+          },
+          "productsCount": {
+            "type": "integer",
+            "description": "Products Count",
+            "format": "int32"
+          },
+          "restricted": {
+            "type": "boolean",
+            "description": "Restrcited Flag"
+          },
+          "restrictedCustomers": {
+            "type": "array",
+            "description": "Resticted Customer ID list",
+            "items": {
+              "type": "string",
+              "description": "Resticted Customer ID list"
+            }
+          },
+          "metaData": {
+            "$ref": "#/components/schemas/MetaDataAggregation"
+          },
+          "type": {
+            "type": "string",
+            "description": "Category Type"
+          },
+          "parent": {
+            "$ref": "#/components/schemas/CategoryAggregation"
+          },
+          "ancestors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CategoryNavigationAggregation"
+            }
+          },
+          "id": {
+            "type": "string",
+            "description": "ID"
+          },
+          "key": {
+            "type": "string",
+            "description": "Key"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description"
+          },
+          "slug": {
+            "type": "string",
+            "description": "Slug"
+          },
+          "children": {
+            "type": "array",
+            "description": "Child Categories",
+            "items": {
+              "$ref": "#/components/schemas/CategoryNavigationAggregation"
+            }
+          },
+          "image": {
+            "$ref": "#/components/schemas/ImageAggregation"
+          },
+          "assets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AssetAggregation"
+            }
+          },
+          "custom": {
+            "$ref": "#/components/schemas/CustomAggregation"
+          }
+        }
+      },
+      "PageableOfCategoryAggregation": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "limit": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "total": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CategoryAggregation"
+            }
+          },
+          "searchRequest": {
+            "$ref": "#/components/schemas/PageableSearchRequest"
+          }
+        }
+      },
+      "PageableOfCategoryNavigationAggregation": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "limit": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "total": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CategoryNavigationAggregation"
+            }
+          },
+          "searchRequest": {
+            "$ref": "#/components/schemas/PageableSearchRequest"
+          }
+        }
+      },
+      "CatalogAggregation": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "ID"
+          },
+          "key": {
+            "type": "string",
+            "description": "Key"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description"
+          },
+          "slug": {
+            "type": "string",
+            "description": "Slug"
+          },
+          "children": {
+            "type": "array",
+            "description": "Child Categories",
+            "items": {
+              "$ref": "#/components/schemas/CategoryNavigationAggregation"
+            }
+          },
+          "restricted": {
+            "type": "boolean",
+            "description": "Restricted Flag"
+          },
+          "restrictedCustomers": {
+            "type": "array",
+            "description": "Restricted Customer ID list",
+            "items": {
+              "type": "string",
+              "description": "Restricted Customer ID list"
+            }
+          },
+          "metaData": {
+            "$ref": "#/components/schemas/MetaDataAggregation"
+          },
+          "image": {
+            "$ref": "#/components/schemas/ImageAggregation"
+          },
+          "assets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AssetAggregation"
+            }
+          },
+          "custom": {
+            "$ref": "#/components/schemas/CustomAggregation"
+          }
+        }
+      },
+      "PageableOfCatalogAggregation": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "limit": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "total": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CatalogAggregation"
+            }
+          },
+          "searchRequest": {
+            "$ref": "#/components/schemas/PageableSearchRequest"
+          }
+        }
+      },
+      "PageableOfAttributeMetaData": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "limit": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "total": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AttributeMetaData"
+            }
+          },
+          "searchRequest": {
+            "$ref": "#/components/schemas/PageableSearchRequest"
+          }
+        }
+      },
+      "AttributeGroupAggregation": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "AttributeGroup ID"
+          },
+          "key": {
+            "type": "string",
+            "description": "AttributeGroup Key"
+          },
+          "name": {
+            "type": "string",
+            "description": "AttributeGroup Name"
+          },
+          "description": {
+            "type": "string",
+            "description": "AttributeGroup Description"
+          },
+          "attributes": {
+            "type": "array",
+            "description": "Assigned Attributes",
+            "items": {
+              "type": "string",
+              "description": "Assigned Attributes"
+            }
+          }
+        }
+      },
+      "PageableOfAttributeGroupAggregation": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "limit": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "total": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AttributeGroupAggregation"
+            }
+          },
+          "searchRequest": {
+            "$ref": "#/components/schemas/PageableSearchRequest"
+          }
+        }
+      },
+      "MapOfAttributeGroupAggregation": {
+        "type": "object",
+        "properties": {
+          "empty": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": {
+          "$ref": "#/components/schemas/AttributeGroupAggregation"
+        }
+      }
+    }
+  }
+}

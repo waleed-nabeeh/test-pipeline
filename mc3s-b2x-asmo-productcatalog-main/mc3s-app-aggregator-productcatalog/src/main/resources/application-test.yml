@@ -1,0 +1,13 @@
+---
+server:
+  port: 2357
+  servlet:
+    session:
+      timeout: 1500
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+springdoc:
+  swagger-ui:
+    disable-swagger-default-url: true

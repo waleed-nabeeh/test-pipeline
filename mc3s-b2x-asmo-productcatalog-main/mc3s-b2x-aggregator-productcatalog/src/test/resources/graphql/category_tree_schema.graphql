@@ -1,0 +1,31 @@
+query Menu {
+    categories(where: "parent is not defined") {
+        results {
+            ...breadcrumb
+            children {
+                ...breadcrumb
+                children {
+                    ...breadcrumb
+                }
+            }
+        }
+    }
+}
+
+fragment breadcrumb on Category {
+    id
+    key
+    stagedProductCount
+    nameAllLocales{locale value}
+    slugAllLocales{locale value}
+    custom {
+        type {
+            id
+            key
+        }
+        customFieldsRaw {
+            name
+            value
+        }
+    }
+}

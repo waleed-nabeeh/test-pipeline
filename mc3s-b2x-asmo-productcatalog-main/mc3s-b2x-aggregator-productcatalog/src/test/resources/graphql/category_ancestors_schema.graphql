@@ -1,0 +1,140 @@
+query ProductProjection($identifier: String!, $categoryId: String!) {
+    product(key: $identifier) {
+        id
+        key
+        productType {
+            key
+            name
+        }
+        state {
+            id
+        }
+        masterData {
+            current {
+                nameAllLocales {
+                    locale
+                    value
+                }
+                descriptionAllLocales {
+                    locale
+                    value
+                }
+                slugAllLocales {
+                    locale
+                    value
+                }
+                metaTitleAllLocales {
+                    locale
+                    value
+                }
+                metaKeywordsAllLocales {
+                    locale
+                    value
+                }
+                metaDescriptionAllLocales {
+                    locale
+                    value
+                }
+                allVariants {
+                    id
+                    key
+                    sku
+                    prices {
+                        id
+                        value {
+                            currencyCode
+                            centAmount
+                        }
+                        channelRef {
+                            id
+                        }
+                        customerGroupRef {
+                            id
+                        }
+                    }
+                    assets {
+                        id
+                        key
+                        tags
+                        sources {
+                            key
+                            uri
+                            contentType
+                            dimensions {
+                                width
+                                height
+                            }
+                        }
+                    }
+                    images {
+                        url
+                        label
+                        dimensions {
+                            width
+                            height
+                        }
+                    }
+                    availability {
+                        noChannel {
+                            isOnStock
+                            availableQuantity
+                            restockableInDays
+                        }
+                        channels {
+                            results {
+                                availability {
+                                    isOnStock
+                                    availableQuantity
+                                    restockableInDays
+                                }
+                            }
+                        }
+                    }
+                    attributesRaw {
+                        name
+                        value
+                        attributeDefinition {
+                            type {
+                                name
+                            }
+                            labelAllLocales {
+                                locale
+                                value
+                            }
+                        }
+                        value
+                    }
+                }
+            }
+        }
+    }
+    category(id: $categoryId) {
+        ...breadcrumb
+        ancestors {
+            ...breadcrumb
+        }
+    }
+}
+
+fragment breadcrumb on Category {
+    id
+    key
+    nameAllLocales {
+        locale
+        value
+    }
+    slugAllLocales {
+        locale
+        value
+    }
+    custom {
+        type {
+            id
+            key
+        }
+        customFieldsRaw {
+            name
+            value
+        }
+    }
+}

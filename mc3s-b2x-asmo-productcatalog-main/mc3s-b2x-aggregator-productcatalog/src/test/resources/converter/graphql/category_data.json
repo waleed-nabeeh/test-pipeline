@@ -1,0 +1,100 @@
+{
+  "id": "3d38f31b-dc96-4345-854f-bc29490844ce",
+  "key": "mc_classes_category",
+  "stagedProductCount": 7,
+  "nameAllLocales": [
+    {
+      "locale": "de",
+      "value": "Mindcurv Klassifizierung"
+    },
+    {
+      "locale": "en",
+      "value": "Mindcurv Classification"
+    }
+  ],
+  "slugAllLocales": [
+    {
+      "locale": "de",
+      "value": "mc_classes_category_de"
+    },
+    {
+      "locale": "en",
+      "value": "mc_classes_category_en"
+    }
+  ],
+  "custom": {
+    "type": {
+      "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+      "key": "B2BClassificationCategory"
+    },
+    "customFieldsRaw": []
+  },
+  "children": [
+    {
+      "id": "9002713e-fe79-4e6b-805c-e015bf54d1af",
+      "key": "mc_nonfood",
+      "stagedProductCount": 0,
+      "nameAllLocales": [
+        {
+          "locale": "de",
+          "value": "Non-Food"
+        },
+        {
+          "locale": "en",
+          "value": "Non-Food"
+        }
+      ],
+      "slugAllLocales": [
+        {
+          "locale": "de",
+          "value": "mc_nonfood_de"
+        },
+        {
+          "locale": "en",
+          "value": "mc_nonfood_en"
+        }
+      ],
+      "custom": {
+        "type": {
+          "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+          "key": "B2BClassificationCategory"
+        },
+        "customFieldsRaw": []
+      },
+      "children": []
+    },
+    {
+      "id": "eb7ab4a3-19fa-461f-af85-8e2c28fc2c01",
+      "key": "mc_food",
+      "stagedProductCount": 7,
+      "nameAllLocales": [
+        {
+          "locale": "de",
+          "value": "Food"
+        },
+        {
+          "locale": "en",
+          "value": "Food"
+        }
+      ],
+      "slugAllLocales": [
+        {
+          "locale": "de",
+          "value": "mc_food_de"
+        },
+        {
+          "locale": "en",
+          "value": "mc_food_en"
+        }
+      ],
+      "custom": {
+        "type": {
+          "id": "92e9c6fe-8bd7-440c-a133-1bf385165c71",
+          "key": "B2BClassificationCategory"
+        },
+        "customFieldsRaw": []
+      },
+      "children": []
+    }
+  ]
+}

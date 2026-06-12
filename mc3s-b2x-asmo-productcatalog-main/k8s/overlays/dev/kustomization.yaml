@@ -1,0 +1,130 @@
+kind: Kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+
+resources:
+  - ./../../base
+  - serviceaccount.yaml
+
+patchesJson6902:
+  - target:
+      kind: Ingress
+      group: networking.k8s.io
+      version: v1beta1
+      name: mc3s-b2x-aggregator-productcatalog
+    patch: |-
+      - op: replace
+        path: /apiVersion
+        value: networking.k8s.io/v1
+      # - op: add
+      #   path: /metadata/annotations/cert-manager.io~1cluster-issuer
+      #   value: letsencrypt-prod   
+      - op: add
+        path: /spec
+        value: 
+          rules:
+            - host: productcatalog.dev.b2x.b2bx.mindcurv.io
+              http:
+                paths:
+                  - backend:
+                      service:
+                        name: mc3s-b2x-aggregator-productcatalog
+                        port:
+                          number: 2357
+                    path: /
+                    pathType: Prefix
+
+          tls:
+            - secretName: ssl-tls-secret
+              hosts:
+                - productcatalog.dev.b2x.b2bx.mindcurv.io
+  - target:
+      kind: Ingress
+      group: networking.k8s.io
+      version: v1beta1
+      name: mc3s-b2x-swagger-productcatalog
+    patch: |-
+      - op: replace
+        path: /apiVersion
+        value: networking.k8s.io/v1
+      # - op: add
+      #   path: /metadata/annotations/cert-manager.io~1cluster-issuer
+      #   value: letsencrypt-prod
+      # - op: add
+      #   path: /metadata/annotations/nginx.ingress.kubernetes.io~1auth-signin
+      #   value: https://auth2.dev.b2x.b2bx.mindcurv.io/oauth2/start?rd=https://$host$escaped_request_uri
+      # - op: add
+      #   path: /metadata/annotations/nginx.ingress.kubernetes.io~1auth-url
+      #   value: https://auth2.dev.b2x.b2bx.mindcurv.io/oauth2/auth
+      - op: add
+        path: /spec
+        value: 
+          rules:
+            - host: productcatalog.dev.b2x.b2bx.mindcurv.io
+              http:
+                paths:
+                  - backend:
+                      service:
+                        name: mc3s-b2x-aggregator-productcatalog
+                        port:
+                          number: 2357
+                    path: /swagger-ui
+                    pathType: Prefix
+                  - path: /v3/api-docs
+                    pathType: Prefix
+                    backend:
+                      service:
+                        name: mc3s-b2x-aggregator-productcatalog
+                        port:
+                          number: 2357
+
+          tls:
+            - secretName: ssl-tls-secret
+              hosts:
+                - productcatalog.dev.b2x.b2bx.mindcurv.io
+  - target:
+      kind: Deployment
+      group: apps
+      version: v1
+      name: mc3s-b2x-aggregator-productcatalog
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/serviceAccountName
+        value: mc3s-b2x-aggregator-productcatalog
+      - op: remove
+        path: /spec/selector/matchLabels/name
+      - op: remove
+        path: /spec/template/metadata/labels/name
+  - target:
+      kind: Service
+      version: v1
+      name: mc3s-b2x-aggregator-productcatalog
+    patch: |-
+      - op: remove
+        path: /spec/selector/name
+
+  - target:
+      kind: ExternalSecret
+      group: external-secrets.io
+      version: v1beta1
+      name: mc3s-b2x-aggregator-productcatalog
+    patch: |-
+      - op: replace
+        path: /spec/dataFrom/0/extract/key
+        value: b2x/dev/mc3s-b2x-aggregator-productcatalog-commercetools-credentials
+
+  - target:
+      kind: HorizontalPodAutoscaler
+      group: autoscaling
+      version: v2
+      name: mc3s-b2x-aggregator-productcatalog
+    patch: |-
+      - op: replace
+        path: /spec/minReplicas
+        value: 1
+      - op: replace
+        path: /spec/maxReplicas
+        value: 1
+configMapGenerator:
+  - name: aggregator-config
+    envs:
+    - app.env

@@ -1,0 +1,586 @@
+{
+  "id": "4129baa5-1953-4d18-8c99-cb3d4207f9ad",
+  "version": 1653,
+  "productType": {
+    "typeId": "product-type",
+    "id": "e4b71467-2b3f-4e49-9822-71bf1c577ecc"
+  },
+  "name": {
+    "de": "Lounge Chair & Ottoman",
+    "en": "Lounge Chair & Ottoman",
+    "nl": "Lounge Chair & Ottoman",
+    "fr": "Lounge Chair & Ottoman"
+  },
+  "description": {
+    "de": "Charles und Ray Eames entwarfen den Lounge Chair in den 1950er-Jahren mit dem Ziel, einen eleganten Sessel mit ultimativem Komfort zu schaffen. Seither wird er bei Vitra im nahezu gleichen Verfahren gefertigt und ist zu einem der bedeutendsten Klassiker des Möbeldesigns im 20. Jahrhundert geworden. Zusammen mit dem passenden Ottoman ist der Lounge Chair in zwei Grössen und in verschiedenen Kombinationen der Lederbezüge, Holzschalen und Untergestelle erhältlich.",
+    "en": "The Lounge Chair, created by Charles and Ray Eames in the 1950s, was designed with the aim of combining an elegant appearance with ultimate comfort. It has been produced by Vitra using virtually the same methods ever since, and is now recognised as a great classic of twentieth-century furniture design. Offered in two sizes and various configurations with different types of leather upholstery covers, wooden shells and bases, the Lounge Chair is ideally complemented by the matching Ottoman.",
+    "nl": "Charles und Ray Eames entwarfen den Lounge Chair in den 1950er-Jahren mit dem Ziel, einen eleganten Sessel mit ultimativem Komfort zu schaffen. Seither wird er bei Vitra im nahezu gleichen Verfahren gefertigt und ist zu einem der bedeutendsten Klassiker des Möbeldesigns im 20. Jahrhundert geworden. Zusammen mit dem passenden Ottoman ist der Lounge Chair in zwei Grössen und in verschiedenen Kombinationen der Lederbezüge, Holzschalen und Untergestelle erhältlich.",
+    "fr": "The Lounge Chair, created by Charles and Ray Eames in the 1950s, was designed with the aim of combining an elegant appearance with ultimate comfort. It has been produced by Vitra using virtually the same methods ever since, and is now recognised as a great classic of twentieth-century furniture design. Offered in two sizes and various configurations with different types of leather upholstery covers, wooden shells and bases, the Lounge Chair is ideally complemented by the matching Ottoman."
+  },
+  "categories": [
+    {
+      "typeId": "category",
+      "id": "e78eaa01-b381-472b-8264-5c74c82c5308"
+    }
+  ],
+  "categoryOrderHints": {},
+  "slug": {
+    "de": "eameschair",
+    "en": "eameschair"
+  },
+  "metaTitle": {
+    "de": "Lounge Chair & Ottoman",
+    "en": "Lounge Chair & Ottoman"
+  },
+  "metaKeywords": {
+    "de": "chair",
+    "en": "chair"
+  },
+  "metaDescription": {
+    "de": "Charles und Ray Eames entwarfen den Lounge Chair in den 1950er-Jahren mit dem Ziel, einen eleganten Sessel mit ultimativem Komfort zu schaffen. Seither wird er bei Vitra im nahezu gleichen Verfahren gefertigt und ist zu einem der bedeutendsten Klassiker des Möbeldesigns im 20. Jahrhundert geworden. Zusammen mit dem passenden Ottoman ist der Lounge Chair in zwei Grössen und in verschiedenen Kombinationen der Lederbezüge, Holzschalen und Untergestelle erhältlich.",
+    "en": "The Lounge Chair, created by Charles and Ray Eames in the 1950s, was designed with the aim of combining an elegant appearance with ultimate comfort. It has been produced by Vitra using virtually the same methods ever since, and is now recognised as a great classic of twentieth-century furniture design. Offered in two sizes and various configurations with different types of leather upholstery covers, wooden shells and bases, the Lounge Chair is ideally complemented by the matching Ottoman."
+  },
+  "masterVariant": {
+    "id": 161,
+    "sku": "eameschair1",
+    "key": "eameschair_1",
+    "prices": [
+      {
+        "value": {
+          "type": "centPrecision",
+          "currencyCode": "EUR",
+          "centAmount": 709965,
+          "fractionDigits": 2
+        },
+        "id": "03669db8-1b11-45c6-83e9-fe31fa4c7e4e"
+      },
+      {
+        "value": {
+          "type": "centPrecision",
+          "currencyCode": "EUR",
+          "centAmount": 685665,
+          "fractionDigits": 2
+        },
+        "id": "4b8ae655-c5ce-4475-9d2a-44c38beacfe3",
+        "customerGroup": {
+          "typeId": "customer-group",
+          "id": "a6ac0602-d914-442a-8fde-7c5c30fb4d2d"
+        }
+      },
+      {
+        "value": {
+          "type": "centPrecision",
+          "currencyCode": "EUR",
+          "centAmount": 677565,
+          "fractionDigits": 2
+        },
+        "id": "8d72342a-ab39-4cd9-81bf-1337ec35ff2d",
+        "customerGroup": {
+          "typeId": "customer-group",
+          "id": "c40eacba-b881-4f52-9c1d-f71778ae46e6"
+        }
+      },
+      {
+        "value": {
+          "type": "centPrecision",
+          "currencyCode": "EUR",
+          "centAmount": 647919,
+          "fractionDigits": 2
+        },
+        "id": "f6b5f995-dfe4-4d63-9952-7b50e3d8bcd6",
+        "customerGroup": {
+          "typeId": "customer-group",
+          "id": "20559aff-1c1f-44cb-84e0-c4b27395e23b"
+        }
+      }
+    ],
+    "images": [
+      {
+        "url": "https://static.vitra.com/OFML/data/wRbGxP50hhnyzUDt1ZL7hg/vitra/classic/DE/1/image/41212200_LOUAUS050-02_LOUBEZ052-0025_LOUBZFLEP014-66_LOUUNG052-2.jpg",
+        "label": "Image detect",
+        "dimensions": {
+          "w": 476,
+          "h": 315
+        }
+      }
+    ],
+    "attributes": [
+      {
+        "name": "designeryear",
+        "value": "1956"
+      },
+      {
+        "name": "lineitemDescription",
+        "value": {
+          "en": "Santos palisander - nero"
+        }
+      },
+      {
+        "name": "designer",
+        "value": "Charles & Ray Eames"
+      },
+      {
+        "name": "furniture_leather",
+        "value": {
+          "key": "leather_premium_nero_66",
+          "label": {
+            "de": "66 nero",
+            "en": "66 nero"
+          }
+        }
+      },
+      {
+        "name": "furniture_wood",
+        "value": {
+          "key": "Wood_Veneer_santos_palisander_05",
+          "label": {
+            "de": "05 Santos Palisander",
+            "en": "05 Santos palisander"
+          }
+        }
+      }
+    ],
+    "assets": [
+      {
+        "id": "13b55b06-8c54-4f60-9070-7e823ff8752b",
+        "sources": [
+          {
+            "uri": "https://static.vitra.com/media/asset/449898/storage/master/download/Lounge_Chair_2D_dxf.zip",
+            "key": "Asset_eames_cad1/1",
+            "dimensions": {
+              "w": 0,
+              "h": 0
+            },
+            "contentType": "application/zip"
+          }
+        ],
+        "name": {
+          "de": "Lounge Chair 2D DXF",
+          "en": "Lounge Chair 2D DXF"
+        },
+        "key": "Asset_eames_cad1",
+        "description": {
+          "de": "2D DXF, 55 kB",
+          "en": "2D DXF, 55 kB"
+        },
+        "tags": [
+          "cad1"
+        ]
+      },
+      {
+        "id": "4a79aa7e-41d7-4cd8-8386-da74fda63f49",
+        "sources": [
+          {
+            "uri": "https://static.vitra.com/media/asset/449898/storage/master/download/Lounge_Chair_2D_dxf.zip",
+            "key": "Asset_eames_cad2/1",
+            "dimensions": {
+              "w": 0,
+              "h": 0
+            }
+          }
+        ],
+        "name": {
+          "de": "Lounge Chair 2D DWG",
+          "en": "Lounge Chair 2D DWG"
+        },
+        "key": "Asset_eames_cad2",
+        "description": {
+          "de": "2D DWG, 49.1 kB",
+          "en": "2D DWG, 49.1 kB"
+        },
+        "tags": [
+          "cad2"
+        ]
+      },
+      {
+        "id": "adfc0e24-d094-4c7d-8bdb-70504f029688",
+        "sources": [
+          {
+            "uri": "https://static.vitra.com/media/asset/449654/storage/master/download/Lounge_Chair_2D_dwg.zip",
+            "key": "Asset_eames_cad3/1",
+            "dimensions": {
+              "w": 0,
+              "h": 0
+            }
+          }
+        ],
+        "name": {
+          "de": "Eames Lounge Chair, classic rfa/IFC",
+          "en": "Eames Lounge Chair, classic rfa/IFC"
+        },
+        "key": "Asset_eames_cad3",
+        "description": {
+          "de": "Revit/BIM, 5.96 MB",
+          "en": "Revit/BIM, 5.96 MB"
+        },
+        "tags": [
+          "cad3"
+        ]
+      },
+      {
+        "id": "52f3727c-e433-4c62-9213-9b96c9ea5d86",
+        "sources": [
+          {
+            "uri": "https://static.vitra.com/media/asset/2712385/storage/master/download/Eames%2520Lounge%2520Chair,%2520classic.zip",
+            "key": "Asset_eames_cad4/1",
+            "dimensions": {
+              "w": 0,
+              "h": 0
+            }
+          }
+        ],
+        "name": {
+          "de": "Eames Lounge Chair, new rfa/IFC",
+          "en": "Eames Lounge Chair, new rfa/IFC"
+        },
+        "key": "Asset_eames_cad4",
+        "description": {
+          "de": "Revit/BIM, 6.08 MB",
+          "en": "Revit/BIM, 6.08 MB"
+        },
+        "tags": [
+          "cad4"
+        ]
+      },
+      {
+        "id": "c62e4462-c032-44f8-9425-8fe19f592950",
+        "sources": [
+          {
+            "uri": "https://static.vitra.com/media/asset/2712386/storage/master/download/Eames%2520Lounge%2520Chair,%2520new.zip",
+            "key": "Asset_eames_cad5/1",
+            "dimensions": {
+              "w": 0,
+              "h": 0
+            }
+          }
+        ],
+        "name": {
+          "de": "Eames Lounge Chair, ottoman rfa/IFC",
+          "en": "Eames Lounge Chair, ottoman rfa/IFC"
+        },
+        "key": "Asset_eames_cad5",
+        "description": {
+          "de": "Revit/BIM, 5.37 MB",
+          "en": "Revit/BIM, 5.37 MB"
+        },
+        "tags": [
+          "cad5"
+        ]
+      },
+      {
+        "id": "00403259-a36d-4806-b565-a6074fb261c9",
+        "sources": [
+          {
+            "uri": "https://static.vitra.com/media/asset/2712387/storage/master/download/Eames%2520Lounge%2520Chair,%2520ottoman.zip",
+            "key": "Asset_eames_cad6/1",
+            "dimensions": {
+              "w": 0,
+              "h": 0
+            }
+          }
+        ],
+        "name": {
+          "de": "Lounge Chair 3D DXF",
+          "en": "Lounge Chair 3D DXF"
+        },
+        "key": "Asset_eames_cad6",
+        "description": {
+          "de": "3D DXF, 5.04 MB",
+          "en": "3D DXF, 5.04 MB"
+        },
+        "tags": [
+          "cad6"
+        ]
+      },
+      {
+        "id": "3ca65a7e-30f1-427e-98e2-dc654ef0c871",
+        "sources": [
+          {
+            "uri": "https://static.vitra.com/media/asset/450630/storage/master/download/Lounge_Chair_3D_dxf.zip",
+            "key": "Asset_eames_cad7/1",
+            "dimensions": {
+              "w": 0,
+              "h": 0
+            }
+          }
+        ],
+        "name": {
+          "de": "Lounge Chair 3D 3DS",
+          "en": "Lounge Chair 3D 3DS"
+        },
+        "key": "Asset_eames_cad7",
+        "description": {
+          "de": "3D 3DS, 3 MB",
+          "en": "3D 3DS, 3 MB"
+        },
+        "tags": [
+          "cad7"
+        ]
+      }
+    ],
+    "availability": {
+      "isOnStock": true,
+      "restockableInDays": 0,
+      "availableQuantity": 10000,
+      "channels": {
+        "bf87a2ff-2664-492a-b42d-9d9cebe1c289": {
+          "isOnStock": true,
+          "restockableInDays": 1,
+          "availableQuantity": 100
+        }
+      }
+    }
+  },
+  "variants": [
+    {
+      "id": 158,
+      "sku": "eameschair4",
+      "key": "eameschair_4",
+      "prices": [
+        {
+          "value": {
+            "type": "centPrecision",
+            "currencyCode": "EUR",
+            "centAmount": 709965,
+            "fractionDigits": 2
+          },
+          "id": "9e309259-964d-4aa9-bc8a-9abc575e385d"
+        },
+        {
+          "value": {
+            "type": "centPrecision",
+            "currencyCode": "EUR",
+            "centAmount": 647919,
+            "fractionDigits": 2
+          },
+          "id": "45a6d140-2cc9-4fcc-a5f4-25cbc941621a",
+          "customerGroup": {
+            "typeId": "customer-group",
+            "id": "20559aff-1c1f-44cb-84e0-c4b27395e23b"
+          }
+        }
+      ],
+      "images": [
+        {
+          "url": "https://static.vitra.com/OFML/data/wRbGxP50hhnyzUDt1ZL7hg/vitra/classic/DE/1/image/41211600_LOUAUS050-02_LOUBEZ050-0025_LOUBZFLEP011-72_LOUUNG050-1.jpg",
+          "label": "Image detect",
+          "dimensions": {
+            "w": 476,
+            "h": 315
+          }
+        }
+      ],
+      "attributes": [
+        {
+          "name": "designeryear",
+          "value": "1956"
+        },
+        {
+          "name": "lineitemDescription",
+          "value": {
+            "en": "american cherry - snow"
+          }
+        },
+        {
+          "name": "designer",
+          "value": "Charles & Ray Eames"
+        },
+        {
+          "name": "furniture_leather",
+          "value": {
+            "key": "leather_premium_snow_72",
+            "label": {
+              "de": "72 snow",
+              "en": "72 snow"
+            }
+          }
+        },
+        {
+          "name": "furniture_wood",
+          "value": {
+            "key": "Wood_Veneer_american_cherry_24",
+            "label": {
+              "de": "24 Amerikanischer Kirschbaum",
+              "en": "24 American cherry"
+            }
+          }
+        }
+      ],
+      "assets": [],
+      "availability": {
+        "isOnStock": true,
+        "availableQuantity": 10000
+      }
+    },
+    {
+      "id": 159,
+      "sku": "eameschair3",
+      "key": "eameschair_3",
+      "prices": [
+        {
+          "value": {
+            "type": "centPrecision",
+            "currencyCode": "EUR",
+            "centAmount": 709965,
+            "fractionDigits": 2
+          },
+          "id": "0ed6c73f-46ba-44ed-bbc5-c73b4ad36ded"
+        },
+        {
+          "value": {
+            "type": "centPrecision",
+            "currencyCode": "EUR",
+            "centAmount": 647919,
+            "fractionDigits": 2
+          },
+          "id": "4b57f94c-c679-4867-bb81-9ad3905ab9fe",
+          "customerGroup": {
+            "typeId": "customer-group",
+            "id": "20559aff-1c1f-44cb-84e0-c4b27395e23b"
+          }
+        }
+      ],
+      "images": [
+        {
+          "url": "https://static.vitra.com/OFML/data/wRbGxP50hhnyzUDt1ZL7hg/vitra/classic/DE/1/image/41212200_LOUAUS050-02_LOUBEZ052-0075_LOUBZFLEE014-72_LOUUNG052-2.jpg",
+          "label": "Image detect",
+          "dimensions": {
+            "w": 476,
+            "h": 315
+          }
+        }
+      ],
+      "attributes": [
+        {
+          "name": "designeryear",
+          "value": "1956"
+        },
+        {
+          "name": "lineitemDescription",
+          "value": {
+            "en": "Santos palisander - snow"
+          }
+        },
+        {
+          "name": "designer",
+          "value": "Charles & Ray Eames"
+        },
+        {
+          "name": "furniture_wood",
+          "value": {
+            "key": "Wood_Veneer_santos_palisander_05",
+            "label": {
+              "de": "05 Santos Palisander",
+              "en": "05 Santos palisander"
+            }
+          }
+        },
+        {
+          "name": "furniture_leather",
+          "value": {
+            "key": "leather_premium_snow_72",
+            "label": {
+              "de": "72 snow",
+              "en": "72 snow"
+            }
+          }
+        }
+      ],
+      "assets": [],
+      "availability": {
+        "isOnStock": true,
+        "availableQuantity": 10000
+      }
+    },
+    {
+      "id": 160,
+      "sku": "eameschair2",
+      "key": "eameschair_2",
+      "prices": [
+        {
+          "value": {
+            "type": "centPrecision",
+            "currencyCode": "EUR",
+            "centAmount": 709965,
+            "fractionDigits": 2
+          },
+          "id": "7c87a690-3bee-4663-a0ed-5d4a88b25ede"
+        },
+        {
+          "value": {
+            "type": "centPrecision",
+            "currencyCode": "EUR",
+            "centAmount": 647919,
+            "fractionDigits": 2
+          },
+          "id": "f0288335-c12a-44e7-a49b-1dddb3a78c8c",
+          "customerGroup": {
+            "typeId": "customer-group",
+            "id": "20559aff-1c1f-44cb-84e0-c4b27395e23b"
+          }
+        }
+      ],
+      "images": [
+        {
+          "url": "https://static.vitra.com/OFML/data/wRbGxP50hhnyzUDt1ZL7hg/vitra/classic/DE/1/image/41213300_LOUAUS050-02_LOUBEZ053-0025_LOUBZFLEP015-66_LOUUNG052-2.jpg",
+          "label": "Image detect",
+          "dimensions": {
+            "w": 476,
+            "h": 315
+          }
+        }
+      ],
+      "attributes": [
+        {
+          "name": "designeryear",
+          "value": "1956"
+        },
+        {
+          "name": "lineitemDescription",
+          "value": {
+            "en": "american cherry - chocolate"
+          }
+        },
+        {
+          "name": "designer",
+          "value": "Charles & Ray Eames"
+        },
+        {
+          "name": "furniture_leather",
+          "value": {
+            "key": "leather_premium_chocolate_68",
+            "label": {
+              "de": "68 chocolate",
+              "en": "68 chocolate"
+            }
+          }
+        },
+        {
+          "name": "furniture_wood",
+          "value": {
+            "key": "Wood_Veneer_american_cherry_24",
+            "label": {
+              "de": "24 Amerikanischer Kirschbaum",
+              "en": "24 American cherry"
+            }
+          }
+        }
+      ],
+      "assets": [],
+      "availability": {
+        "isOnStock": true,
+        "availableQuantity": 10000
+      }
+    }
+  ],
+  "searchKeywords": {},
+  "hasStagedChanges": false,
+  "published": true,
+  "key": "eameschair",
+  "taxCategory": {
+    "typeId": "tax-category",
+    "id": "84d0c8ff-41d6-46c6-b50c-bdfa5b060e02"
+  },
+  "createdAt": "2021-02-11T10:49:41.724Z",
+  "lastModifiedAt": "2021-02-22T10:03:57.132Z"
+}

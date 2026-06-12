@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>com.mindcurv.b2x.commons</groupId>
+  <artifactId>mc3s-b2x-commerce-services</artifactId>
+  <versioning>
+    <versions>
+      <version>0-SNAPSHOT</version>
+    </versions>
+    <lastUpdated>20260511082113</lastUpdated>
+  </versioning>
+</metadata>

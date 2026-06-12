@@ -1,0 +1,87 @@
+query CategoryByKey($key: String!) {
+    category(key: $key) {
+        ...breadcrumb
+        metaTitleAllLocales {
+            locale
+            value
+        }
+        metaDescriptionAllLocales {
+            locale
+            value
+        }
+        metaKeywordsAllLocales {
+            locale
+            value
+        }
+        ancestors {
+            ...breadcrumb
+        }
+        children {
+            ...children
+        }
+    }
+}
+
+fragment breadcrumb on Category {
+    id
+    key
+    stagedProductCount
+    nameAllLocales {
+        locale
+        value
+    }
+    slugAllLocales {
+        locale
+        value
+    }
+    custom {
+        type {
+            id
+            key
+        }
+        customFieldsRaw {
+            name
+            value
+        }
+    }
+}
+
+fragment children on Category {
+    idInventoryAggregationService
+    key
+    stagedProductCount
+    nameAllLocales {
+        locale
+        value
+    }
+    slugAllLocales {
+        locale
+        value
+    }
+    custom {
+        type {
+            id
+            key
+        }
+        customFieldsRaw {
+            name
+            value
+        }
+    }
+    assets {
+        ...asset
+    }
+}
+
+fragment asset on Asset {
+    id
+    key
+    nameAllLocales {
+        locale
+        value
+    }
+    sources {
+        uri
+        contentType
+    }
+}
