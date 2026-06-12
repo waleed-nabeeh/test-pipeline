@@ -194,3 +194,45 @@ The response should be 200 or 401, not 404 or 503.
 
 After the pipeline succeeds, open the Nexus marketplace repository and browse
 the mc3s-b2x-asmo-productcatalog image.
+
+
+Argo CD access to marketplace-dev
+=================================
+
+The OpenShift GitOps application controller needs permission to create
+application resources in the marketplace-dev namespace.
+
+Run this command as a cluster administrator:
+
+oc adm policy add-role-to-user admin \
+  system:serviceaccount:openshift-gitops:openshift-gitops-argocd-application-controller \
+  -n marketplace-dev
+
+Verify Deployment permission:
+
+oc auth can-i create deployments \
+  --as=system:serviceaccount:openshift-gitops:openshift-gitops-argocd-application-controller \
+  -n marketplace-dev
+
+Expected:
+
+yes
+
+Verify OpenShift Route permission:
+
+oc auth can-i create routes.route.openshift.io \
+  --as=system:serviceaccount:openshift-gitops:openshift-gitops-argocd-application-controller \
+  -n marketplace-dev
+
+Expected:
+
+yes
+
+Then open Argo CD:
+
+1. Refresh the application.
+2. Click Sync.
+3. Select all resources.
+4. Click Synchronize.
+
+This role assignment is limited to the marketplace-dev namespace.
