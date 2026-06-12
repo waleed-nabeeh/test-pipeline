@@ -94,6 +94,15 @@ could not lock config file .../.git/config
 
 Check GitLab Runner/OpenShift workspace permissions. That issue is runner/OCP setup, not the Maven pipeline code.
 
+If this error appears:
+
+```text
+Unable to lock database: Permission denied
+Failed to open apk database: Permission denied
+```
+
+The runner container is running as a non-root user. Do not run `apk add` or other package installation commands in the job. Use images that already contain the needed tools, or keep the job to simple shell checks.
+
 If this error appears during `Getting source from Git repository`:
 
 ```text
