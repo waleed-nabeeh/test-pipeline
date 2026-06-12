@@ -1,0 +1,38 @@
+# Apply this file in the gitlab-system namespace.
+# It configures resources for CI job pods created by the Kubernetes executor.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gitlab-runner-job-resources
+  namespace: gitlab-system
+data:
+  config.toml: |
+    [[runners]]
+      [runners.kubernetes]
+        cpu_request = "1"
+        cpu_limit = "4"
+        memory_request = "2Gi"
+        memory_limit = "6Gi"
+        ephemeral_storage_request = "5Gi"
+        ephemeral_storage_limit = "15Gi"
+
+        helper_cpu_request = "250m"
+        helper_cpu_limit = "1"
+        helper_memory_request = "512Mi"
+        helper_memory_limit = "1Gi"
+        helper_ephemeral_storage_request = "1Gi"
+        helper_ephemeral_storage_limit = "5Gi"
+
+        service_cpu_request = "250m"
+        service_cpu_limit = "1"
+        service_memory_request = "256Mi"
+        service_memory_limit = "1Gi"
+---
+# Patch these fields into the existing Runner resource:
+#
+# spec:
+#   concurrent: 2
+#   config: gitlab-runner-job-resources
+#
+# Do not create a second Runner resource. Use the commands documented below
+# to patch the existing gitlab-runner resource.

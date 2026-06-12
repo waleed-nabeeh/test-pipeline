@@ -110,20 +110,10 @@ build_image:
     - job: build_maven
       artifacts: false
   rules:
-    - if: '$CI_REGISTRY_IMAGE && $CI_REGISTRY_USER && $CI_REGISTRY_PASSWORD'
-    - if: '$NEXUS_DOCKER_IMAGE && $NEXUS_USERNAME && $NEXUS_PASSWORD'
+    - if: '$CI_REGISTRY_IMAGE && $GITLAB_REGISTRY_USERNAME && $GITLAB_REGISTRY_PASSWORD'
     - when: manual
       allow_failure: true
   script:
-    - |
-      if [ -n "$NEXUS_DOCKER_IMAGE" ]; then
-        export IMAGE_NAME="$NEXUS_DOCKER_IMAGE"
-        export REGISTRY_USERNAME="$NEXUS_USERNAME"
-        export REGISTRY_PASSWORD="$NEXUS_PASSWORD"
-      else
-        export REGISTRY_USERNAME="$CI_REGISTRY_USER"
-        export REGISTRY_PASSWORD="$CI_REGISTRY_PASSWORD"
-      fi
     - >
       ./mvnw $MAVEN_CLI_OPTS
       -pl "$APP_MODULE" -am
@@ -131,6 +121,6 @@ build_image:
       -DskipTests
       -Djib.from.image="$JIB_FROM_IMAGE"
       -Djib.to.image="$IMAGE_NAME:$IMAGE_TAG"
-      -Djib.to.auth.username="$REGISTRY_USERNAME"
-      -Djib.to.auth.password="$REGISTRY_PASSWORD"
+      -Djib.to.auth.username="$GITLAB_REGISTRY_USERNAME"
+      -Djib.to.auth.password="$GITLAB_REGISTRY_PASSWORD"
       -Djib.allowInsecureRegistries=true
