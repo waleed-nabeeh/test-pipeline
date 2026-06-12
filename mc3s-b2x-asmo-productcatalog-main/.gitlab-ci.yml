@@ -58,6 +58,12 @@ variables:
   IMAGE_TAG: "$CI_COMMIT_SHORT_SHA"
   IMAGE_NAME: "$CI_REGISTRY_IMAGE"
   JIB_FROM_IMAGE: "gcr.io/distroless/java21:latest"
+  MAVEN_FAST_BUILD_FLAGS: >-
+    -Dmaven.test.skip=true
+    -Dpmd.skip=true
+    -Dcpd.skip=true
+    -Ddependency-check.skip=true
+    -Dpitest.skip=true
 
 stages:
   - git_clone
@@ -94,8 +100,9 @@ unit_test:
 
 build_maven:
   stage: package
+  timeout: 30m
   script:
-    - ./mvnw $MAVEN_CLI_OPTS clean package -Dmaven.test.skip=true
+    - ./mvnw $MAVEN_CLI_OPTS -T 1C -pl "$APP_MODULE" -am clean package $MAVEN_FAST_BUILD_FLAGS
   artifacts:
     name: "$CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG"
     expire_in: 1 week

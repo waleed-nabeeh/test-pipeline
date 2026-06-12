@@ -67,6 +67,25 @@ If `build_maven` passes, the Maven pipeline is working.
 
 `unit_test` is manual for the first validation because the full test phase downloads many dependencies and can take a long time. Run it later after `build_maven` is stable.
 
+The first Maven build on OCP can still be slow because dependencies must be downloaded into a fresh runner pod. The `build_maven` job is optimized for first validation by:
+
+```text
+Building only mc3s-app-aggregator-productcatalog and required modules
+Skipping tests and heavy quality plugins
+Using Maven parallel build with -T 1C
+Requesting a 30 minute job timeout
+```
+
+For a faster OCP runner, check the runner logs for this message:
+
+```text
+No URL provided, cache will not be downloaded from shared cache server
+```
+
+If it appears, GitLab Runner has no shared cache backend. Configure runner cache with S3/MinIO-compatible object storage, or use a persistent Maven cache volume for `/builds/.../.m2`. Nexus speeds up remote downloads, but it does not replace the runner's local `.m2` cache.
+
+Also make sure the project or runner timeout is more than 10 minutes while the Maven cache is still cold.
+
 10. If `build_image` fails because registry variables are missing, add image variables later.
 
 The screenshot currently shows Maven and NuGet repositories only. It does not show a Docker hosted/group repository. For image publishing, either enable GitLab Container Registry or create a Nexus Docker hosted repository first.
