@@ -51,7 +51,6 @@ product-catalog-pipeline-test
 
 ```text
 git_clone
-unit_test
 build_maven
 build_image
 ```
@@ -63,6 +62,8 @@ build_maven
 ```
 
 If `build_maven` passes, the Maven pipeline is working.
+
+`unit_test` is manual for the first validation because the full test phase downloads many dependencies and can take a long time. Run it later after `build_maven` is stable.
 
 10. If `build_image` fails because registry variables are missing, add image variables later.
 

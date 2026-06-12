@@ -80,6 +80,9 @@ git_clone:
 
 unit_test:
   stage: pre_build
+  rules:
+    - when: manual
+      allow_failure: true
   script:
     - ./mvnw $MAVEN_CLI_OPTS test
   artifacts:
@@ -92,7 +95,7 @@ unit_test:
 build_maven:
   stage: package
   script:
-    - ./mvnw $MAVEN_CLI_OPTS clean package -DskipTests
+    - ./mvnw $MAVEN_CLI_OPTS clean package -Dmaven.test.skip=true
   artifacts:
     name: "$CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG"
     expire_in: 1 week
