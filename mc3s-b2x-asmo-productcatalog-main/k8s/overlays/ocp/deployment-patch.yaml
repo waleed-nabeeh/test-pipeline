@@ -14,7 +14,6 @@ spec:
           envFrom:
             - secretRef:
                 name: ct-secret
-                optional: true
             - configMapRef:
                 name: aggregator-config
           resources:

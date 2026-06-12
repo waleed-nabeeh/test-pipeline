@@ -24,9 +24,34 @@ oc create secret docker-registry nexus-registry-secret \
   -n <APPLICATION_NAMESPACE>
 ```
 
-Create `ct-secret` in the same namespace with the application credentials.
-The manifest marks it optional so Argo CD can sync before the secret exists,
-but the application may not become ready without its required values.
+Create the CommerceTools Secret from a local properties file. Start with the
+committed example:
+
+```bash
+cp k8s/overlays/ocp/ct-secret.properties.example \
+  k8s/overlays/ocp/ct-secret.properties
+```
+
+Fill the required application properties:
+
+```properties
+projectKey=<COMMERCETOOLS_PROJECT_KEY>
+clientId=<COMMERCETOOLS_CLIENT_ID>
+clientSecret=<COMMERCETOOLS_CLIENT_SECRET>
+```
+
+Optional properties are documented in the example file. Create or update the
+OCP Secret:
+
+```bash
+oc create secret generic ct-secret \
+  --from-env-file=k8s/overlays/ocp/ct-secret.properties \
+  -n <APPLICATION_NAMESPACE> \
+  --dry-run=client -o yaml | oc apply -f -
+```
+
+The real `ct-secret.properties` file is ignored by Git. Do not commit real
+credentials in Kustomize or Argo CD manifests.
 
 ## Validate Kustomize
 

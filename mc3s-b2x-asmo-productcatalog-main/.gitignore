@@ -58,3 +58,6 @@ schemathesis
 /.mvn/wrapper/maven-wrapper.jar
 
 **/interim/**/*.*
+
+# Local OCP application credentials
+k8s/overlays/ocp/ct-secret.properties
