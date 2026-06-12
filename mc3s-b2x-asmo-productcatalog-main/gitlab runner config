@@ -1,0 +1,186 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  annotations:
+    checksum: 7b2032e37c7bda5cef4e167316e081f77482f6f30798e29038c07b8d6000cb39
+  resourceVersion: '4167976'
+  name: gitlab-runner-config
+  uid: f1c40fe5-ecbb-4830-83c0-97a38cc8ec0e
+  creationTimestamp: '2026-06-03T13:43:27Z'
+  managedFields:
+    - manager: manager
+      operation: Update
+      apiVersion: v1
+      time: '2026-06-03T13:43:27Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        'f:data':
+          .: {}
+          'f:check-live': {}
+          'f:ci_server_url': {}
+          'f:config.toml': {}
+          'f:configure': {}
+          'f:entrypoint': {}
+          'f:register-runner': {}
+        'f:metadata':
+          'f:annotations':
+            .: {}
+            'f:checksum': {}
+          'f:labels':
+            .: {}
+            'f:app.kubernetes.io/component': {}
+            'f:app.kubernetes.io/instance': {}
+            'f:app.kubernetes.io/managed-by': {}
+            'f:app.kubernetes.io/name': {}
+            'f:app.kubernetes.io/part-of': {}
+          'f:ownerReferences':
+            .: {}
+            'k:{"uid":"46c2713e-ce93-4f3d-a921-3c436c50c37c"}': {}
+  namespace: gitlab-system
+  ownerReferences:
+    - apiVersion: apps.gitlab.com/v1beta2
+      kind: Runner
+      name: gitlab-runner
+      uid: 46c2713e-ce93-4f3d-a921-3c436c50c37c
+      controller: true
+      blockOwnerDeletion: true
+  labels:
+    app.kubernetes.io/component: runner
+    app.kubernetes.io/instance: gitlab-runner-runner
+    app.kubernetes.io/managed-by: gitlab-runner-operator
+    app.kubernetes.io/name: gitlab-runner
+    app.kubernetes.io/part-of: runner
+data:
+  check-live: |-
+    #!/bin/bash
+    if /usr/bin/pgrep -f .*register-the-runner; then
+        exit 0
+    elif /usr/bin/pgrep gitlab.*runner; then
+        exit 0
+    else
+        exit 1
+    fi
+  ci_server_url: 'https://gitlab.apps.asmonpeclr.np.asmo.com'
+  config.toml: |
+    concurrent = 10
+    check_interval = 30
+    log_level = "info"
+    listen_address = "[::]:9252"
+  configure: |-
+    set -e
+    echo -n "Setting up secrets... "
+
+    cp /init-secrets/* /secrets
+    if [[ $? -eq 0 ]]; then
+      echo "done"
+    fi
+  entrypoint: |
+    #!/bin/bash
+    set -e
+
+    if [[ ! -d ~/.gitlab-runner/certs ]]; then
+      mkdir -p ~/.gitlab-runner/certs
+    fi
+     
+    cat /scripts/config.toml
+    cp -v /scripts/config.toml ~/.gitlab-runner/
+
+    # Add custom CA certificate if available
+    if [[ -f /secrets/hostname.crt ]]
+    then 
+      cp /secrets/hostname.crt ~/.gitlab-runner/certs/
+    fi
+
+    # Register the runner
+    if [[ -f /secrets/accesskey && -f /secrets/secretkey ]]; then
+        export CACHE_S3_ACCESS_KEY=$(cat /secrets/accesskey)
+        export CACHE_S3_SECRET_KEY=$(cat /secrets/secretkey)
+    fi
+
+    if [[ -f /secrets/gcs-application-credentials-file ]]; then
+        export GOOGLE_APPLICATION_CREDENTIALS="/secrets/gcs-application-credentials-file"
+    else
+        if [[ -f /secrets/gcs-access-id && -f /secrets/gcs-private-key ]]; then
+        export CACHE_GCS_ACCESS_ID=$(cat /secrets/gcs-access-id)
+        # echo -e used to make private key multiline (in google json auth key private key is oneline with \n)
+        export CACHE_GCS_PRIVATE_KEY=$(echo -e $(cat /secrets/gcs-private-key))
+        fi
+    fi
+
+    if ! bash /scripts/register-runner; then
+        exit 1
+    fi
+
+    # Start the runner
+    exec /entrypoint run --listen-address=0.0.0.0 --working-directory=/home/gitlab-runner
+  register-runner: |
+    #!/bin/bash
+    set -e
+    MAX_REGISTER_ATTEMPTS=30
+
+    setup_proxy() {
+      input=$*
+
+      if [[ -v HTTP_PROXY ]] && [[ ! -z HTTP_PROXY ]]; then
+        input+=" --env \"HTTP_PROXY=${HTTP_PROXY}\""
+        git_http_proxy="git config --global http.proxy $HTTP_PROXY"
+      fi
+
+      if [[ -v HTTPS_PROXY && ! -z HTTPS_PROXY ]]; then
+        input+=" --env \"HTTPS_PROXY=${HTTPS_PROXY}\""
+        git_https_proxy="git config --global https.proxy $HTTPS_PROXY"
+      fi
+
+      if [[ -v git_http_proxy ]] && [[ ! -z git_http_proxy ]];
+      then
+        pre_clone_script=$git_http_proxy
+      fi
+
+      if [[ ( -v pre_clone_script && ! -z pre_clone_script )  && \
+      ( -v git_https_proxy && ! -z git_https_proxy ) ]];
+      then
+        pre_clone_script+="; $git_https_proxy"
+      fi
+
+      if [[ ! -v pre_clone_script && \
+      ( -v git_https_proxy && ! -z git_https_proxy ) ]];
+      then
+        pre_clone_script="$git_https_proxy"
+      fi
+
+      if [[ -v pre_clone_script ]] && [[ ! -z pre_clone_script ]]
+      then
+        input+=" --pre-clone-script \"$pre_clone_script\""
+      fi
+
+      echo $input
+    }
+
+    register_command() {
+      command="/entrypoint register --non-interactive"
+
+      if [[ ( -v RUNNER_ENV  && ! -z RUNNER_ENV )  || \
+      ( -v RUNNER_PRE_CLONE_SCRIPT  && ! -z RUNNER_PRE_CLONE_SCRIPT  ) ]];
+      then
+        command=$(setup_proxy $command)
+      fi
+
+      echo $command
+    }
+
+    for i in $(seq 1 "${MAX_REGISTER_ATTEMPTS}"); do
+        echo "Registration attempt ${i} of ${MAX_REGISTER_ATTEMPTS}"
+        exec $(register_command)
+
+        retval=$?
+
+        if [ ${retval} = 0 ]; then
+        break
+        elif [ ${i} = ${MAX_REGISTER_ATTEMPTS} ]; then
+        exit 1
+        fi
+
+        sleep 5
+    done
+
+    exit 0
