@@ -86,6 +86,15 @@ If it appears, GitLab Runner has no shared cache backend. Configure runner cache
 
 Also make sure the project or runner timeout is more than 10 minutes while the Maven cache is still cold.
 
+If Maven prints `BUILD SUCCESS` but the job later fails with:
+
+```text
+413 Request Entity Too Large
+FATAL: too large
+```
+
+The build itself passed. GitLab rejected the JAR artifact upload because the application JAR is about 307 MB and exceeds the configured upload limit. The first-validation pipeline does not upload this JAR because Jib builds the container image directly from the Maven project.
+
 10. If `build_image` fails because registry variables are missing, add image variables later.
 
 The screenshot currently shows Maven and NuGet repositories only. It does not show a Docker hosted/group repository. For image publishing, either enable GitLab Container Registry or create a Nexus Docker hosted repository first.
