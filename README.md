@@ -1,5 +1,93 @@
 # java-pipeline
 
+## Product Catalog Pipeline Test
+
+Use these steps to try the product catalog pipeline in GitLab.
+
+1. Open the GitLab project.
+
+2. Switch to this branch:
+
+```text
+product-catalog-pipeline-test
+```
+
+3. Open this file and confirm the runner tag is correct:
+
+```text
+mc3s-b2x-asmo-productcatalog-main/.gitlab-ci.yml
+```
+
+The default runner tag is:
+
+```yaml
+tags:
+  - asmo
+```
+
+If the GitLab runner uses another tag, replace `asmo` with the correct runner tag.
+
+4. Go to `Settings > CI/CD > Variables`.
+
+5. Add Maven Nexus variables if the runner cannot download directly from Maven Central or other external repositories:
+
+```text
+NEXUS_MAVEN_URL=https://<nexus-url>/repository/maven-public/
+NEXUS_USERNAME=<username>
+NEXUS_PASSWORD=<password>
+```
+
+6. For the first test, focus on the Maven build. Docker/image variables can be added later.
+
+7. Go to `Build > Pipelines > Run pipeline`.
+
+8. Select this branch and run the pipeline:
+
+```text
+product-catalog-pipeline-test
+```
+
+9. Check these stages:
+
+```text
+git_clone
+unit_test
+build_maven
+build_image
+```
+
+The key stage for the first validation is:
+
+```text
+build_maven
+```
+
+If `build_maven` passes, the Maven pipeline is working.
+
+10. If `build_image` fails because registry variables are missing, add image variables later:
+
+```text
+NEXUS_DOCKER_IMAGE=<nexus-host>/<docker-repo>/mc3s-b2x-asmo-productcatalog
+NEXUS_USERNAME=<username>
+NEXUS_PASSWORD=<password>
+```
+
+Expected fix from this pipeline:
+
+```text
+/.m2 Permission denied
+```
+
+This error should not appear anymore because Maven now uses `$CI_PROJECT_DIR/.m2`.
+
+If this error appears:
+
+```text
+could not lock config file .../.git/config
+```
+
+Check GitLab Runner/OpenShift workspace permissions. That issue is runner/OCP setup, not the Maven pipeline code.
+
 
 
 ## Getting started
