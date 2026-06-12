@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mc3s-b2x-aggregator-productcatalog
+spec:
+  template:
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: null
+      serviceAccountName: mc3s-b2x-aggregator-productcatalog
+      containers:
+        - name: mc3s-b2x-aggregator-productcatalog
+          envFrom:
+            - secretRef:
+                name: ct-secret
+                optional: true
+            - configMapRef:
+                name: aggregator-config
+          resources:
+            requests:
+              cpu: 250m
+              memory: 1Gi
+            limits:
+              cpu: "1"
+              memory: 2Gi

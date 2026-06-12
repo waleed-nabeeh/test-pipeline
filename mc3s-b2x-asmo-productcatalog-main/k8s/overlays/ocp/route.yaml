@@ -1,0 +1,14 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: mc3s-b2x-aggregator-productcatalog
+spec:
+  to:
+    kind: Service
+    name: mc3s-b2x-aggregator-productcatalog
+    weight: 100
+  port:
+    targetPort: web
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect

@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mc3s-b2x-asmo-productcatalog
+  namespace: openshift-gitops
+spec:
+  project: default
+  source:
+    repoURL: REPLACE_WITH_GITLAB_REPOSITORY_URL
+    targetRevision: ocp
+    path: k8s/overlays/ocp
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: REPLACE_WITH_APPLICATION_NAMESPACE
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

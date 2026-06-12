@@ -26,3 +26,4 @@ This module provides productcatalog related functionality.
 - [Getting Started](docs/guidelines/GettingStarted.md)
 - [Used 3rd party libraries and licenses](docs/reports)
 - [Guidelines](docs/guidelines)
+- [Deploy to OpenShift with Kustomize and Argo CD](ARGOCD_DEPLOYMENT.md)
