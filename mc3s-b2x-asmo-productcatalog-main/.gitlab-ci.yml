@@ -57,7 +57,7 @@ variables:
   APP_MODULE: "mc3s-app-aggregator-productcatalog"
   IMAGE_TAG: "$CI_COMMIT_SHORT_SHA"
   IMAGE_NAME: "$CI_REGISTRY_IMAGE"
-  JIB_FROM_IMAGE: "gcr.io/distroless/java21:latest"
+  KANIKO_IMAGE: "gcr.io/kaniko-project/executor:v1.23.2-debug"
   MAVEN_FAST_BUILD_FLAGS: >-
     -Dmaven.test.skip=true
     -Dpmd.skip=true
@@ -111,30 +111,36 @@ build_maven:
 
 build_image:
   stage: image
+  image:
+    name: "$KANIKO_IMAGE"
+    entrypoint: [""]
+  before_script: []
+  cache: []
   needs:
-    - build_maven
+    - job: build_maven
+      artifacts: true
   rules:
-    - if: '$CI_REGISTRY_IMAGE && $CI_REGISTRY_USER && $CI_REGISTRY_PASSWORD'
-    - if: '$NEXUS_DOCKER_IMAGE && $NEXUS_USERNAME && $NEXUS_PASSWORD'
+    - if: '$CI_REGISTRY_IMAGE && $GITLAB_REGISTRY_USERNAME && $GITLAB_REGISTRY_PASSWORD'
     - when: manual
       allow_failure: true
   script:
     - |
-      if [ -n "$NEXUS_DOCKER_IMAGE" ]; then
-        export IMAGE_NAME="$NEXUS_DOCKER_IMAGE"
-        export REGISTRY_USERNAME="$NEXUS_USERNAME"
-        export REGISTRY_PASSWORD="$NEXUS_PASSWORD"
-      else
-        export REGISTRY_USERNAME="$CI_REGISTRY_USER"
-        export REGISTRY_PASSWORD="$CI_REGISTRY_PASSWORD"
-      fi
-    - >
-      ./mvnw $MAVEN_CLI_OPTS
-      -pl "$APP_MODULE" -am
-      compile jib:build
-      -DskipTests
-      -Djib.from.image="$JIB_FROM_IMAGE"
-      -Djib.to.image="$IMAGE_NAME:$IMAGE_TAG"
-      -Djib.to.auth.username="$REGISTRY_USERNAME"
-      -Djib.to.auth.password="$REGISTRY_PASSWORD"
-      -Djib.allowInsecureRegistries=true
+      set -- "$APP_MODULE"/target/*.jar
+      test "$#" -eq 1
+      test -f "$1"
+    - mkdir -p /kaniko/.docker
+    - |
+      REGISTRY_AUTH="$(printf '%s:%s' \
+        "$GITLAB_REGISTRY_USERNAME" \
+        "$GITLAB_REGISTRY_PASSWORD" | base64 | tr -d '\n')"
+      printf '{"auths":{"%s":{"auth":"%s"}}}' \
+        "$CI_REGISTRY" "$REGISTRY_AUTH" > /kaniko/.docker/config.json
+    - |
+      /kaniko/executor \
+        --context "$CI_PROJECT_DIR" \
+        --dockerfile "$CI_PROJECT_DIR/Dockerfile.gitlab" \
+        --destination "$IMAGE_NAME:$IMAGE_TAG" \
+        --destination "$IMAGE_NAME:$CI_COMMIT_REF_SLUG" \
+        --cache=true \
+        --cache-repo "$IMAGE_NAME/cache" \
+        --skip-tls-verify-registry "$CI_REGISTRY"

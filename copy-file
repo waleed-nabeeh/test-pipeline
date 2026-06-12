@@ -153,11 +153,29 @@ The devops user or access token must have these registry permissions:
 read_registry
 write_registry
 
-The image job uses:
+The image job uses Kaniko on the OCP Runner. It does not require Docker,
+Docker-in-Docker, or a privileged Runner.
 
--Djib.to.image="$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA"
--Djib.to.auth.username="$GITLAB_REGISTRY_USERNAME"
--Djib.to.auth.password="$GITLAB_REGISTRY_PASSWORD"
+It consumes the JAR artifact from build_maven and pushes two image tags:
+
+$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+
+The pipeline reads the credentials from:
+
+$GITLAB_REGISTRY_USERNAME
+$GITLAB_REGISTRY_PASSWORD
+
+The credentials are written only to Kaniko's temporary Docker configuration
+inside the CI job pod. They are not stored in the repository.
+
+Because the internal GitLab Registry may use a private certificate, the
+current Kaniko command includes:
+
+--skip-tls-verify-registry "$CI_REGISTRY"
+
+Remove this option after the GitLab Registry CA certificate is trusted by the
+Runner.
 
 After the pipeline succeeds, open:
 
