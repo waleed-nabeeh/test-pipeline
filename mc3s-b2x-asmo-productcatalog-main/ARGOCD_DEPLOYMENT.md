@@ -24,15 +24,13 @@ oc create secret docker-registry nexus-registry-secret \
   -n <APPLICATION_NAMESPACE>
 ```
 
-Create the CommerceTools Secret from a local properties file. Start with the
-committed example:
+Kustomize generates `ct-secret` from the committed placeholder file:
 
-```bash
-cp k8s/overlays/ocp/ct-secret.properties.example \
-  k8s/overlays/ocp/ct-secret.properties
+```text
+k8s/overlays/ocp/ct-secret.properties
 ```
 
-Fill the required application properties:
+Before deployment, replace these placeholder properties:
 
 ```properties
 projectKey=<COMMERCETOOLS_PROJECT_KEY>
@@ -40,18 +38,12 @@ clientId=<COMMERCETOOLS_CLIENT_ID>
 clientSecret=<COMMERCETOOLS_CLIENT_SECRET>
 ```
 
-Optional properties are documented in the example file. Create or update the
-OCP Secret:
+Optional properties are documented in that file. Argo CD creates and updates
+the generated Secret when the file changes.
 
-```bash
-oc create secret generic ct-secret \
-  --from-env-file=k8s/overlays/ocp/ct-secret.properties \
-  -n <APPLICATION_NAMESPACE> \
-  --dry-run=client -o yaml | oc apply -f -
-```
-
-The real `ct-secret.properties` file is ignored by Git. Do not commit real
-credentials in Kustomize or Argo CD manifests.
+The committed values are deliberately invalid placeholders. Storing real
+secrets directly in Git is not recommended. Before production, replace this
+plain Secret generator with Sealed Secrets, External Secrets, or SOPS.
 
 ## Validate Kustomize
 

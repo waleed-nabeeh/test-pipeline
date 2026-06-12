@@ -15,6 +15,11 @@ configMapGenerator:
     envs:
       - app.env
 
+secretGenerator:
+  - name: ct-secret
+    envs:
+      - ct-secret.properties
+
 images:
   - name: custom_image
     newName: nexus.apps.asmonpeclr.np.asmo.com/marketplace/mc3s-b2x-asmo-productcatalog
