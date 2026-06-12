@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mc3s-b2x-aggregator-productcatalog
+spec:
+  selector:
+    name: mc3s-b2x-aggregator-productcatalog
+  ports:
+    - name: web
+      port: 2357
+      targetPort: web

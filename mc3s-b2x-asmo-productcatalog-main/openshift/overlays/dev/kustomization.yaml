@@ -6,10 +6,6 @@ resources:
   - route.yaml
   - serviceaccount.yaml
 
-patches:
-  - path: deployment-patch.yaml
-  - path: hpa-patch.yaml
-
 configMapGenerator:
   - name: aggregator-config
     envs:

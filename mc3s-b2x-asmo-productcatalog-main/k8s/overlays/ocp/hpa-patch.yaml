@@ -1,7 +1,0 @@
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
-metadata:
-  name: mc3s-b2x-aggregator-productcatalog
-spec:
-  minReplicas: 1
-  maxReplicas: 2
