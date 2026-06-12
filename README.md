@@ -6,11 +6,13 @@ Use these steps to try the product catalog pipeline in GitLab.
 
 1. Open the GitLab project.
 
-2. Switch to this branch:
+2. Switch to the branch you want to test. For example:
 
 ```text
-product-catalog-pipeline-test
+ocp
 ```
+
+The pipeline is currently open for any branch push, so pushing to `ocp` or another branch will trigger it.
 
 3. Open this file and confirm the runner tag is correct:
 
@@ -41,10 +43,10 @@ NEXUS_PASSWORD=<password>
 
 7. Go to `Build > Pipelines > Run pipeline`.
 
-8. Select this branch and run the pipeline:
+8. Select the branch and run the pipeline. For example:
 
 ```text
-product-catalog-pipeline-test
+ocp
 ```
 
 9. Check these stages:
