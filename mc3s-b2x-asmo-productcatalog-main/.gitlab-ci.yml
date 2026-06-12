@@ -58,8 +58,7 @@ variables:
   IMAGE_TAG: "$CI_COMMIT_SHORT_SHA"
   NEXUS_REGISTRY: "nexus.apps.asmonpeclr.np.asmo.com"
   IMAGE_NAME: "nexus.apps.asmonpeclr.np.asmo.com/marketplace/mc3s-b2x-asmo-productcatalog"
-  KANIKO_IMAGE: "gcr.io/kaniko-project/executor:v1.23.2-debug"
-  DOCKER_CONFIG: "$CI_PROJECT_DIR/.docker"
+  JIB_FROM_IMAGE: "eclipse-temurin:21-jre"
   MAVEN_FAST_BUILD_FLAGS: >-
     -Dmaven.test.skip=true
     -Dpmd.skip=true
@@ -113,32 +112,21 @@ build_maven:
 
 build_image:
   stage: image
-  image:
-    name: "$KANIKO_IMAGE"
-    entrypoint: [""]
-  before_script: []
-  cache: []
   needs:
     - job: build_maven
       artifacts: true
   script:
-    - |
-      set -- "$APP_MODULE"/target/*.jar
-      test "$#" -eq 1
-      test -f "$1"
-    - mkdir -p "$DOCKER_CONFIG"
-    - |
-      REGISTRY_AUTH="$(printf '%s:%s' \
-        "$NEXUS_USERNAME" \
-        "$NEXUS_PASSWORD" | base64 | tr -d '\n')"
-      printf '{"auths":{"%s":{"auth":"%s"}}}' \
-        "$NEXUS_REGISTRY" "$REGISTRY_AUTH" > "$DOCKER_CONFIG/config.json"
-    - |
-      /kaniko/executor \
-        --context "$CI_PROJECT_DIR" \
-        --dockerfile "$CI_PROJECT_DIR/Dockerfile.gitlab" \
-        --destination "$IMAGE_NAME:$IMAGE_TAG" \
-        --destination "$IMAGE_NAME:$CI_COMMIT_REF_SLUG" \
-        --cache=true \
-        --cache-repo "$IMAGE_NAME/cache" \
-        --skip-tls-verify-registry "$NEXUS_REGISTRY"
+    - test -n "$NEXUS_USERNAME" || { echo "NEXUS_USERNAME is missing"; exit 1; }
+    - test -n "$NEXUS_PASSWORD" || { echo "NEXUS_PASSWORD is missing"; exit 1; }
+    - ./mvnw $MAVEN_CLI_OPTS -T 1C -pl "$APP_MODULE" -am install $MAVEN_FAST_BUILD_FLAGS
+    - >
+      ./mvnw $MAVEN_CLI_OPTS
+      -pl "$APP_MODULE"
+      jib:build
+      $MAVEN_FAST_BUILD_FLAGS
+      -Djib.from.image="$JIB_FROM_IMAGE"
+      -Djib.to.image="$IMAGE_NAME:$IMAGE_TAG"
+      -Djib.to.tags="$CI_COMMIT_REF_SLUG"
+      -Djib.to.auth.username="$NEXUS_USERNAME"
+      -Djib.to.auth.password="$NEXUS_PASSWORD"
+      -Djib.allowInsecureRegistries=true

@@ -158,8 +158,8 @@ For both variables:
 The Nexus devops user must have permission to browse, read, add, and edit
 components in the marketplace Docker repository.
 
-The image job uses Kaniko on the OCP Runner. It does not require Docker,
-Docker-in-Docker, or a privileged Runner.
+The image job uses Maven Jib on the OCP Runner. It does not require Docker,
+Docker-in-Docker, Kaniko, a Dockerfile, or a privileged Runner.
 
 It consumes the JAR artifact from build_maven and pushes two image tags:
 
@@ -171,22 +171,20 @@ The pipeline reads the credentials from:
 $NEXUS_USERNAME
 $NEXUS_PASSWORD
 
-The credentials are written only to:
+Jib reads the Nexus credentials from the masked GitLab variables and pushes
+the image directly. The credentials are not stored in the repository.
 
-$CI_PROJECT_DIR/.docker/config.json
+Because the internal Nexus route may use a private certificate, the current
+Jib command includes:
 
-inside the CI job pod. This location is writable by the random non-root user
-assigned by OpenShift. Do not use /kaniko/.docker/config.json because that
-directory can return "Permission denied". The credentials are not stored in
-the repository.
-
-Because the internal Nexus route may use a private certificate, the
-current Kaniko command includes:
-
---skip-tls-verify-registry "$NEXUS_REGISTRY"
+-Djib.allowInsecureRegistries=true
 
 Remove this option after the Nexus CA certificate is trusted by the
 Runner.
+
+Kaniko is not used because the restricted OpenShift user cannot unpack and
+replace operating-system files such as /bin/sh. Jib builds image layers
+without unpacking a root filesystem.
 
 Before running the pipeline, test from the VDI:
 

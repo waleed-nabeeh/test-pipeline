@@ -1,9 +1,0 @@
-FROM eclipse-temurin:21-jre
-
-WORKDIR /app
-
-COPY mc3s-app-aggregator-productcatalog/target/*.jar application.jar
-
-USER 1001
-
-ENTRYPOINT ["java", "-jar", "/app/application.jar"]
