@@ -56,7 +56,8 @@ variables:
     -Dstyle.color=always
   APP_MODULE: "mc3s-app-aggregator-productcatalog"
   IMAGE_TAG: "$CI_COMMIT_SHORT_SHA"
-  IMAGE_NAME: "$CI_REGISTRY_IMAGE"
+  NEXUS_REGISTRY: "nexus.apps.asmonpeclr.np.asmo.com"
+  IMAGE_NAME: "nexus.apps.asmonpeclr.np.asmo.com/marketplace/mc3s-b2x-asmo-productcatalog"
   KANIKO_IMAGE: "gcr.io/kaniko-project/executor:v1.23.2-debug"
   DOCKER_CONFIG: "$CI_PROJECT_DIR/.docker"
   MAVEN_FAST_BUILD_FLAGS: >-
@@ -120,10 +121,6 @@ build_image:
   needs:
     - job: build_maven
       artifacts: true
-  rules:
-    - if: '$CI_REGISTRY_IMAGE && $GITLAB_REGISTRY_USERNAME && $GITLAB_REGISTRY_PASSWORD'
-    - when: manual
-      allow_failure: true
   script:
     - |
       set -- "$APP_MODULE"/target/*.jar
@@ -132,10 +129,10 @@ build_image:
     - mkdir -p "$DOCKER_CONFIG"
     - |
       REGISTRY_AUTH="$(printf '%s:%s' \
-        "$GITLAB_REGISTRY_USERNAME" \
-        "$GITLAB_REGISTRY_PASSWORD" | base64 | tr -d '\n')"
+        "$NEXUS_USERNAME" \
+        "$NEXUS_PASSWORD" | base64 | tr -d '\n')"
       printf '{"auths":{"%s":{"auth":"%s"}}}' \
-        "$CI_REGISTRY" "$REGISTRY_AUTH" > "$DOCKER_CONFIG/config.json"
+        "$NEXUS_REGISTRY" "$REGISTRY_AUTH" > "$DOCKER_CONFIG/config.json"
     - |
       /kaniko/executor \
         --context "$CI_PROJECT_DIR" \
@@ -144,4 +141,4 @@ build_image:
         --destination "$IMAGE_NAME:$CI_COMMIT_REF_SLUG" \
         --cache=true \
         --cache-repo "$IMAGE_NAME/cache" \
-        --skip-tls-verify-registry "$CI_REGISTRY"
+        --skip-tls-verify-registry "$NEXUS_REGISTRY"

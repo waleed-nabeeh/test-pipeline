@@ -114,33 +114,40 @@ It does not change the Runner manager pod, concurrency, cache, storage,
 job timeout, or GitLab artifact upload limit.
 
 
-GitLab Container Registry
-=========================
+Nexus Container Registry
+========================
 
-The pipeline will push the container image to:
+Nexus repository:
 
-$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+Name: marketplace
+Format: docker
+Type: hosted
+Routing: Path based routing
 
-For this project, GitLab automatically supplies CI_REGISTRY_IMAGE with the
-correct Container Registry repository path.
+The Docker image name uses /marketplace/, not /repository/marketplace/.
+
+The pipeline will push:
+
+nexus.apps.asmonpeclr.np.asmo.com/marketplace/mc3s-b2x-asmo-productcatalog:$CI_COMMIT_SHORT_SHA
+nexus.apps.asmonpeclr.np.asmo.com/marketplace/mc3s-b2x-asmo-productcatalog:$CI_COMMIT_REF_SLUG
 
 Go to:
 
 GitLab project -> Settings -> CI/CD -> Variables
 
-Add these two variables:
+Confirm these two masked variables exist:
 
 Key:
-GITLAB_REGISTRY_USERNAME
+NEXUS_USERNAME
 
 Value:
 devops
 
 Key:
-GITLAB_REGISTRY_PASSWORD
+NEXUS_PASSWORD
 
 Value:
-<DEVOPS USER PASSWORD OR ACCESS TOKEN>
+<NEXUS DEVOPS USER PASSWORD>
 
 For both variables:
 
@@ -148,10 +155,8 @@ For both variables:
 - Select Protected only if pipelines run only on protected branches.
 - Do not add these values to .gitlab-ci.yml.
 
-The devops user or access token must have these registry permissions:
-
-read_registry
-write_registry
+The Nexus devops user must have permission to browse, read, add, and edit
+components in the marketplace Docker repository.
 
 The image job uses Kaniko on the OCP Runner. It does not require Docker,
 Docker-in-Docker, or a privileged Runner.
@@ -163,8 +168,8 @@ $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
 
 The pipeline reads the credentials from:
 
-$GITLAB_REGISTRY_USERNAME
-$GITLAB_REGISTRY_PASSWORD
+$NEXUS_USERNAME
+$NEXUS_PASSWORD
 
 The credentials are written only to:
 
@@ -175,19 +180,19 @@ assigned by OpenShift. Do not use /kaniko/.docker/config.json because that
 directory can return "Permission denied". The credentials are not stored in
 the repository.
 
-Because the internal GitLab Registry may use a private certificate, the
+Because the internal Nexus route may use a private certificate, the
 current Kaniko command includes:
 
---skip-tls-verify-registry "$CI_REGISTRY"
+--skip-tls-verify-registry "$NEXUS_REGISTRY"
 
-Remove this option after the GitLab Registry CA certificate is trusted by the
+Remove this option after the Nexus CA certificate is trusted by the
 Runner.
 
-After the pipeline succeeds, open:
+Before running the pipeline, test from the VDI:
 
-GitLab project -> Deploy -> Container Registry
+curl -k -I https://nexus.apps.asmonpeclr.np.asmo.com/v2/
 
-The image should have a tag matching the pipeline commit short SHA.
+The response should be 200 or 401, not 404 or 503.
 
-If the Container Registry page is unavailable, the GitLab administrator must
-enable and configure GitLab Container Registry before this job can push.
+After the pipeline succeeds, open the Nexus marketplace repository and browse
+the mc3s-b2x-asmo-productcatalog image.
