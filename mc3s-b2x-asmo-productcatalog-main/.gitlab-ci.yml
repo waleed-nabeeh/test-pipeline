@@ -59,6 +59,9 @@ variables:
   NEXUS_REGISTRY: "nexus.apps.asmonpeclr.np.asmo.com"
   IMAGE_NAME: "nexus.apps.asmonpeclr.np.asmo.com/marketplace/mc3s-b2x-asmo-productcatalog"
   JIB_FROM_IMAGE: "eclipse-temurin:21-jre"
+  GITOPS_REPO_URL: "https://gitlab.apps.asmonpeclr.np.asmo.com/e-marketplace/kustomize-ocp.git"
+  GITOPS_BRANCH: "main"
+  GITOPS_KUSTOMIZATION: "productcatalog/overlays/dev/kustomization.yaml"
   MAVEN_FAST_BUILD_FLAGS: >-
     -Dmaven.test.skip=true
     -Dpmd.skip=true
@@ -71,6 +74,7 @@ stages:
   - pre_build
   - package
   - image
+  - deploy
 
 cache:
   key: "$CI_COMMIT_REF_SLUG"
@@ -130,3 +134,41 @@ build_image:
       -Djib.to.auth.username="$NEXUS_USERNAME"
       -Djib.to.auth.password="$NEXUS_PASSWORD"
       -Djib.allowInsecureRegistries=true
+
+deploy_dev:
+  stage: deploy
+  image:
+    name: alpine/git:v2.47.2
+    entrypoint: [""]
+  before_script: []
+  needs:
+    - job: build_image
+  environment:
+    name: dev
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "ocp"'
+    - if: '$CI_COMMIT_BRANCH'
+      when: manual
+  script:
+    - test -n "$GITOPS_USERNAME" || { echo "GITOPS_USERNAME is missing"; exit 1; }
+    - test -n "$GITOPS_ACCESS_TOKEN" || { echo "GITOPS_ACCESS_TOKEN is missing"; exit 1; }
+    - AUTHENTICATED_GITOPS_URL="$(printf '%s' "$GITOPS_REPO_URL" | sed "s#https://#https://${GITOPS_USERNAME}:${GITOPS_ACCESS_TOKEN}@#")"
+    - git clone --branch "$GITOPS_BRANCH" --single-branch "$AUTHENTICATED_GITOPS_URL" gitops
+    - cd gitops
+    - test -f "$GITOPS_KUSTOMIZATION"
+    - |
+      sed -i \
+        "/newName: nexus.apps.asmonpeclr.np.asmo.com\/marketplace\/mc3s-b2x-asmo-productcatalog/{n;s/newTag:.*/newTag: ${IMAGE_TAG}/;}" \
+        "$GITOPS_KUSTOMIZATION"
+    - grep -A1 "newName: $IMAGE_NAME" "$GITOPS_KUSTOMIZATION"
+    - git diff --check
+    - |
+      if git diff --quiet; then
+        echo "Dev image tag is already $IMAGE_TAG"
+        exit 0
+      fi
+    - git config user.name "GitLab CI"
+    - git config user.email "gitlab-ci@asmo.local"
+    - git add "$GITOPS_KUSTOMIZATION"
+    - git commit -m "Deploy product catalog ${IMAGE_TAG} to dev"
+    - git push origin "HEAD:$GITOPS_BRANCH"
