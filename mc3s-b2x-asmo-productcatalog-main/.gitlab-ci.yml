@@ -152,8 +152,10 @@ deploy_dev:
   script:
     - test -n "$GITOPS_USERNAME" || { echo "GITOPS_USERNAME is missing"; exit 1; }
     - test -n "$GITOPS_ACCESS_TOKEN" || { echo "GITOPS_ACCESS_TOKEN is missing"; exit 1; }
-    - AUTHENTICATED_GITOPS_URL="$(printf '%s' "$GITOPS_REPO_URL" | sed "s#https://#https://${GITOPS_USERNAME}:${GITOPS_ACCESS_TOKEN}@#")"
-    - git clone --branch "$GITOPS_BRANCH" --single-branch "$AUTHENTICATED_GITOPS_URL" gitops
+    - GITOPS_AUTH="$(printf '%s:%s' "$GITOPS_USERNAME" "$GITOPS_ACCESS_TOKEN" | base64 | tr -d '\n')"
+    - |
+      git config --global http.extraHeader "Authorization: Basic $GITOPS_AUTH"
+    - git clone --branch "$GITOPS_BRANCH" --single-branch "$GITOPS_REPO_URL" gitops
     - cd gitops
     - test -f "$GITOPS_KUSTOMIZATION"
     - |
