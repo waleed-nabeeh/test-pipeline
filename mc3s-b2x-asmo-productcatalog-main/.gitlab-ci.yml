@@ -160,7 +160,8 @@ deploy_dev:
       sed -i \
         "/newName: nexus.apps.asmonpeclr.np.asmo.com\/marketplace\/mc3s-b2x-asmo-productcatalog/{n;s/newTag:.*/newTag: ${IMAGE_TAG}/;}" \
         "$GITOPS_KUSTOMIZATION"
-    - grep -A1 "newName: $IMAGE_NAME" "$GITOPS_KUSTOMIZATION"
+    - |
+      grep -A1 "newName: $IMAGE_NAME" "$GITOPS_KUSTOMIZATION"
     - git diff --check
     - |
       if git diff --quiet; then
