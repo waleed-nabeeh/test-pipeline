@@ -154,7 +154,9 @@ deploy_dev:
     - test -n "$GITOPS_ACCESS_TOKEN" || { echo "GITOPS_ACCESS_TOKEN is missing"; exit 1; }
     - GITOPS_AUTH="$(printf '%s:%s' "$GITOPS_USERNAME" "$GITOPS_ACCESS_TOKEN" | base64 | tr -d '\n')"
     - |
-      git config --global http.extraHeader "Authorization: Basic $GITOPS_AUTH"
+      export GIT_CONFIG_COUNT=1
+      export GIT_CONFIG_KEY_0=http.extraHeader
+      export GIT_CONFIG_VALUE_0="Authorization: Basic $GITOPS_AUTH"
     - git clone --branch "$GITOPS_BRANCH" --single-branch "$GITOPS_REPO_URL" gitops
     - cd gitops
     - test -f "$GITOPS_KUSTOMIZATION"
