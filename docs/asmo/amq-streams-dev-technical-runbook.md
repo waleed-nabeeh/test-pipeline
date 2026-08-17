@@ -84,6 +84,39 @@ KAFKA_VERSION=<confirm-supported-version>
 METADATA_VERSION=<confirm-supported-metadata-version>
 ```
 
+## Target Version And Best-Practice Status
+
+This runbook targets the ASMO DEV environment shown in the screenshots:
+
+```text
+OpenShift Container Platform: 4.20.22
+Streams for Apache Kafka operator: 3.2.1-8
+Operator channel: stable
+StorageClass: thin-csi
+```
+
+The runbook does not hardcode `spec.kafka.version` or `spec.kafka.metadataVersion` because those must match the versions supported by the installed operator. Before applying the Kafka custom resource, confirm the supported Kafka and metadata versions from the installed operator or Red Hat documentation for Streams for Apache Kafka 3.2.
+
+This runbook follows current DEV best practices for new Streams for Apache Kafka deployments:
+
+| Area | Status | Notes |
+| --- | --- | --- |
+| KRaft mode | Yes | New deployments use KRaft, not ZooKeeper. |
+| KafkaNodePool | Yes | Required for KRaft-based deployments. |
+| Persistent storage | Yes | Uses block storage through `thin-csi`; do not use NFS for Kafka. |
+| TLS external access | Yes | External listener is TLS-enabled. |
+| Authentication | Yes | Supports TLS/mTLS or SCRAM-SHA-512. |
+| Authorization | Yes | Uses Kafka ACLs through `KafkaUser`. |
+| Topic/User operators | Yes | Topics and users are managed as OpenShift custom resources. |
+| DEV sizing | Acceptable | Uses 3 dual-role broker/controller nodes for DEV. |
+
+Important production note:
+
+```text
+The 3-node dual-role KafkaNodePool is acceptable for DEV/testing.
+For production or production-like performance testing, use dedicated controller node pools and dedicated broker node pools, plus monitoring, alerting, resource sizing, node affinity, anti-affinity, backup/DR, and certificate lifecycle management.
+```
+
 ## Phase 0: Pre-Implementation Checks
 
 ### 0.1 Login To OpenShift
