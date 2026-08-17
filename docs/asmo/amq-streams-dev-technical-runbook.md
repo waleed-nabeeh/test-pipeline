@@ -368,12 +368,58 @@ Use only a Kafka version supported by the installed operator.
 
 ### 3.2 Create Kafka Cluster YAML
 
-Create `kafka-cluster-dev.yaml`.
+Create KRaft-based Kafka manifests.
+
+New Streams for Apache Kafka 3.x / Kafka 4.x deployments do not use ZooKeeper. KRaft mode requires:
+
+```text
+KafkaNodePool resources
+Kafka metadata annotations:
+  strimzi.io/node-pools: enabled
+  strimzi.io/kraft: enabled
+```
+
+For DEV, a 3-node dual-role pool is acceptable when the goal is functional validation. For production-like environments, use dedicated controller and broker node pools.
+
+Create `kafka-nodepool-dev.yaml`.
 
 Replace:
 
 - `<STORAGE_CLASS>` with the approved storage class.
 - `<KAFKA_VERSION>` with the supported Kafka version for the installed operator.
+- `<METADATA_VERSION>` with the metadata version supported by that Kafka version.
+
+```yaml
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaNodePool
+metadata:
+  name: dual-role
+  namespace: asmo-kafka-dev
+  labels:
+    strimzi.io/cluster: asmo-dev-kafka
+spec:
+  replicas: 3
+  roles:
+    - controller
+    - broker
+  storage:
+    type: jbod
+    volumes:
+      - id: 0
+        type: persistent-claim
+        size: 50Gi
+        class: <STORAGE_CLASS>
+        deleteClaim: false
+  resources:
+    requests:
+      memory: 2Gi
+      cpu: "1"
+    limits:
+      memory: 4Gi
+      cpu: "2"
+```
+
+Create `kafka-cluster-dev.yaml`.
 
 ```yaml
 apiVersion: kafka.strimzi.io/v1beta2
@@ -381,10 +427,13 @@ kind: Kafka
 metadata:
   name: asmo-dev-kafka
   namespace: asmo-kafka-dev
+  annotations:
+    strimzi.io/node-pools: enabled
+    strimzi.io/kraft: enabled
 spec:
   kafka:
     version: <KAFKA_VERSION>
-    replicas: 3
+    metadataVersion: <METADATA_VERSION>
     listeners:
       - name: tls
         port: 9093
@@ -408,32 +457,6 @@ spec:
       transaction.state.log.replication.factor: 3
       transaction.state.log.min.isr: 2
       num.partitions: 3
-    storage:
-      type: persistent-claim
-      size: 50Gi
-      class: <STORAGE_CLASS>
-      deleteClaim: false
-    resources:
-      requests:
-        memory: 2Gi
-        cpu: "1"
-      limits:
-        memory: 4Gi
-        cpu: "2"
-  zookeeper:
-    replicas: 3
-    storage:
-      type: persistent-claim
-      size: 20Gi
-      class: <STORAGE_CLASS>
-      deleteClaim: false
-    resources:
-      requests:
-        memory: 1Gi
-        cpu: "500m"
-      limits:
-        memory: 2Gi
-        cpu: "1"
   entityOperator:
     topicOperator: {}
     userOperator: {}
@@ -442,6 +465,7 @@ spec:
 Apply:
 
 ```bash
+oc apply -f kafka-nodepool-dev.yaml
 oc apply -f kafka-cluster-dev.yaml
 ```
 
@@ -449,6 +473,7 @@ oc apply -f kafka-cluster-dev.yaml
 
 ```bash
 oc get kafka -n "${KAFKA_NAMESPACE}"
+oc get kafkanodepool -n "${KAFKA_NAMESPACE}"
 oc get pods -n "${KAFKA_NAMESPACE}" -w
 ```
 
@@ -467,8 +492,7 @@ oc get pvc -n "${KAFKA_NAMESPACE}"
 Expected:
 
 ```text
-Kafka broker pods are Running and Ready.
-ZooKeeper pods are Running and Ready if the installed operator uses ZooKeeper.
+Kafka node pool pods are Running and Ready.
 PVCs are Bound.
 Entity Operator pod is Running.
 Kafka custom resource Ready condition is True.
@@ -1089,8 +1113,7 @@ Expected pods:
 
 ```text
 Cluster Operator pod
-Kafka broker pods
-ZooKeeper pods if applicable
+Kafka node pool pods
 Entity Operator pod
 ```
 

@@ -66,7 +66,9 @@ For a DEV environment, start with a small but realistic setup:
 | Component | Recommended DEV Value |
 | --- | --- |
 | Kafka brokers | 3 |
-| ZooKeeper replicas | 3 if using ZooKeeper-based AMQ Streams |
+| Kafka controllers | 3, using KRaft mode |
+| ZooKeeper | Not used for new Streams for Apache Kafka 3.x / Kafka 4.x deployments |
+| Kafka node pools | Enabled |
 | Entity Operator | Enabled |
 | Topic Operator | Enabled |
 | User Operator | Enabled |
@@ -114,7 +116,41 @@ oc get crd | grep kafka
 
 ## Step 3: Create Kafka Cluster
 
-Create a Kafka cluster manifest.
+Create Kafka cluster manifests using KRaft mode.
+
+New Streams for Apache Kafka 3.x / Kafka 4.x deployments do not use ZooKeeper. They use KRaft mode with `KafkaNodePool` resources.
+
+File example: `kafka-nodepool-dev.yaml`
+
+```yaml
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaNodePool
+metadata:
+  name: dual-role
+  namespace: asmo-kafka-dev
+  labels:
+    strimzi.io/cluster: asmo-dev-kafka
+spec:
+  replicas: 3
+  roles:
+    - controller
+    - broker
+  storage:
+    type: jbod
+    volumes:
+      - id: 0
+        type: persistent-claim
+        size: 50Gi
+        class: <dev-storage-class>
+        deleteClaim: false
+  resources:
+    requests:
+      memory: 2Gi
+      cpu: "1"
+    limits:
+      memory: 4Gi
+      cpu: "2"
+```
 
 File example: `kafka-cluster-dev.yaml`
 
@@ -124,15 +160,14 @@ kind: Kafka
 metadata:
   name: asmo-dev-kafka
   namespace: asmo-kafka-dev
+  annotations:
+    strimzi.io/node-pools: enabled
+    strimzi.io/kraft: enabled
 spec:
   kafka:
-    version: 3.7.0
-    replicas: 3
+    version: <supported-kafka-version>
+    metadataVersion: <supported-metadata-version>
     listeners:
-      - name: plain
-        port: 9092
-        type: internal
-        tls: false
       - name: tls
         port: 9093
         type: internal
@@ -153,33 +188,7 @@ spec:
       transaction.state.log.min.isr: 2
       default.replication.factor: 3
       min.insync.replicas: 2
-      inter.broker.protocol.version: "3.7"
-    storage:
-      type: persistent-claim
-      size: 50Gi
-      class: <dev-storage-class>
-      deleteClaim: false
-    resources:
-      requests:
-        memory: 2Gi
-        cpu: "1"
-      limits:
-        memory: 4Gi
-        cpu: "2"
-  zookeeper:
-    replicas: 3
-    storage:
-      type: persistent-claim
-      size: 20Gi
-      class: <dev-storage-class>
-      deleteClaim: false
-    resources:
-      requests:
-        memory: 1Gi
-        cpu: "500m"
-      limits:
-        memory: 2Gi
-        cpu: "1"
+      num.partitions: 3
   entityOperator:
     topicOperator: {}
     userOperator: {}
@@ -188,6 +197,7 @@ spec:
 Apply the manifest:
 
 ```bash
+oc apply -f kafka-nodepool-dev.yaml
 oc apply -f kafka-cluster-dev.yaml
 ```
 
@@ -195,11 +205,12 @@ Monitor deployment:
 
 ```bash
 oc get kafka -n asmo-kafka-dev
+oc get kafkanodepool -n asmo-kafka-dev
 oc get pods -n asmo-kafka-dev
 oc describe kafka asmo-dev-kafka -n asmo-kafka-dev
 ```
 
-Wait until Kafka and ZooKeeper pods are running and ready.
+Wait until Kafka node pool pods and the Entity Operator are running and ready.
 
 ## Step 4: Configure Kafka Topics
 
@@ -442,6 +453,7 @@ Run these checks after deployment.
 ```bash
 oc get pods -n asmo-kafka-dev
 oc get kafka -n asmo-kafka-dev
+oc get kafkanodepool -n asmo-kafka-dev
 oc get kafkatopic -n asmo-kafka-dev
 oc get kafkauser -n asmo-kafka-dev
 ```
@@ -449,8 +461,7 @@ oc get kafkauser -n asmo-kafka-dev
 Expected:
 
 - Kafka resource is ready.
-- Broker pods are ready.
-- ZooKeeper pods are ready if applicable.
+- Kafka node pool pods are ready.
 - Entity Operator pods are ready.
 - Topics and users are created successfully.
 
