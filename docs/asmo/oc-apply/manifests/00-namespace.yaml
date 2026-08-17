@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: asmo-kafka-dev
+  labels:
+    app.kubernetes.io/name: asmo-kafka
+    app.kubernetes.io/part-of: asmo
+    environment: dev

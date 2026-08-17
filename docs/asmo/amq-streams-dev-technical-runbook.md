@@ -39,7 +39,7 @@ KAFKA_NAMESPACE=asmo-kafka-dev
 KAFKA_CLUSTER=asmo-dev-kafka
 STORAGE_CLASS=thin-csi
 EXTERNAL_LISTENER_TYPE=route
-AUTHENTICATION=tls or scram-sha-512
+AUTHENTICATION=scram-sha-512
 AUTHORIZATION=simple
 ```
 
@@ -105,7 +105,7 @@ This runbook follows current DEV best practices for new Streams for Apache Kafka
 | KafkaNodePool | Yes | Required for KRaft-based deployments. |
 | Persistent storage | Yes | Uses block storage through `thin-csi`; do not use NFS for Kafka. |
 | TLS external access | Yes | External listener is TLS-enabled. |
-| Authentication | Yes | Supports TLS/mTLS or SCRAM-SHA-512. |
+| Authentication | Yes | Uses SCRAM-SHA-512 over TLS for the first ASMO DEV implementation. |
 | Authorization | Yes | Uses Kafka ACLs through `KafkaUser`. |
 | Topic/User operators | Yes | Topics and users are managed as OpenShift custom resources. |
 | DEV sizing | Acceptable | Uses 3 dual-role broker/controller nodes for DEV. |
@@ -115,6 +115,30 @@ Important production note:
 ```text
 The 3-node dual-role KafkaNodePool is acceptable for DEV/testing.
 For production or production-like performance testing, use dedicated controller node pools and dedicated broker node pools, plus monitoring, alerting, resource sizing, node affinity, anti-affinity, backup/DR, and certificate lifecycle management.
+```
+
+## Chosen Implementation Path
+
+For the first ASMO DEV test, use:
+
+```text
+Deployment method: Manual oc apply
+Authentication: SCRAM-SHA-512 over TLS
+Authorization: Simple Kafka ACLs through KafkaUser
+GitOps: Later, after the oc apply deployment is validated
+```
+
+Reason:
+
+```text
+Manual oc apply is easier for first-time troubleshooting because each resource can be applied, inspected, and fixed step by step.
+After the Kafka cluster is proven, the same tested manifests can be moved into GitOps.
+```
+
+Starter manifests and scripts are available in:
+
+```text
+docs/asmo/oc-apply/
 ```
 
 ## Phase 0: Pre-Implementation Checks

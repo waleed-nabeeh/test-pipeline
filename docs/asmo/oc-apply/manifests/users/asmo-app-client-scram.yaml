@@ -1,0 +1,30 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaUser
+metadata:
+  name: asmo-app-client
+  namespace: asmo-kafka-dev
+  labels:
+    strimzi.io/cluster: asmo-dev-kafka
+spec:
+  authentication:
+    type: scram-sha-512
+  authorization:
+    type: simple
+    acls:
+      - resource:
+          type: topic
+          name: asmo.events.dev
+          patternType: literal
+        operations:
+          - Create
+          - Describe
+          - Read
+          - Write
+        host: "*"
+      - resource:
+          type: group
+          name: asmo-app
+          patternType: prefix
+        operations:
+          - Read
+        host: "*"
