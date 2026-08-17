@@ -154,6 +154,122 @@ Use the OpenShift web console OperatorHub if this is the approved ASMO process.
 
 If CLI installation is approved, use this pattern.
 
+## Phase 2A: Install From OpenShift Console
+
+Use this section if installing from the OpenShift web console instead of CLI.
+
+Based on the OpenShift console search result, select:
+
+```text
+Streams for Apache Kafka
+Provided by Red Hat
+```
+
+Do not select these for the base Kafka operator installation:
+
+```text
+Streams for Apache Kafka Proxy
+Streams for Apache Kafka Console
+```
+
+The `Proxy` and `Console` tiles are optional/additional components. The base requirement in the ASMO scope is to install and configure Kafka through Red Hat Streams for Apache Kafka.
+
+### 2A.1 Select The Correct Project
+
+In the screenshot, the selected project is:
+
+```text
+gitlab-system
+```
+
+Do not install the Kafka cluster into `gitlab-system` unless this is explicitly approved. `gitlab-system` should normally be reserved for GitLab components.
+
+Recommended Kafka namespace:
+
+```text
+asmo-kafka-dev
+```
+
+From the OpenShift console:
+
+```text
+Home > Projects > Create Project
+```
+
+Create:
+
+```text
+Name: asmo-kafka-dev
+Display name: ASMO Kafka DEV
+Description: Red Hat Streams for Apache Kafka for ASMO DEV
+```
+
+Then switch the project selector from:
+
+```text
+gitlab-system
+```
+
+to:
+
+```text
+asmo-kafka-dev
+```
+
+### 2A.2 Install The Operator
+
+From the OpenShift console:
+
+```text
+Developer or Administrator perspective
+Ecosystem > Software Catalog
+Search: streams
+Click: Streams for Apache Kafka
+Click: Install
+```
+
+Use these recommended installation choices:
+
+| Field | Recommended Value |
+| --- | --- |
+| Update channel | Use the latest approved stable channel shown by OpenShift |
+| Installation mode | A specific namespace on the cluster |
+| Installed namespace | `asmo-kafka-dev` |
+| Update approval | Automatic for DEV, Manual if platform team requires approval |
+
+Click:
+
+```text
+Install
+```
+
+### 2A.3 Verify Console Installation
+
+From the console:
+
+```text
+Operators > Installed Operators
+Project: asmo-kafka-dev
+```
+
+Expected:
+
+```text
+Streams for Apache Kafka
+Status: Succeeded
+```
+
+Then verify from CLI:
+
+```bash
+oc project asmo-kafka-dev
+oc get csv -n asmo-kafka-dev
+oc get pods -n asmo-kafka-dev
+oc get crd | grep -E 'kafkas.kafka.strimzi.io|kafkatopics.kafka.strimzi.io|kafkausers.kafka.strimzi.io'
+```
+
+If the operator is accidentally installed in `gitlab-system`, stop before creating Kafka resources and confirm with the platform team whether it should be moved to `asmo-kafka-dev`.
+
 ### 2.1 Create OperatorGroup
 
 Create `operatorgroup-amq-streams.yaml`:
