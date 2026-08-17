@@ -76,12 +76,42 @@ oc apply -f manifests/03-kafka-nodepool-dev.yaml
 oc apply -f manifests/04-kafka-cluster-dev.yaml
 ```
 
+The Kafka manifests use:
+
+```yaml
+apiVersion: kafka.strimzi.io/v1
+```
+
+If an older local copy prints this warning, the resource may still be created, but update your local copy from GitHub before continuing:
+
+```text
+Warning: Version v1beta2 of the Kafka/KafkaNodePool API is deprecated. Please use the v1 version instead.
+```
+
 Wait for Kafka:
 
 ```bash
+oc wait kafka/asmo-dev-kafka -n asmo-kafka-dev --for=condition=Ready --timeout=30m
 oc get kafka -n asmo-kafka-dev
 oc get kafkanodepool -n asmo-kafka-dev
-oc get pods -n asmo-kafka-dev -w
+oc get pods -n asmo-kafka-dev
+oc get pvc -n asmo-kafka-dev
+oc get routes -n asmo-kafka-dev
+```
+
+Check which Kafka version the operator selected:
+
+```bash
+oc get kafka asmo-dev-kafka -n asmo-kafka-dev \
+  -o jsonpath='{.status.kafkaVersion}{"\n"}{.status.kafkaMetadataVersion}{"\n"}'
+```
+
+If Kafka does not become ready within 30 minutes, collect troubleshooting details:
+
+```bash
+oc describe kafka asmo-dev-kafka -n asmo-kafka-dev
+oc get events -n asmo-kafka-dev --sort-by=.lastTimestamp
+oc logs deploy/amq-streams-cluster-operator-v3.2.1-8 -n asmo-kafka-dev --tail=200
 ```
 
 Then apply topic and SCRAM user:
