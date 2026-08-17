@@ -37,10 +37,51 @@ Recommended DEV baseline:
 ```text
 KAFKA_NAMESPACE=asmo-kafka-dev
 KAFKA_CLUSTER=asmo-dev-kafka
-STORAGE_CLASS=<confirm-from-oc-get-storageclass>
+STORAGE_CLASS=thin-csi
 EXTERNAL_LISTENER_TYPE=route
 AUTHENTICATION=tls or scram-sha-512
 AUTHORIZATION=simple
+```
+
+## Values Captured From ASMO DEV Screenshots
+
+These values were visible from the OpenShift console screenshots and can be used as the current ASMO DEV baseline.
+
+| Item | Value |
+| --- | --- |
+| Product tile | `Streams for Apache Kafka` |
+| Provider | `Red Hat` |
+| Operator channel | `stable` |
+| Operator version shown | `3.2.1-8` |
+| OpenShift version | `4.20.22` |
+| StorageClass | `thin-csi` |
+| Storage provisioner | `csi.vsphere.vmware.com` |
+| Storage reclaim policy | `Delete` |
+| OpenShift apps route domain | `apps.asmonpeclr.np.asmo.com` |
+| Existing GitLab route example | `gitlab.apps.asmonpeclr.np.asmo.com` |
+| Current console project in screenshot | `gitlab-system` |
+| Recommended Kafka namespace | `asmo-kafka-dev` |
+
+Do not install the Kafka cluster into `gitlab-system` unless ASMO/platform explicitly approves it. Use `asmo-kafka-dev` for the Kafka operator and Kafka resources unless another namespace is assigned.
+
+Use this baseline variable block for copy/paste commands:
+
+```bash
+export KAFKA_NAMESPACE=asmo-kafka-dev
+export KAFKA_CLUSTER=asmo-dev-kafka
+export STORAGE_CLASS=thin-csi
+export OPERATOR_CHANNEL=stable
+export CLIENT_NAME=asmo-app-client
+export TOPIC_NAME=asmo.events.dev
+export CONSUMER_GROUP=asmo-app
+export APPS_DOMAIN=apps.asmonpeclr.np.asmo.com
+```
+
+Kafka version and metadata version must still be confirmed from the installed operator-supported versions before applying the Kafka custom resource:
+
+```text
+KAFKA_VERSION=<confirm-supported-version>
+METADATA_VERSION=<confirm-supported-metadata-version>
 ```
 
 ## Phase 0: Pre-Implementation Checks
@@ -75,7 +116,7 @@ oc get storageclass
 Pick the approved DEV storage class and record it:
 
 ```text
-STORAGE_CLASS=<approved-storage-class>
+STORAGE_CLASS=thin-csi
 ```
 
 Kafka must use persistent storage for any realistic DEV validation.
@@ -733,26 +774,89 @@ oc get kafkausers -o wide -w -n "${KAFKA_NAMESPACE}"
 The User Operator creates a secret with the same name as the `KafkaUser`.
 
 ```bash
-oc get secret asmo-app-client -n "${KAFKA_NAMESPACE}"
+oc get secret "${CLIENT_NAME}" -n "${KAFKA_NAMESPACE}"
 ```
 
 Create local files:
 
 ```bash
-oc extract secret/asmo-app-client -n "${KAFKA_NAMESPACE}" --to=./asmo-app-client-certs --confirm
+mkdir -p ./kafka-certs/"${CLIENT_NAME}"
+oc extract secret/"${CLIENT_NAME}" \
+  -n "${KAFKA_NAMESPACE}" \
+  --to=./kafka-certs/"${CLIENT_NAME}" \
+  --confirm
 ```
 
 Extract cluster CA certificate:
 
 ```bash
-oc extract secret/"${KAFKA_CLUSTER}"-cluster-ca-cert -n "${KAFKA_NAMESPACE}" --to=./asmo-cluster-ca --confirm
+mkdir -p ./kafka-certs/cluster-ca
+oc extract secret/"${KAFKA_CLUSTER}"-cluster-ca-cert \
+  -n "${KAFKA_NAMESPACE}" \
+  --to=./kafka-certs/cluster-ca \
+  --confirm
 ```
 
 Expected generated files normally include client certificate/key material and CA certificate material. Confirm file names:
 
 ```bash
-ls -la ./asmo-app-client-certs
-ls -la ./asmo-cluster-ca
+ls -la ./kafka-certs/"${CLIENT_NAME}"
+ls -la ./kafka-certs/cluster-ca
+```
+
+Typical mTLS client files:
+
+```text
+ca.crt
+user.crt
+user.key
+user.p12
+user.password
+```
+
+The exact secret keys can be checked with:
+
+```bash
+oc get secret "${CLIENT_NAME}" -n "${KAFKA_NAMESPACE}" -o jsonpath='{.data}' | jq 'keys'
+```
+
+If `jq` is not available:
+
+```bash
+oc describe secret "${CLIENT_NAME}" -n "${KAFKA_NAMESPACE}"
+```
+
+### 6A.4 Build Java Truststore And Keystore For mTLS Clients
+
+Many Java clients need JKS or PKCS12 files.
+
+Create a truststore from the Kafka cluster CA:
+
+```bash
+keytool -importcert \
+  -alias asmo-kafka-cluster-ca \
+  -file ./kafka-certs/cluster-ca/ca.crt \
+  -keystore ./kafka-certs/asmo-kafka-truststore.jks \
+  -storepass changeit \
+  -noprompt
+```
+
+If `user.p12` and `user.password` were generated, use them directly as the client keystore:
+
+```bash
+cat ./kafka-certs/"${CLIENT_NAME}"/user.password
+ls -la ./kafka-certs/"${CLIENT_NAME}"/user.p12
+```
+
+Example mTLS Java client properties:
+
+```properties
+security.protocol=SSL
+ssl.truststore.location=./kafka-certs/asmo-kafka-truststore.jks
+ssl.truststore.password=changeit
+ssl.keystore.location=./kafka-certs/asmo-app-client/user.p12
+ssl.keystore.password=<value-from-user.password>
+ssl.key.password=<value-from-user.password>
 ```
 
 ## Option B: SCRAM-SHA-512 Authentication
@@ -832,7 +936,7 @@ oc get kafkausers -o wide -w -n "${KAFKA_NAMESPACE}"
 Extract SCRAM password:
 
 ```bash
-oc get secret asmo-app-client -n "${KAFKA_NAMESPACE}" \
+oc get secret "${CLIENT_NAME}" -n "${KAFKA_NAMESPACE}" \
   -o jsonpath='{.data.password}' | base64 -d
 echo
 ```
@@ -840,8 +944,73 @@ echo
 Extract cluster CA:
 
 ```bash
-oc extract secret/"${KAFKA_CLUSTER}"-cluster-ca-cert -n "${KAFKA_NAMESPACE}" --to=./asmo-cluster-ca --confirm
+mkdir -p ./kafka-certs/cluster-ca
+oc extract secret/"${KAFKA_CLUSTER}"-cluster-ca-cert \
+  -n "${KAFKA_NAMESPACE}" \
+  --to=./kafka-certs/cluster-ca \
+  --confirm
 ```
+
+Create a Java truststore for SCRAM-over-TLS clients:
+
+```bash
+keytool -importcert \
+  -alias asmo-kafka-cluster-ca \
+  -file ./kafka-certs/cluster-ca/ca.crt \
+  -keystore ./kafka-certs/asmo-kafka-truststore.jks \
+  -storepass changeit \
+  -noprompt
+```
+
+Example SCRAM Java client properties:
+
+```properties
+security.protocol=SASL_SSL
+sasl.mechanism=SCRAM-SHA-512
+sasl.jaas.config=org.apache.kafka.common.security.scram.ScramLoginModule required username="asmo-app-client" password="<password-from-secret>";
+ssl.truststore.location=./kafka-certs/asmo-kafka-truststore.jks
+ssl.truststore.password=changeit
+```
+
+## Phase 6C: Certificate And Credential Summary
+
+Certificates and credentials are not available immediately after operator installation. They are created after the Kafka cluster and `KafkaUser` resources are ready.
+
+| Auth Type | Required For Client | Source Secret |
+| --- | --- | --- |
+| TLS/mTLS | Kafka CA, client certificate, client private key, optional `user.p12` | `${KAFKA_CLUSTER}-cluster-ca-cert` and `${CLIENT_NAME}` |
+| SCRAM | Kafka CA and SCRAM password | `${KAFKA_CLUSTER}-cluster-ca-cert` and `${CLIENT_NAME}` |
+
+Get Kafka CA certificate:
+
+```bash
+mkdir -p ./kafka-certs/cluster-ca
+oc extract secret/"${KAFKA_CLUSTER}"-cluster-ca-cert \
+  -n "${KAFKA_NAMESPACE}" \
+  --to=./kafka-certs/cluster-ca \
+  --confirm
+```
+
+Get TLS client certificate/key:
+
+```bash
+mkdir -p ./kafka-certs/"${CLIENT_NAME}"
+oc extract secret/"${CLIENT_NAME}" \
+  -n "${KAFKA_NAMESPACE}" \
+  --to=./kafka-certs/"${CLIENT_NAME}" \
+  --confirm
+```
+
+Get SCRAM password:
+
+```bash
+oc get secret "${CLIENT_NAME}" \
+  -n "${KAFKA_NAMESPACE}" \
+  -o jsonpath='{.data.password}' | base64 -d
+echo
+```
+
+For external route-based Kafka access, the bootstrap port is usually `443`, and clients normally need to trust the Kafka cluster CA generated by Streams for Apache Kafka.
 
 ## Phase 7: Configure Authorization
 

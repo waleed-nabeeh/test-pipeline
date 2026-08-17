@@ -46,6 +46,23 @@ Update these values before implementation:
 | Authorization type | `simple` ACL authorization |
 | Bootstrap DNS | `<bootstrap-hostname>` |
 
+## ASMO DEV Values Seen In OpenShift Console
+
+The following values were visible from the ASMO DEV OpenShift console screenshots:
+
+| Item | Value |
+| --- | --- |
+| Product tile | `Streams for Apache Kafka` |
+| Operator channel | `stable` |
+| Operator version shown | `3.2.1-8` |
+| OpenShift version | `4.20.22` |
+| StorageClass | `thin-csi` |
+| Storage provisioner | `csi.vsphere.vmware.com` |
+| OpenShift apps route domain | `apps.asmonpeclr.np.asmo.com` |
+| Recommended Kafka namespace | `asmo-kafka-dev` |
+
+Use `thin-csi` as the storage class unless the platform team provides a different block storage class for Kafka.
+
 ## Prerequisites
 
 Before starting, confirm the following:
@@ -351,6 +368,56 @@ oc get secret asmo-app-client -n asmo-kafka-dev -o yaml
 ```
 
 The secret contains certificates and keys required by the client.
+
+### Required Certificates And Credentials
+
+Certificates and credentials are generated after the Kafka cluster and `KafkaUser` are created.
+
+For TLS/mTLS authentication, provide clients with:
+
+```text
+Kafka cluster CA certificate
+Client certificate
+Client private key
+Optional PKCS12 keystore and password
+```
+
+For SCRAM authentication, provide clients with:
+
+```text
+Kafka cluster CA certificate
+SCRAM username
+SCRAM password
+```
+
+Get the Kafka CA certificate:
+
+```bash
+mkdir -p ./kafka-certs/cluster-ca
+oc extract secret/asmo-dev-kafka-cluster-ca-cert \
+  -n asmo-kafka-dev \
+  --to=./kafka-certs/cluster-ca \
+  --confirm
+```
+
+Get TLS client certificate/key:
+
+```bash
+mkdir -p ./kafka-certs/asmo-app-client
+oc extract secret/asmo-app-client \
+  -n asmo-kafka-dev \
+  --to=./kafka-certs/asmo-app-client \
+  --confirm
+```
+
+Get SCRAM password:
+
+```bash
+oc get secret asmo-app-client \
+  -n asmo-kafka-dev \
+  -o jsonpath='{.data.password}' | base64 -d
+echo
+```
 
 ### Option B: SCRAM Authentication
 
