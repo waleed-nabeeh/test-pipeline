@@ -488,7 +488,7 @@ Replace:
 - `<STORAGE_CLASS>` with the approved storage class.
 
 ```yaml
-apiVersion: kafka.strimzi.io/v1beta2
+apiVersion: kafka.strimzi.io/v1
 kind: KafkaNodePool
 metadata:
   name: dual-role
@@ -520,7 +520,7 @@ spec:
 Create `kafka-cluster-dev.yaml`.
 
 ```yaml
-apiVersion: kafka.strimzi.io/v1beta2
+apiVersion: kafka.strimzi.io/v1
 kind: Kafka
 metadata:
   name: asmo-dev-kafka
@@ -616,7 +616,7 @@ Collect this from ASMO application teams before creating final topics:
 Create `topic-asmo-events-dev.yaml`:
 
 ```yaml
-apiVersion: kafka.strimzi.io/v1beta2
+apiVersion: kafka.strimzi.io/v1
 kind: KafkaTopic
 metadata:
   name: asmo-events-dev
@@ -773,7 +773,7 @@ authentication:
 Create `user-asmo-app-client-tls.yaml`:
 
 ```yaml
-apiVersion: kafka.strimzi.io/v1beta2
+apiVersion: kafka.strimzi.io/v1
 kind: KafkaUser
 metadata:
   name: asmo-app-client
@@ -944,7 +944,7 @@ oc get kafka "${KAFKA_CLUSTER}" -n "${KAFKA_NAMESPACE}" -w
 Create `user-asmo-app-client-scram.yaml`:
 
 ```yaml
-apiVersion: kafka.strimzi.io/v1beta2
+apiVersion: kafka.strimzi.io/v1
 kind: KafkaUser
 metadata:
   name: asmo-app-client

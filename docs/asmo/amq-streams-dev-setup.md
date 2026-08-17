@@ -140,7 +140,7 @@ New Streams for Apache Kafka 3.x / Kafka 4.x deployments do not use ZooKeeper. T
 File example: `kafka-nodepool-dev.yaml`
 
 ```yaml
-apiVersion: kafka.strimzi.io/v1beta2
+apiVersion: kafka.strimzi.io/v1
 kind: KafkaNodePool
 metadata:
   name: dual-role
@@ -172,7 +172,7 @@ spec:
 File example: `kafka-cluster-dev.yaml`
 
 ```yaml
-apiVersion: kafka.strimzi.io/v1beta2
+apiVersion: kafka.strimzi.io/v1
 kind: Kafka
 metadata:
   name: asmo-dev-kafka
@@ -236,7 +236,7 @@ Create one `KafkaTopic` per required ASMO topic.
 File example: `topic-asmo-events-dev.yaml`
 
 ```yaml
-apiVersion: kafka.strimzi.io/v1beta2
+apiVersion: kafka.strimzi.io/v1
 kind: KafkaTopic
 metadata:
   name: asmo-events-dev
@@ -326,7 +326,7 @@ Use this when client certificates are acceptable and the platform team can manag
 Example Kafka user:
 
 ```yaml
-apiVersion: kafka.strimzi.io/v1beta2
+apiVersion: kafka.strimzi.io/v1
 kind: KafkaUser
 metadata:
   name: asmo-app-client
@@ -426,7 +426,7 @@ Use this when username/password authentication is preferred.
 Kafka user example:
 
 ```yaml
-apiVersion: kafka.strimzi.io/v1beta2
+apiVersion: kafka.strimzi.io/v1
 kind: KafkaUser
 metadata:
   name: asmo-app-client
