@@ -1468,6 +1468,240 @@ Delete PVCs only after explicit approval:
 oc delete pvc <pvc-name> -n "${KAFKA_NAMESPACE}"
 ```
 
+## Phase 13: Optional GitOps Deployment Flow
+
+Use this phase if ASMO wants to test Kafka deployment through GitOps first, then migrate the same tested manifests to GitLab.
+
+Recommended approach:
+
+```text
+Temporary testing source: GitHub repo
+Deployment controller: OpenShift GitOps / Argo CD
+Target cluster: ASMO DEV OpenShift
+Final source of truth: ASMO GitLab repo
+```
+
+This approach is valid and recommended for controlled testing because every Kafka resource is stored as code and can be reviewed, reapplied, compared, and migrated later.
+
+### 13.1 Recommended GitOps Repository Structure
+
+Create a temporary GitHub repo such as:
+
+```text
+asmo-kafka-openshift-test
+```
+
+Recommended structure:
+
+```text
+asmo-kafka-openshift-test/
+├── README.md
+├── manifests/
+│   ├── 00-namespace.yaml
+│   ├── 01-operatorgroup.yaml
+│   ├── 02-subscription.yaml
+│   ├── 03-kafka-nodepool-dev.yaml
+│   ├── 04-kafka-cluster-dev.yaml
+│   ├── topics/
+│   │   └── asmo-events-dev.yaml
+│   └── users/
+│       └── asmo-app-client.yaml
+└── scripts/
+    ├── validate-kafka.sh
+    └── extract-client-credentials.sh
+```
+
+Do not store generated private keys, decoded passwords, extracted cert bundles, or application secrets in Git.
+
+Safe to store:
+
+```text
+Kafka
+KafkaNodePool
+KafkaTopic
+KafkaUser
+OperatorGroup
+Subscription
+Namespace
+README and scripts
+```
+
+Do not store:
+
+```text
+Decoded SCRAM passwords
+Private keys
+Extracted user certificates
+Generated OpenShift secrets
+Production credentials
+```
+
+### 13.2 GitOps Sync Order
+
+Kafka resources must be applied in this order:
+
+```text
+1. Namespace
+2. OperatorGroup
+3. Subscription
+4. Wait for operator CSV to become Succeeded
+5. KafkaNodePool
+6. Kafka cluster
+7. KafkaTopic
+8. KafkaUser
+```
+
+In GitOps, the operator installation may take a few minutes. The Kafka custom resources should not be considered healthy until the operator CRDs are available.
+
+### 13.3 Example Argo CD Application
+
+If OpenShift GitOps / Argo CD is installed, create an Argo CD `Application` pointing to the temporary GitHub repo.
+
+Create `argocd-application-asmo-kafka-dev.yaml`:
+
+```yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: asmo-kafka-dev
+  namespace: openshift-gitops
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/<github-org-or-user>/asmo-kafka-openshift-test.git
+    targetRevision: main
+    path: manifests
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: asmo-kafka-dev
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+```
+
+Apply:
+
+```bash
+oc apply -f argocd-application-asmo-kafka-dev.yaml
+```
+
+Validate Argo CD application:
+
+```bash
+oc get application asmo-kafka-dev -n openshift-gitops
+oc describe application asmo-kafka-dev -n openshift-gitops
+```
+
+If the cluster uses a different Argo CD namespace, replace:
+
+```text
+openshift-gitops
+```
+
+with the approved namespace.
+
+### 13.4 GitOps Health Checks
+
+Check whether OpenShift GitOps is installed:
+
+```bash
+oc get ns | grep -E 'openshift-gitops|argocd'
+oc get pods -n openshift-gitops
+```
+
+Check operator and Kafka resources:
+
+```bash
+oc get csv -n "${KAFKA_NAMESPACE}"
+oc get kafka -n "${KAFKA_NAMESPACE}"
+oc get kafkanodepool -n "${KAFKA_NAMESPACE}"
+oc get kafkatopic -n "${KAFKA_NAMESPACE}"
+oc get kafkauser -n "${KAFKA_NAMESPACE}"
+oc get pods -n "${KAFKA_NAMESPACE}"
+```
+
+Expected:
+
+```text
+Argo CD Application is Synced.
+Argo CD Application is Healthy.
+Streams for Apache Kafka operator CSV is Succeeded.
+Kafka custom resource is Ready.
+KafkaNodePool is Ready.
+KafkaTopic resources are Ready.
+KafkaUser resources are Ready.
+```
+
+### 13.5 GitHub To GitLab Migration
+
+After testing is successful, migrate the exact tested manifests to GitLab.
+
+Recommended migration steps:
+
+```bash
+git clone https://github.com/<github-org-or-user>/asmo-kafka-openshift-test.git
+cd asmo-kafka-openshift-test
+git remote add gitlab <gitlab-repo-url>
+git push gitlab main
+```
+
+Then update the Argo CD `Application` source:
+
+```yaml
+spec:
+  source:
+    repoURL: <gitlab-repo-url>
+    targetRevision: main
+    path: manifests
+```
+
+Apply the updated application:
+
+```bash
+oc apply -f argocd-application-asmo-kafka-dev.yaml
+```
+
+Validate:
+
+```bash
+oc get application asmo-kafka-dev -n openshift-gitops
+oc describe application asmo-kafka-dev -n openshift-gitops
+```
+
+Acceptance condition:
+
+```text
+Application remains Synced and Healthy after switching from GitHub to GitLab.
+Kafka cluster is unchanged.
+Topics and users remain ready.
+Producer/consumer test still succeeds.
+```
+
+### 13.6 GitOps Best-Practice Notes
+
+Use pull requests or merge requests for all Kafka manifest changes.
+
+Recommended branch model:
+
+```text
+main        = approved DEV state
+feature/*   = proposed changes
+```
+
+Recommended GitOps controls:
+
+```text
+Disable prune during first test.
+Enable prune only after the team agrees on ownership and deletion behavior.
+Keep secrets out of Git.
+Use External Secrets, Sealed Secrets, Vault, or another approved secret mechanism if secret GitOps is required.
+Protect the GitLab main branch before making it the final source of truth.
+Tag the tested GitHub commit before migration.
+```
+
 ## Final Acceptance Criteria
 
 The scope is complete when all items below are true:
