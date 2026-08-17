@@ -36,6 +36,39 @@ oc get pods -n asmo-kafka-dev
 oc get crd | grep -E 'kafkas.kafka.strimzi.io|kafkanodepools.kafka.strimzi.io|kafkatopics.kafka.strimzi.io|kafkausers.kafka.strimzi.io'
 ```
 
+If no CSV or pods appear yet, do not continue to Kafka manifests `03` and `04`. First validate the Subscription and InstallPlan:
+
+```bash
+oc get subscription -n asmo-kafka-dev
+oc describe subscription amq-streams -n asmo-kafka-dev
+oc get installplan -n asmo-kafka-dev
+oc get csv -n asmo-kafka-dev
+oc get pods -n asmo-kafka-dev
+oc get events -n asmo-kafka-dev --sort-by=.lastTimestamp
+```
+
+Confirm the package exists in OperatorHub:
+
+```bash
+oc get packagemanifest amq-streams -n openshift-marketplace
+```
+
+Optional watch command:
+
+```bash
+watch -n 5 'oc get subscription,installplan,csv,pods -n asmo-kafka-dev'
+```
+
+Continue only when all of these are true:
+
+```text
+Subscription exists and has no blocking errors.
+InstallPlan exists and is complete/installed.
+CSV phase is Succeeded.
+Streams for Apache Kafka operator pod is Running.
+Kafka CRDs exist.
+```
+
 Then apply Kafka:
 
 ```bash
