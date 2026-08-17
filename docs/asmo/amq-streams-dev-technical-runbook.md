@@ -77,11 +77,11 @@ export CONSUMER_GROUP=asmo-app
 export APPS_DOMAIN=apps.asmonpeclr.np.asmo.com
 ```
 
-Kafka version and metadata version must still be confirmed from the installed operator-supported versions before applying the Kafka custom resource:
+For the first DEV test, the Kafka manifest can omit `spec.kafka.version` and `spec.kafka.metadataVersion`. The Streams for Apache Kafka 3.2 operator then uses its default supported Kafka version. After deployment, confirm the selected Kafka version from the Kafka resource status and Kafka pod image.
 
 ```text
-KAFKA_VERSION=<confirm-supported-version>
-METADATA_VERSION=<confirm-supported-metadata-version>
+KAFKA_VERSION=<operator-default-for-streams-3.2>
+METADATA_VERSION=<operator-default-for-streams-3.2>
 ```
 
 ## Target Version And Best-Practice Status
@@ -95,7 +95,7 @@ Operator channel: stable
 StorageClass: thin-csi
 ```
 
-The runbook does not hardcode `spec.kafka.version` or `spec.kafka.metadataVersion` because those must match the versions supported by the installed operator. Before applying the Kafka custom resource, confirm the supported Kafka and metadata versions from the installed operator or Red Hat documentation for Streams for Apache Kafka 3.2.
+The runbook does not hardcode `spec.kafka.version` or `spec.kafka.metadataVersion` in the first `oc apply` path. This avoids accidentally setting an unsupported value. The operator selects its default supported Kafka version. After the cluster is ready, capture the actual Kafka version from resource status and pod image.
 
 This runbook follows current DEV best practices for new Streams for Apache Kafka deployments:
 
@@ -481,11 +481,11 @@ For DEV, a 3-node dual-role pool is acceptable when the goal is functional valid
 
 Create `kafka-nodepool-dev.yaml`.
 
+The first DEV test omits `spec.kafka.version` and `spec.kafka.metadataVersion` so the installed operator can select its default supported Kafka version.
+
 Replace:
 
 - `<STORAGE_CLASS>` with the approved storage class.
-- `<KAFKA_VERSION>` with the supported Kafka version for the installed operator.
-- `<METADATA_VERSION>` with the metadata version supported by that Kafka version.
 
 ```yaml
 apiVersion: kafka.strimzi.io/v1beta2
@@ -530,8 +530,6 @@ metadata:
     strimzi.io/kraft: enabled
 spec:
   kafka:
-    version: <KAFKA_VERSION>
-    metadataVersion: <METADATA_VERSION>
     listeners:
       - name: tls
         port: 9093

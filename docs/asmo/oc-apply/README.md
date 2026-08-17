@@ -16,16 +16,9 @@ StorageClass: thin-csi
 
 ## Before Applying
 
-Confirm the supported Kafka version and metadata version for operator `3.2.1-8`.
+The first DEV test lets the Streams for Apache Kafka 3.2 operator choose its default supported Kafka version by not setting `spec.kafka.version` or `spec.kafka.metadataVersion`.
 
-Replace these placeholders in `manifests/04-kafka-cluster-dev.yaml`:
-
-```text
-<KAFKA_VERSION>
-<METADATA_VERSION>
-```
-
-Do not continue until those values are confirmed.
+After deployment, confirm the selected Kafka version from the Kafka resource status and pod image.
 
 ## Apply Order
 

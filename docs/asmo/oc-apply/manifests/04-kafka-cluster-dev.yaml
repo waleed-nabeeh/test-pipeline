@@ -8,8 +8,6 @@ metadata:
     strimzi.io/kraft: enabled
 spec:
   kafka:
-    version: <KAFKA_VERSION>
-    metadataVersion: <METADATA_VERSION>
     listeners:
       - name: tls
         port: 9093
