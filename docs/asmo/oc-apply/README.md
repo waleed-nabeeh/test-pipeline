@@ -219,7 +219,7 @@ asmo.events.dev
 echo "asmo kafka test $(date)" | oc exec -i -n asmo-kafka-dev kafka-client -- \
   /opt/kafka/bin/kafka-console-producer.sh \
   --bootstrap-server asmo-dev-kafka-kafka-bootstrap.asmo-kafka-dev.svc:9093 \
-  --producer.config /tmp/client.properties \
+  --command-config /tmp/client.properties \
   --topic asmo.events.dev
 ```
 
@@ -229,7 +229,7 @@ echo "asmo kafka test $(date)" | oc exec -i -n asmo-kafka-dev kafka-client -- \
 oc exec -n asmo-kafka-dev kafka-client -- \
   /opt/kafka/bin/kafka-console-consumer.sh \
   --bootstrap-server asmo-dev-kafka-kafka-bootstrap.asmo-kafka-dev.svc:9093 \
-  --consumer.config /tmp/client.properties \
+  --command-config /tmp/client.properties \
   --topic asmo.events.dev \
   --group asmo-app-test \
   --from-beginning \
@@ -240,6 +240,17 @@ Expected result:
 
 ```text
 The message produced in the previous step appears in the consumer output.
+```
+
+If the consumer prints a `TimeoutException` after showing the message, the test is still successful. The timeout happens because `--timeout-ms 15000` tells the console consumer to stop after 15 seconds when there are no additional messages.
+
+Successful test indicators:
+
+```text
+Topic list shows: asmo.events.dev
+Producer command completes without authentication or authorization errors.
+Consumer output shows the produced message.
+Consumer summary shows: Processed a total of 1 messages
 ```
 
 ### Cleanup Temporary Client Pod
