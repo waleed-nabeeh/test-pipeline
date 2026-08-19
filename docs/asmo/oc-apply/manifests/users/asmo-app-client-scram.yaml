@@ -13,13 +13,27 @@ spec:
     acls:
       - resource:
           type: topic
-          name: asmo.events.dev
-          patternType: literal
+          name: asmo.
+          patternType: prefix
         operations:
           - Create
           - Describe
           - Read
           - Write
+          - DescribeConfigs
+          - AlterConfigs
+        host: "*"
+      - resource:
+          type: topic
+          name: canary.
+          patternType: prefix
+        operations:
+          - Create
+          - Describe
+          - Read
+          - Write
+          - DescribeConfigs
+          - AlterConfigs
         host: "*"
       - resource:
           type: group

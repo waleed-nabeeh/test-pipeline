@@ -121,6 +121,46 @@ oc apply -f manifests/topics/asmo-events-dev.yaml
 oc apply -f manifests/users/asmo-app-client-scram.yaml
 ```
 
+Wait for topic and user readiness:
+
+```bash
+oc wait kafkatopic/asmo-events-dev -n asmo-kafka-dev --for=condition=Ready --timeout=10m
+oc wait kafkauser/asmo-app-client -n asmo-kafka-dev --for=condition=Ready --timeout=10m
+oc get kafkatopic -n asmo-kafka-dev
+oc get kafkauser -n asmo-kafka-dev
+```
+
+The `asmo-app-client` user is allowed to create, read, write, describe, and update configs for topics with these prefixes:
+
+```text
+asmo.
+canary.
+```
+
+This allows topic names such as:
+
+```text
+asmo.events.dev
+asmo.orders.v1
+canary.events.v1
+canary.test.topic
+```
+
+It does not allow unrelated topic names such as:
+
+```text
+payments.events.v1
+test.topic
+```
+
+To update an existing deployed user with these permissions, reapply the user manifest:
+
+```bash
+oc apply -f manifests/users/asmo-app-client-scram.yaml
+oc wait kafkauser/asmo-app-client -n asmo-kafka-dev --for=condition=Ready --timeout=10m
+oc get kafkauser asmo-app-client -n asmo-kafka-dev -o yaml
+```
+
 Validate:
 
 ```bash
