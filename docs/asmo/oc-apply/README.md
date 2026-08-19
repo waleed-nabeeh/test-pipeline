@@ -130,37 +130,6 @@ oc get kafkatopic -n asmo-kafka-dev
 oc get kafkauser -n asmo-kafka-dev
 ```
 
-The `asmo-app-client` user is allowed to create, read, write, describe, and update configs for topics with these prefixes:
-
-```text
-asmo.
-canary.
-```
-
-This allows topic names such as:
-
-```text
-asmo.events.dev
-asmo.orders.v1
-canary.events.v1
-canary.test.topic
-```
-
-It does not allow unrelated topic names such as:
-
-```text
-payments.events.v1
-test.topic
-```
-
-To update an existing deployed user with these permissions, reapply the user manifest:
-
-```bash
-oc apply -f manifests/users/asmo-app-client-scram.yaml
-oc wait kafkauser/asmo-app-client -n asmo-kafka-dev --for=condition=Ready --timeout=10m
-oc get kafkauser asmo-app-client -n asmo-kafka-dev -o yaml
-```
-
 Validate:
 
 ```bash
@@ -171,6 +140,91 @@ Extract SCRAM credentials and Kafka CA:
 
 ```bash
 bash scripts/extract-scram-client-credentials.sh
+```
+
+## Update Existing User Permissions For New Topic Prefixes
+
+Use this section only when the existing `asmo-app-client` user must create or manage additional topics from a client tool.
+
+The base deployment gives access to the original topic:
+
+```text
+asmo.events.dev
+```
+
+If the client must create more topics under both ASMO and canary naming, apply this update:
+
+```bash
+oc apply -f - <<'EOF'
+apiVersion: kafka.strimzi.io/v1
+kind: KafkaUser
+metadata:
+  name: asmo-app-client
+  namespace: asmo-kafka-dev
+  labels:
+    strimzi.io/cluster: asmo-dev-kafka
+spec:
+  authentication:
+    type: scram-sha-512
+  authorization:
+    type: simple
+    acls:
+      - resource:
+          type: topic
+          name: asmo.
+          patternType: prefix
+        operations:
+          - Create
+          - Describe
+          - Read
+          - Write
+          - DescribeConfigs
+          - AlterConfigs
+        host: "*"
+      - resource:
+          type: topic
+          name: canary.
+          patternType: prefix
+        operations:
+          - Create
+          - Describe
+          - Read
+          - Write
+          - DescribeConfigs
+          - AlterConfigs
+        host: "*"
+      - resource:
+          type: group
+          name: asmo-app
+          patternType: prefix
+        operations:
+          - Read
+          - Describe
+        host: "*"
+EOF
+```
+
+Wait for the user update:
+
+```bash
+oc wait kafkauser/asmo-app-client -n asmo-kafka-dev --for=condition=Ready --timeout=10m
+oc get kafkauser asmo-app-client -n asmo-kafka-dev -o yaml
+```
+
+Allowed topic examples:
+
+```text
+asmo.events.dev
+asmo.orders.v1
+canary.events.v1
+canary.test.topic
+```
+
+Not allowed:
+
+```text
+payments.events.v1
+test.topic
 ```
 
 ## Producer/Consumer Test
