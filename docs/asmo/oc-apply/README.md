@@ -142,6 +142,70 @@ Extract SCRAM credentials and Kafka CA:
 bash scripts/extract-scram-client-credentials.sh
 ```
 
+## Optional: Use ASMO Non-Prod Certificate For External Kafka Routes
+
+Use this section only if an external client such as OIC cannot complete the TLS handshake with the AMQ Streams self-signed `cluster-ca` certificate.
+
+The ASMO non-prod certificate must include SAN entries for the Kafka bootstrap route and all broker routes:
+
+```text
+asmo-dev-kafka-kafka-bootstrap-asmo-kafka-dev.apps.asmonpeclr.np.asmo.com
+asmo-dev-kafka-dual-role-0-asmo-kafka-dev.apps.asmonpeclr.np.asmo.com
+asmo-dev-kafka-dual-role-1-asmo-kafka-dev.apps.asmonpeclr.np.asmo.com
+asmo-dev-kafka-dual-role-2-asmo-kafka-dev.apps.asmonpeclr.np.asmo.com
+```
+
+Prepare these files locally:
+
+```text
+tls.crt = server certificate followed by intermediate/root chain if required
+tls.key = matching private key
+```
+
+Create the secret:
+
+```bash
+oc create secret generic asmo-kafka-external-cert \
+  -n asmo-kafka-dev \
+  --from-file=tls.crt=tls.crt \
+  --from-file=tls.key=tls.key
+```
+
+Apply the Kafka listener update:
+
+```bash
+oc apply -f manifests/05-kafka-external-asmo-cert-patch.yaml
+```
+
+Wait for Kafka to reconcile:
+
+```bash
+oc wait kafka/asmo-dev-kafka -n asmo-kafka-dev --for=condition=Ready --timeout=30m
+oc get kafka asmo-dev-kafka -n asmo-kafka-dev
+oc get pods -n asmo-kafka-dev
+oc get routes -n asmo-kafka-dev | grep asmo-dev-kafka
+```
+
+Validate the served external certificate:
+
+```bash
+openssl s_client -connect asmo-dev-kafka-kafka-bootstrap-asmo-kafka-dev.apps.asmonpeclr.np.asmo.com:443 \
+  -servername asmo-dev-kafka-kafka-bootstrap-asmo-kafka-dev.apps.asmonpeclr.np.asmo.com \
+  -showcerts </dev/null 2>/dev/null | openssl x509 -noout -subject -issuer -dates -ext subjectAltName
+```
+
+For OIC after this change:
+
+```text
+Connection URL: asmo-dev-kafka-kafka-bootstrap-asmo-kafka-dev.apps.asmonpeclr.np.asmo.com:443
+Security policy: SASL SCRAM Over SSL
+SASL Mechanism: SCRAM-SHA-512
+Username: asmo-app-client
+Password: SCRAM password
+TrustStore: ASMO non-prod CA chain only if OIC does not already trust it
+Keystore: not required
+```
+
 ## Update Existing User Permissions For New Topic Prefixes
 
 Use this section only when the existing `asmo-app-client` user must create or manage additional topics from a client tool.
