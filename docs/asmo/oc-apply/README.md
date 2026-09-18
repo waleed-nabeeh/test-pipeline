@@ -1,5 +1,7 @@
 # ASMO Kafka DEV oc apply Starter Pack
 
+**Testing the already-running Kafka cluster with the ASMO certificate? Go straight to [SMOKE-TEST.md](SMOKE-TEST.md).** The image is already built and pushed; no local JKS, PFX, or Podman work is needed on the OpenShift node.
+
 Use this folder for the first ASMO DEV Kafka installation using direct `oc apply`.
 
 Chosen approach:
@@ -257,43 +259,6 @@ openssl s_client -connect "$host:443" -servername "$host" </dev/null 2>/dev/null
 ```
 
 Upload **only** `asmo-kafka-test-truststore.jks` to OIC as its TrustStore and enter the new truststore password. Keep the existing bootstrap URL, `SASL SCRAM Over SSL`, `SCRAM-SHA-512`, and Kafka username/password. No Kafka CR, KafkaUser, listener, or client keystore change is needed for this test. This JKS pins the current leaf certificate: renewals require rebuilding it. If reverting the Kafka listener, switch OIC back to its previous Kafka-generated CA truststore.
-
-### Image-based Kafka client test through the external route
-
-The published test image is `docker.io/waleednabeeh/asmo-kafka-smoke:2026-09-18` (`linux/amd64`). It contains the Kafka tools, [test script](scripts/test-external-kafka-client.sh), and a JKS built from the **public leaf certificate** in `emarketpfx.pfx`. The image also contains that JKS's test password, so treat it as a disposable test artifact, not a production credential. It does **not** contain the PFX, private key, or Kafka SCRAM password. The pod mounts the existing `asmo-app-client` Secret for SCRAM authentication. Compare the public certificate fingerprint with the live routes before testing.
-
-**Deploy only; do not run `podman`, prepare a JKS, or copy `build-assets` on the OpenShift node.** Those steps were already completed when publishing the image. The pod requires only the existing `asmo-app-client` Secret. If the Docker Hub repository is private, arrange an image pull Secret before applying the pod. On the OpenShift machine, pull this repo branch, change to `docs/asmo/oc-apply`, and run:
-
-```bash
-oc get secret asmo-app-client -n asmo-kafka-dev
-oc delete pod kafka-external-cert-smoke -n asmo-kafka-dev --ignore-not-found
-oc apply -f manifests/kafka-external-cert-smoke.yaml
-oc wait pod/kafka-external-cert-smoke -n asmo-kafka-dev --for=condition=Ready --timeout=5m
-oc exec -n asmo-kafka-dev kafka-external-cert-smoke -- \
-  bash /opt/kafka/test-external-kafka-client.sh metadata
-oc exec -n asmo-kafka-dev kafka-external-cert-smoke -- \
-  bash /opt/kafka/test-external-kafka-client.sh consume
-```
-
-The metadata command must show `asmo.events.dev`. The consumer succeeds only when it reads one record; record contents are suppressed. If the topic is empty, the optional `produce` command appends one test record. **Only run it if an application processing that record is acceptable.**
-
-```bash
-oc exec -n asmo-kafka-dev kafka-external-cert-smoke -- \
-  bash /opt/kafka/test-external-kafka-client.sh produce
-oc exec -n asmo-kafka-dev kafka-external-cert-smoke -- \
-  bash /opt/kafka/test-external-kafka-client.sh consume
-oc delete pod kafka-external-cert-smoke -n asmo-kafka-dev
-```
-
-This tests TLS, SCRAM, metadata, and consumption via the external Kafka routes from an OpenShift pod. It does **not** prove that the OIC gateway can reach those routes. No KafkaUser or Kafka listener change is needed.
-
-For the OIC handoff, upload the separate `asmo-kafka-test-truststore.jks` created above, use the password saved in `truststore.password`, and configure SCRAM username `asmo-app-client`. The Kafka SCRAM password remains in the existing OpenShift Secret; retrieve it privately when configuring OIC:
-
-```bash
-oc get secret asmo-app-client -n asmo-kafka-dev -o jsonpath='{.data.password}' | base64 -d
-```
-
-Do not use the PFX password as either the JKS or SCRAM password. Do not paste the SCRAM password into tickets or commit it to Git.
 
 ### Revert to the Kafka-generated certificate
 
