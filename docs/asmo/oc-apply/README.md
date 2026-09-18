@@ -217,6 +217,36 @@ check_external_certificate
 
 All four fingerprints must match. To see the subject and issuer for any route, run `openssl s_client -connect "$host:443" -servername "$host" </dev/null 2>/dev/null | openssl x509 -noout -subject -issuer -dates`; the expected issuer is `ASMO-SUBCA-NP`. For OIC, use the same bootstrap URL and SCRAM settings, but trust the ASMO non-prod CA chain or the exact wildcard leaf certificate instead of the Kafka-generated CA. OIC still needs network access to bootstrap and all three broker routes.
 
+### Small truststore test from the ASMO PFX
+
+The public server certificate inside `emarketpfx.pfx` has the same SHA-256 fingerprint as the certificate currently served by all four Kafka routes. For a short test, import only that public certificate into a new JKS truststore. Run this on a machine with the PFX, OpenSSL, and `keytool` installed; replace the PFX path. OpenSSL prompts for the PFX password, and `keytool` prompts for a **new** truststore password. Do not put either password or the PFX in Git.
+
+```bash
+set -o pipefail
+umask 077
+mkdir -p ~/asmo-kafka-cert-test
+cd ~/asmo-kafka-cert-test
+pfx=/path/to/emarketpfx.pfx
+
+openssl pkcs12 -in "$pfx" -clcerts -nokeys |
+  openssl x509 -out asmo-kafka-server.crt
+openssl x509 -in asmo-kafka-server.crt -noout -subject -issuer -fingerprint -sha256
+
+keytool -importcert -storetype JKS -keystore asmo-kafka-test-truststore.jks \
+  -alias asmo-kafka-server -file asmo-kafka-server.crt -noprompt
+keytool -list -v -storetype JKS -keystore asmo-kafka-test-truststore.jks
+```
+
+Check that the JKS entry is a `trustedCertEntry` and its SHA-256 fingerprint matches the public certificate above. From a machine that can reach Kafka, compare it with the live bootstrap route:
+
+```bash
+host=asmo-dev-kafka-kafka-bootstrap-asmo-kafka-dev.apps.asmonpeclr.np.asmo.com
+openssl s_client -connect "$host:443" -servername "$host" </dev/null 2>/dev/null |
+  openssl x509 -noout -fingerprint -sha256
+```
+
+Upload **only** `asmo-kafka-test-truststore.jks` to OIC as its TrustStore and enter the new truststore password. Keep the existing bootstrap URL, `SASL SCRAM Over SSL`, `SCRAM-SHA-512`, and Kafka username/password. No Kafka CR, KafkaUser, listener, or client keystore change is needed for this test. This JKS pins the current leaf certificate: renewals require rebuilding it. If reverting the Kafka listener, switch OIC back to its previous Kafka-generated CA truststore.
+
 ### Revert to the Kafka-generated certificate
 
 Remove only the custom external listener certificate reference:
@@ -235,7 +265,7 @@ Security policy: SASL SCRAM Over SSL
 SASL Mechanism: SCRAM-SHA-512
 Username: asmo-app-client
 Password: SCRAM password
-TrustStore: ASMO non-prod CA chain only if OIC does not already trust it
+TrustStore: ASMO non-prod CA chain, or the test JKS above that trusts the exact served leaf
 Keystore: not required
 ```
 
