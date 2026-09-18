@@ -144,7 +144,7 @@ bash scripts/extract-scram-client-credentials.sh
 
 ## Optional: Use ASMO Non-Prod Certificate For External Kafka Routes
 
-Use this section only if an external client such as OIC cannot complete the TLS handshake with the AMQ Streams self-signed `cluster-ca` certificate.
+Use this only after testing OIC with the operator-generated Kafka CA. The working Kafka CA and client configuration remain valid for rollback. No `KafkaUser` change is needed.
 
 The ASMO non-prod certificate must include SAN entries for the Kafka bootstrap route and all broker routes:
 
@@ -155,46 +155,56 @@ asmo-dev-kafka-dual-role-1-asmo-kafka-dev.apps.asmonpeclr.np.asmo.com
 asmo-dev-kafka-dual-role-2-asmo-kafka-dev.apps.asmonpeclr.np.asmo.com
 ```
 
-Prepare these files locally:
+### Use the existing OpenShift ingress certificate
 
-```text
-tls.crt = server certificate followed by intermediate/root chain if required
-tls.key = matching private key
-```
-
-Create the secret:
+The `apps-tls` Secret in `openshift-ingress` contains `tls.crt` and `tls.key`. Check that it is the expected wildcard certificate and that `tls.crt` contains an intermediate certificate as well as the server certificate:
 
 ```bash
-oc create secret generic asmo-kafka-external-cert \
-  -n asmo-kafka-dev \
-  --from-file=tls.crt=tls.crt \
-  --from-file=tls.key=tls.key
+oc get secret apps-tls -n openshift-ingress -o jsonpath='{.data.tls\.crt}' |
+  base64 -d | openssl x509 -noout -subject -issuer -dates -text |
+  grep -A1 'Subject Alternative Name'
+
+oc get secret apps-tls -n openshift-ingress -o jsonpath='{.data.tls\.crt}' |
+  base64 -d | grep -c 'BEGIN CERTIFICATE'
 ```
 
-Apply the Kafka listener update:
+The SAN must cover all four route hostnames above. The certificate count should be at least two (server plus intermediate). Do not copy the source Secret's YAML into Git or edit the Secret in `openshift-ingress`. Kafka Routes use TLS passthrough; the router does not present this Secret to Kafka clients unless the Kafka external listener is configured to use a copy.
+
+Run this from `docs/asmo/oc-apply` with `oc` and `jq` installed and logged into the correct OpenShift cluster. The helper copies the Secret into `asmo-kafka-dev`, checks the chain, expiry, and four hostnames, and patches only the external listener's certificate reference:
 
 ```bash
-oc apply -f manifests/05-kafka-external-asmo-cert-patch.yaml
+oc get kafka asmo-dev-kafka -n asmo-kafka-dev -o yaml > ~/kafka-before-asmo-cert.yaml
+bash scripts/switch-external-certificate.sh apply
 ```
 
-Wait for Kafka to reconcile:
+Do not apply `manifests/05-kafka-external-asmo-cert-patch.yaml` to an existing cluster for this test; it is a full Kafka CR and could replace newer live settings. The operator rolls the brokers when the certificate reference changes. Check Kafka readiness and the certificate actually served by the bootstrap and each broker route after the roll:
 
 ```bash
-oc wait kafka/asmo-dev-kafka -n asmo-kafka-dev --for=condition=Ready --timeout=30m
-oc get kafka asmo-dev-kafka -n asmo-kafka-dev
+oc get kafka asmo-dev-kafka -n asmo-kafka-dev -w
 oc get pods -n asmo-kafka-dev
-oc get routes -n asmo-kafka-dev | grep asmo-dev-kafka
 ```
 
-Validate the served external certificate:
+For each route hostname, run:
 
 ```bash
-openssl s_client -connect asmo-dev-kafka-kafka-bootstrap-asmo-kafka-dev.apps.asmonpeclr.np.asmo.com:443 \
-  -servername asmo-dev-kafka-kafka-bootstrap-asmo-kafka-dev.apps.asmonpeclr.np.asmo.com \
-  -showcerts </dev/null 2>/dev/null | openssl x509 -noout -subject -issuer -dates -ext subjectAltName
+host=asmo-dev-kafka-kafka-bootstrap-asmo-kafka-dev.apps.asmonpeclr.np.asmo.com
+openssl s_client -connect "$host:443" -servername "$host" </dev/null 2>/dev/null |
+  openssl x509 -noout -subject -issuer -dates
 ```
 
-For OIC after this change:
+For OIC, use the same bootstrap URL and SCRAM settings, but trust the ASMO non-prod CA chain instead of the Kafka-generated CA. OIC still needs network access to bootstrap and all three broker routes.
+
+### Revert to the Kafka-generated certificate
+
+Remove only the custom external listener certificate reference:
+
+```bash
+bash scripts/switch-external-certificate.sh revert
+```
+
+Wait for the broker roll to finish and repeat the `openssl s_client` check on bootstrap and each broker route. The issuer should again be the Kafka-generated cluster CA. Restore the Kafka CA truststore in OIC and confirm the existing Offset Explorer connection. The copied `asmo-kafka-external-cert` Secret can remain unused for a later test.
+
+While the ASMO certificate is active, use these OIC settings:
 
 ```text
 Connection URL: asmo-dev-kafka-kafka-bootstrap-asmo-kafka-dev.apps.asmonpeclr.np.asmo.com:443
