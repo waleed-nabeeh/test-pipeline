@@ -5,6 +5,7 @@ mode=${1:-}
 bootstrap=asmo-dev-kafka-kafka-bootstrap-asmo-kafka-dev.apps.asmonpeclr.np.asmo.com:443
 topic=asmo.events.dev
 truststore_dir=/opt/kafka/test-truststore
+public_cert=/opt/kafka/public-cert/tls.crt
 password_file=/opt/kafka/user/password
 
 case "$mode" in
@@ -12,12 +13,31 @@ case "$mode" in
   *) printf 'Usage: bash -s -- metadata|consume|produce\n' >&2; exit 2 ;;
 esac
 
-[[ -s "$truststore_dir/truststore.jks" && -s "$truststore_dir/truststore.password" && -s "$password_file" ]] || {
-  printf 'Required mounted truststore or SCRAM password is missing.\n' >&2
+[[ -s "$password_file" ]] || {
+  printf 'Mounted SCRAM password is missing.\n' >&2
   exit 1
 }
 
-truststore_password=$(<"$truststore_dir/truststore.password")
+umask 077
+workdir=$(mktemp -d /tmp/kafka-external-smoke.XXXXXX)
+trap 'rm -rf "$workdir"' EXIT
+
+if [[ -s "$truststore_dir/truststore.jks" && -s "$truststore_dir/truststore.password" ]]; then
+  truststore="$truststore_dir/truststore.jks"
+  truststore_password=$(<"$truststore_dir/truststore.password")
+elif [[ -s "$public_cert" ]]; then
+  truststore="$workdir/truststore.jks"
+  truststore_password=$(openssl rand -hex 16)
+  export TRUSTSTORE_PASSWORD="$truststore_password"
+  keytool -importcert -storetype JKS -keystore "$truststore" \
+    -storepass:env TRUSTSTORE_PASSWORD -alias asmo-kafka-server \
+    -file "$public_cert" -noprompt > /dev/null
+  unset TRUSTSTORE_PASSWORD
+else
+  printf 'Mount a JKS truststore or the public Kafka external certificate.\n' >&2
+  exit 1
+fi
+
 scram_password=$(<"$password_file")
 [[ "$truststore_password" =~ ^[[:alnum:]]{6,}$ ]] || {
   printf 'Use a test JKS password of at least six letters/digits.\n' >&2
@@ -28,14 +48,12 @@ scram_password=$(<"$password_file")
   exit 1
 }
 
-umask 077
-props=$(mktemp /tmp/kafka-external-smoke.XXXXXX)
-trap 'rm -f "$props"' EXIT
+props="$workdir/client.properties"
 printf '%s\n' \
   'security.protocol=SASL_SSL' \
   'sasl.mechanism=SCRAM-SHA-512' \
   "sasl.jaas.config=org.apache.kafka.common.security.scram.ScramLoginModule required username=\"asmo-app-client\" password=\"$scram_password\";" \
-  "ssl.truststore.location=$truststore_dir/truststore.jks" \
+  "ssl.truststore.location=$truststore" \
   "ssl.truststore.password=$truststore_password" \
   'ssl.truststore.type=JKS' \
   'ssl.endpoint.identification.algorithm=https' > "$props"

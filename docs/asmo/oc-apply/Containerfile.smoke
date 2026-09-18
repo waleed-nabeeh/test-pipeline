@@ -1,0 +1,6 @@
+FROM registry.redhat.io/amq-streams/kafka-42-rhel9:3.2.0
+
+COPY --chown=1001:0 scripts/test-external-kafka-client.sh /opt/kafka/test-external-kafka-client.sh
+RUN command -v keytool && command -v openssl && bash -n /opt/kafka/test-external-kafka-client.sh
+
+CMD ["sleep", "3600"]
