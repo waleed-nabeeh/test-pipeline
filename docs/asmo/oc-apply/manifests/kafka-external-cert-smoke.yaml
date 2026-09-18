@@ -5,11 +5,24 @@ metadata:
   namespace: asmo-kafka-dev
 spec:
   restartPolicy: Never
+  securityContext:
+    runAsNonRoot: true
+    seccompProfile:
+      type: RuntimeDefault
   containers:
     - name: kafka-client
       image: docker.io/waleednabeeh/asmo-kafka-smoke:2026-09-18-2
       imagePullPolicy: Always
-      command: ["sleep", "3600"]
+      command: ["bash", "-ec"]
+      args:
+        - |
+          bash /opt/kafka/test-external-kafka-client.sh metadata
+          echo 'PASS: TLS certificate and hostname validation, SCRAM authentication, and Kafka metadata retrieval succeeded'
+          sleep 3600
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop: ["ALL"]
       volumeMounts:
         - name: user-secret
           mountPath: /opt/kafka/user

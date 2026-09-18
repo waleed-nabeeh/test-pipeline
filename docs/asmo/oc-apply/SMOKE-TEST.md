@@ -15,15 +15,16 @@ oc get secret asmo-app-client -n asmo-kafka-dev
 oc delete pod kafka-external-cert-smoke -n asmo-kafka-dev --ignore-not-found
 oc apply -f manifests/kafka-external-cert-smoke.yaml
 oc wait pod/kafka-external-cert-smoke -n asmo-kafka-dev --for=condition=Ready --timeout=5m
+oc logs pod/kafka-external-cert-smoke -n asmo-kafka-dev --tail=20
 ```
 
 If the pod does not become Ready, check `oc describe pod kafka-external-cert-smoke -n asmo-kafka-dev`. An `ImagePullBackOff` means the cluster cannot pull the Docker Hub image; it is not a Kafka certificate result.
 
-## Test
+The pod runs the metadata check at startup. Its logs show `PASS: TLS certificate and hostname validation, SCRAM authentication, and Kafka metadata retrieval succeeded` **only after** the Kafka command succeeds. If the pod does not become Ready, inspect its logs for the Kafka/TLS error.
+
+## Consume Test
 
 ```bash
-oc exec -n asmo-kafka-dev kafka-external-cert-smoke -- \
-  bash /opt/kafka/test-external-kafka-client.sh metadata
 oc exec -n asmo-kafka-dev kafka-external-cert-smoke -- \
   bash /opt/kafka/test-external-kafka-client.sh consume
 ```
