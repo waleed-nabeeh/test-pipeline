@@ -219,7 +219,7 @@ All four fingerprints must match. To see the subject and issuer for any route, r
 
 ### Small truststore test from the ASMO PFX
 
-The public server certificate inside `emarketpfx.pfx` has the same SHA-256 fingerprint as the certificate currently served by all four Kafka routes. For a short test, import only that public certificate into a new JKS truststore. Run this on a machine with the PFX, OpenSSL, and `keytool` installed; replace the PFX path. OpenSSL prompts for the PFX password, and `keytool` prompts for a **new** truststore password. Do not put either password or the PFX in Git.
+The public server certificate inside `emarketpfx.pfx` has the same SHA-256 fingerprint as the certificate currently served by all four Kafka routes. For a short test, import only that public certificate into a new JKS truststore. Run this in Bash on a machine with the PFX, OpenSSL, and `keytool` installed; replace the PFX path. OpenSSL prompts for the PFX password. Do not put either password or the PFX in Git.
 
 ```bash
 set -o pipefail
@@ -232,9 +232,18 @@ openssl pkcs12 -in "$pfx" -clcerts -nokeys |
   openssl x509 -out asmo-kafka-server.crt
 openssl x509 -in asmo-kafka-server.crt -noout -subject -issuer -fingerprint -sha256
 
+read -r -s -p 'New test JKS password (at least 6 letters/digits only): ' TRUSTSTORE_PASSWORD; printf '\n'
+while ! [[ "$TRUSTSTORE_PASSWORD" =~ ^[[:alnum:]]{6,}$ ]]; do
+  read -r -s -p 'Use at least 6 letters/digits; try again: ' TRUSTSTORE_PASSWORD; printf '\n'
+done
+export TRUSTSTORE_PASSWORD
+printf '%s' "$TRUSTSTORE_PASSWORD" > truststore.password
 keytool -importcert -storetype JKS -keystore asmo-kafka-test-truststore.jks \
-  -alias asmo-kafka-server -file asmo-kafka-server.crt -noprompt
-keytool -list -v -storetype JKS -keystore asmo-kafka-test-truststore.jks
+  -storepass:env TRUSTSTORE_PASSWORD -alias asmo-kafka-server \
+  -file asmo-kafka-server.crt -noprompt
+keytool -list -v -storetype JKS -keystore asmo-kafka-test-truststore.jks \
+  -storepass:env TRUSTSTORE_PASSWORD
+unset TRUSTSTORE_PASSWORD
 ```
 
 Check that the JKS entry is a `trustedCertEntry` and its SHA-256 fingerprint matches the public certificate above. From a machine that can reach Kafka, compare it with the live bootstrap route:
@@ -246,6 +255,73 @@ openssl s_client -connect "$host:443" -servername "$host" </dev/null 2>/dev/null
 ```
 
 Upload **only** `asmo-kafka-test-truststore.jks` to OIC as its TrustStore and enter the new truststore password. Keep the existing bootstrap URL, `SASL SCRAM Over SSL`, `SCRAM-SHA-512`, and Kafka username/password. No Kafka CR, KafkaUser, listener, or client keystore change is needed for this test. This JKS pins the current leaf certificate: renewals require rebuilding it. If reverting the Kafka listener, switch OIC back to its previous Kafka-generated CA truststore.
+
+### Run a Kafka client pod through the external route
+
+This is a real client test, not just a certificate inspection. It mounts the exact JKS prepared above and the existing `asmo-app-client` SCRAM Secret into a temporary pod. Run these commands from `docs/asmo/oc-apply` on the same machine that prepared `~/asmo-kafka-cert-test`. The test namespace must be able to resolve and reach the external route hostnames on port 443. It does **not** prove that the OIC gateway can reach them.
+
+```bash
+oc whoami
+oc get secret asmo-app-client -n asmo-kafka-dev
+oc get kafkatopic asmo-events-dev -n asmo-kafka-dev
+oc create secret generic kafka-external-cert-smoke -n asmo-kafka-dev \
+  --from-file=truststore.jks="$HOME/asmo-kafka-cert-test/asmo-kafka-test-truststore.jks" \
+  --from-file=truststore.password="$HOME/asmo-kafka-cert-test/truststore.password"
+
+oc apply -n asmo-kafka-dev -f - <<'EOF'
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kafka-external-cert-smoke
+  namespace: asmo-kafka-dev
+spec:
+  restartPolicy: Never
+  containers:
+    - name: kafka-client
+      image: registry.redhat.io/amq-streams/kafka-42-rhel9:3.2.0
+      command: ["sleep", "3600"]
+      volumeMounts:
+        - name: truststore
+          mountPath: /opt/kafka/test-truststore
+          readOnly: true
+        - name: user-secret
+          mountPath: /opt/kafka/user
+          readOnly: true
+  volumes:
+    - name: truststore
+      secret:
+        secretName: kafka-external-cert-smoke
+    - name: user-secret
+      secret:
+        secretName: asmo-app-client
+EOF
+oc wait pod/kafka-external-cert-smoke -n asmo-kafka-dev --for=condition=Ready --timeout=5m
+```
+
+List and describe the topic through the external bootstrap route, then consume one existing record. The script uses the mounted SCRAM password without printing it or putting it in Git:
+
+```bash
+oc exec -i -n asmo-kafka-dev kafka-external-cert-smoke -- bash -s -- metadata \
+  < scripts/test-external-kafka-client.sh
+oc exec -i -n asmo-kafka-dev kafka-external-cert-smoke -- bash -s -- consume \
+  < scripts/test-external-kafka-client.sh
+```
+
+The metadata test must display the topic and broker metadata without TLS or authentication errors. The consumer succeeds only if it reads one existing record; its contents are suppressed. If the topic is empty, you can explicitly append one test record, then retry `consume`. **Only do this if writing to `asmo.events.dev` is acceptable; an application may process that record.**
+
+```bash
+oc exec -i -n asmo-kafka-dev kafka-external-cert-smoke -- bash -s -- produce \
+  < scripts/test-external-kafka-client.sh
+oc exec -i -n asmo-kafka-dev kafka-external-cert-smoke -- bash -s -- consume \
+  < scripts/test-external-kafka-client.sh
+```
+
+This uses the existing KafkaUser and its ACLs; no new user or Kafka configuration is needed. If the pod cannot reach the route, test the same JKS from a network location that can, and check DNS, firewall, and route access before interpreting it as a certificate failure. Clean up the temporary pod and Secret when finished; retain the local JKS for OIC upload:
+
+```bash
+oc delete pod kafka-external-cert-smoke -n asmo-kafka-dev
+oc delete secret kafka-external-cert-smoke -n asmo-kafka-dev
+```
 
 ### Revert to the Kafka-generated certificate
 
