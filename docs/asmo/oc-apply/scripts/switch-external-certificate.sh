@@ -37,10 +37,13 @@ if [[ $1 == apply ]]; then
 
   cert_data=$(jq -r '.data["tls.crt"]' <<<"$source_json")
   cert_pem=$(printf '%s' "$cert_data" | base64 -d)
-  cert_count=$(grep -c -- '-----BEGIN CERTIFICATE-----' <<<"$cert_pem")
-  if (( cert_count < 2 )); then
-    printf 'Source tls.crt has no intermediate chain. Add the chain before switching Kafka.\n' >&2
+  cert_count=$(grep -c -- '-----BEGIN CERTIFICATE-----' <<<"$cert_pem" || true)
+  if (( cert_count < 1 )); then
+    printf 'Source tls.crt contains no PEM certificate.\n' >&2
     exit 1
+  fi
+  if (( cert_count == 1 )); then
+    printf 'Source tls.crt contains only the server certificate. OIC must trust the ASMO intermediate and root CA.\n' >&2
   fi
   printf '%s\n' "$cert_pem" | openssl x509 -noout -checkend 0 >/dev/null
   printf '%s\n' "$cert_pem" | openssl x509 -noout -text |

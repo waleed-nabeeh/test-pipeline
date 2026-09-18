@@ -157,7 +157,7 @@ asmo-dev-kafka-dual-role-2-asmo-kafka-dev.apps.asmonpeclr.np.asmo.com
 
 ### Use the existing OpenShift ingress certificate
 
-The `apps-tls` Secret in `openshift-ingress` contains `tls.crt` and `tls.key`. Check that it is the expected wildcard certificate and that `tls.crt` contains an intermediate certificate as well as the server certificate:
+The `apps-tls` Secret in `openshift-ingress` contains `tls.crt` and `tls.key`. Check its wildcard SAN and how many certificates `tls.crt` contains:
 
 ```bash
 oc get secret apps-tls -n openshift-ingress -o jsonpath='{.data.tls\.crt}' |
@@ -168,9 +168,9 @@ oc get secret apps-tls -n openshift-ingress -o jsonpath='{.data.tls\.crt}' |
   base64 -d | grep -c 'BEGIN CERTIFICATE'
 ```
 
-The SAN must cover all four route hostnames above. The certificate count should be at least two (server plus intermediate). Do not copy the source Secret's YAML into Git or edit the Secret in `openshift-ingress`. Kafka Routes use TLS passthrough; the router does not present this Secret to Kafka clients unless the Kafka external listener is configured to use a copy.
+The SAN must cover all four route hostnames above. A count of one means `tls.crt` contains only the server certificate, as observed in `openshift-ingress/apps-tls`. In that case, OIC must have both the ASMO intermediate and root CA available in its truststore; do not assume importing a multi-certificate bundle under one alias imported both. Do not copy the source Secret's YAML into Git or edit the Secret in `openshift-ingress`. Kafka Routes use TLS passthrough; the router does not present this Secret to Kafka clients unless the Kafka external listener is configured to use a copy.
 
-Run this from `docs/asmo/oc-apply` with `oc` and `jq` installed and logged into the correct OpenShift cluster. The helper copies the Secret into `asmo-kafka-dev`, checks the chain, expiry, and four hostnames, and patches only the external listener's certificate reference:
+Run this from `docs/asmo/oc-apply` with `oc` and `jq` installed and logged into the correct OpenShift cluster. The helper copies the Secret into `asmo-kafka-dev`, checks its expiry, wildcard SAN, key format, and matching key pair, then patches only the external listener's certificate reference. It warns if the source contains only the server certificate:
 
 ```bash
 oc get kafka asmo-dev-kafka -n asmo-kafka-dev -o yaml > ~/kafka-before-asmo-cert.yaml
