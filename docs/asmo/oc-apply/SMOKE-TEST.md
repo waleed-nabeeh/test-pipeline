@@ -1,6 +1,8 @@
 # External Kafka Certificate Smoke Test
 
-The test image is already published as `docker.io/waleednabeeh/asmo-kafka-smoke:2026-09-18`. It contains the PFX-derived **public-certificate JKS** and test truststore password. The Kafka SCRAM password is not in the image; the pod mounts the existing `asmo-app-client` Secret.
+The test image is published as `docker.io/waleednabeeh/asmo-kafka-smoke:2026-09-18-2`. It contains the PFX-derived **public-certificate JKS** and test truststore password. The Kafka SCRAM password is not in the image; the pod mounts the existing `asmo-app-client` Secret.
+
+Use this `-2` tag: the original `2026-09-18` tag incorrectly reported success when the consumer processed zero messages.
 
 **Run only the `oc` commands below on the OpenShift machine. Do not run Podman, copy a PFX, or create a JKS there.** This test does not change the Kafka cluster or KafkaUser.
 
@@ -26,7 +28,7 @@ oc exec -n asmo-kafka-dev kafka-external-cert-smoke -- \
   bash /opt/kafka/test-external-kafka-client.sh consume
 ```
 
-`metadata` should describe `asmo.events.dev`. `consume` succeeds after reading one record through the external `:443` route; the record content is suppressed. If the topic is empty, `consume` times out even when TLS and SCRAM work. Only if a test record is acceptable to downstream applications, run:
+`metadata` should describe `asmo.events.dev`. `consume` succeeds only after reading one record through the external `:443` route; the record content is suppressed. If the topic is empty, it reports that consumption is unverified and exits nonzero, even though TLS and SCRAM worked for metadata. Only if a test record is acceptable to downstream applications, run:
 
 ```bash
 oc exec -n asmo-kafka-dev kafka-external-cert-smoke -- \

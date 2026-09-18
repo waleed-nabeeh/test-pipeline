@@ -65,12 +65,22 @@ case "$mode" in
       --command-config "$props" --describe --topic "$topic"
     ;;
   consume)
+    consumer_status=0
     /opt/kafka/bin/kafka-console-consumer.sh --bootstrap-server "$bootstrap" \
       --consumer.config "$props" --topic "$topic" \
       --group "asmo-app-cert-smoke-$$" --from-beginning \
       --max-messages 1 --timeout-ms 15000 \
-      --consumer-property enable.auto.commit=false > /dev/null
-    printf 'Consumed one record through the external Kafka route.\n'
+      --consumer-property enable.auto.commit=false > /dev/null 2> "$workdir/consumer.log" || consumer_status=$?
+    if grep -Eq 'Processed a total of [1-9][0-9]* messages' "$workdir/consumer.log"; then
+      printf 'Consumed one record through the external Kafka route.\n'
+    elif grep -q 'Processed a total of 0 messages' "$workdir/consumer.log"; then
+      printf 'No records were available to consume; metadata succeeded, but consumption is unverified.\n' >&2
+      exit 2
+    else
+      cat "$workdir/consumer.log" >&2
+      (( consumer_status != 0 )) || consumer_status=1
+      exit "$consumer_status"
+    fi
     ;;
   produce)
     printf 'asmo-kafka-cert-smoke-%s\n' "$(date -u +%Y%m%dT%H%M%SZ)" |

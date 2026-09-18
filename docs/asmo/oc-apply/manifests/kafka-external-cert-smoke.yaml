@@ -7,7 +7,7 @@ spec:
   restartPolicy: Never
   containers:
     - name: kafka-client
-      image: docker.io/waleednabeeh/asmo-kafka-smoke:2026-09-18
+      image: docker.io/waleednabeeh/asmo-kafka-smoke:2026-09-18-2
       imagePullPolicy: Always
       command: ["sleep", "3600"]
       volumeMounts:
