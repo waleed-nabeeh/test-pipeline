@@ -11,19 +11,10 @@ spec:
       imagePullPolicy: Always
       command: ["sleep", "3600"]
       volumeMounts:
-        - name: public-cert
-          mountPath: /opt/kafka/public-cert
-          readOnly: true
         - name: user-secret
           mountPath: /opt/kafka/user
           readOnly: true
   volumes:
-    - name: public-cert
-      secret:
-        secretName: asmo-kafka-external-cert
-        items:
-          - key: tls.crt
-            path: tls.crt
     - name: user-secret
       secret:
         secretName: asmo-app-client

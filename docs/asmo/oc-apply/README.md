@@ -258,11 +258,16 @@ Upload **only** `asmo-kafka-test-truststore.jks` to OIC as its TrustStore and en
 
 ### Image-based Kafka client test through the external route
 
-The test image contains only the Kafka tools and [test script](scripts/test-external-kafka-client.sh). It does **not** contain the PFX, private key, JKS, or Kafka password. At runtime, the pod mounts only `tls.crt` from `asmo-kafka-external-cert` and the existing `asmo-app-client` Secret. The script creates a temporary JKS from the public certificate and uses the existing SCRAM credentials. This avoids copying a JKS onto the machine running `oc`. The public certificate is the same one extracted from `emarketpfx.pfx`; compare fingerprints above before testing.
+The published test image is `docker.io/waleednabeeh/asmo-kafka-smoke:2026-09-18` (`linux/amd64`). It contains the Kafka tools, [test script](scripts/test-external-kafka-client.sh), and a JKS built from the **public leaf certificate** in `emarketpfx.pfx`. The image also contains that JKS's test password, so treat it as a disposable test artifact, not a production credential. It does **not** contain the PFX, private key, or Kafka SCRAM password. The pod mounts the existing `asmo-app-client` Secret for SCRAM authentication. Compare the public certificate fingerprint with the live routes before testing.
 
-From `docs/asmo/oc-apply` on a machine with a working Podman VM and permission to push to `docker.io/waleednabeeh`:
+The image has already been pushed; **skip this build block** when deploying the published tag. To rebuild after certificate renewal, first prepare the JKS above, then run from `docs/asmo/oc-apply` on a machine with a working Podman VM and permission to push to `docker.io/waleednabeeh`:
 
 ```bash
+mkdir -p build-assets
+install -m 0644 ~/asmo-kafka-cert-test/asmo-kafka-test-truststore.jks \
+  build-assets/asmo-kafka-test-truststore.jks
+install -m 0644 ~/asmo-kafka-cert-test/truststore.password \
+  build-assets/truststore.password
 podman login docker.io
 podman build --platform linux/amd64 -f Containerfile.smoke \
   -t docker.io/waleednabeeh/asmo-kafka-smoke:2026-09-18 .
@@ -272,7 +277,7 @@ podman push docker.io/waleednabeeh/asmo-kafka-smoke:2026-09-18
 The image must be pullable by the OpenShift namespace. If the Docker Hub repository is private, arrange an image pull Secret before applying the pod. On the OpenShift machine, pull this repo branch and run:
 
 ```bash
-oc get secret asmo-kafka-external-cert asmo-app-client -n asmo-kafka-dev
+oc get secret asmo-app-client -n asmo-kafka-dev
 oc delete pod kafka-external-cert-smoke -n asmo-kafka-dev --ignore-not-found
 oc apply -f manifests/kafka-external-cert-smoke.yaml
 oc wait pod/kafka-external-cert-smoke -n asmo-kafka-dev --for=condition=Ready --timeout=5m
@@ -293,6 +298,14 @@ oc delete pod kafka-external-cert-smoke -n asmo-kafka-dev
 ```
 
 This tests TLS, SCRAM, metadata, and consumption via the external Kafka routes from an OpenShift pod. It does **not** prove that the OIC gateway can reach those routes. No KafkaUser or Kafka listener change is needed.
+
+For the OIC handoff, upload the separate `asmo-kafka-test-truststore.jks` created above, use the password saved in `truststore.password`, and configure SCRAM username `asmo-app-client`. The Kafka SCRAM password remains in the existing OpenShift Secret; retrieve it privately when configuring OIC:
+
+```bash
+oc get secret asmo-app-client -n asmo-kafka-dev -o jsonpath='{.data.password}' | base64 -d
+```
+
+Do not use the PFX password as either the JKS or SCRAM password. Do not paste the SCRAM password into tickets or commit it to Git.
 
 ### Alternative: Mount the prepared JKS into a stock client pod
 
